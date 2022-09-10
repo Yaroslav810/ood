@@ -20,7 +20,7 @@ AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: false
 BinPackArguments: true
 BinPackParameters: true
-BraceWrapping:   
+BraceWrapping:
   AfterClass:      true
   AfterControlStatement: true
   AfterEnum:       true
@@ -51,8 +51,8 @@ DisableFormat:   false
 ExperimentalAutoDetectBinPacking: false
 # FixNamespaceComments: false
 ForEachMacros:   [ foreach, Q_FOREACH, BOOST_FOREACH ]
-IncludeCategories: 
-  - Regex:           '^"(stdafx|PrecompiledHeader)'
+IncludeCategories:
+  - Regex:           '^"(stdafx|pch|PrecompiledHeader)'
     Priority:        -2
   - Regex:           '^"(llvm|llvm-c|clang|clang-c)/'
     Priority:        4
