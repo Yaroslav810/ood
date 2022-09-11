@@ -2,12 +2,15 @@
 
 CDuck::CDuck(
 	std::unique_ptr<IFlyBehavior>&& flyBehavior,
-	std::unique_ptr<IQuackBehavior>&& quackBehavior)
+	std::unique_ptr<IQuackBehavior>&& quackBehavior,
+	std::unique_ptr<IDanceBehavior>&& danceBehavior)
 	: m_flyBehavior(move(flyBehavior))
 	, m_quackBehavior(move(quackBehavior))
+	, m_danceBehavior(move(danceBehavior))
 {
 	assert(m_flyBehavior);
 	assert(m_quackBehavior);
+	assert(m_danceBehavior);
 }
 
 void CDuck::Quack() const
@@ -15,19 +18,19 @@ void CDuck::Quack() const
 	m_quackBehavior->Quack();
 }
 
-void CDuck::Swim()
-{
-	std::cout << "I'm swimming" << std::endl;
-}
-
-void CDuck::Fly()
+void CDuck::Fly() const
 {
 	m_flyBehavior->Fly();
 }
 
-void CDuck::Dance()
+void CDuck::Dance() const
 {
-	std::cout << "I'm Dancing" << std::endl;
+	m_danceBehavior->Dance();
+}
+
+void CDuck::Swim()
+{
+	std::cout << "I'm swimming" << std::endl;
 }
 
 void CDuck::SetFlyBehavior(std::unique_ptr<IFlyBehavior>&& flyBehavior)

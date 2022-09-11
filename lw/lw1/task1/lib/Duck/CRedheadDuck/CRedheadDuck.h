@@ -1,4 +1,5 @@
 #pragma once
+#include "../../DanceBehavior/CMinuetBehavior/CMinuetBehavior.h"
 #include "./../../FlyBehavior/CFlyWithWings/CFlyWithWings.h"
 #include "./../../QuackBehavior/CQuackBehavior/CQuackBehavior.h"
 #include "./../CDuck/CDuck.h"

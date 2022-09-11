@@ -1,4 +1,5 @@
 #pragma once
+#include "../../DanceBehavior/CWithoutDancingBehavior/CWithoutDancingBehavior.h"
 #include "./../../FlyBehavior/CFlyNoWay/CFlyNoWay.h"
 #include "./../../QuackBehavior/CSqueakBehavior/CSqueakBehavior.h"
 #include "./../CDuck/CDuck.h"
@@ -11,6 +12,4 @@ public:
 	CRubberDuck();
 
 	void Display() const override;
-
-	void Dance() override;
 };

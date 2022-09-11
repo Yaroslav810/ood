@@ -25,4 +25,11 @@ add_executable(
         lib/Duck/CRubberDuck/CRubberDuck.cpp
         lib/Duck/CModelDuck/CModelDuck.h
         lib/Duck/CModelDuck/CModelDuck.cpp
+        lib/DanceBehavior/IDanceBehavior.h
+        lib/DanceBehavior/CWaltzBehavior/CWaltzBehavior.h
+        lib/DanceBehavior/CWaltzBehavior/CWaltzBehavior.cpp
+        lib/DanceBehavior/CMinuetBehavior/CMinuetBehavior.h
+        lib/DanceBehavior/CMinuetBehavior/CMinuetBehavior.cpp
+        lib/DanceBehavior/CWithoutDancingBehavior/CWithoutDancingBehavior.h
+        lib/DanceBehavior/CWithoutDancingBehavior/CWithoutDancingBehavior.cpp
 )
