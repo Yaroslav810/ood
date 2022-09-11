@@ -1,0 +1,28 @@
+add_executable(
+        lw1_1
+        main.cpp
+        lib/FlyBehavior/IFlyBehavior.h
+        lib/FlyBehavior/CFlyWithWings/CFlyWithWings.h
+        lib/FlyBehavior/CFlyWithWings/CFlyWithWings.cpp
+        lib/FlyBehavior/CFlyNoWay/CFlyNoWay.h
+        lib/FlyBehavior/CFlyNoWay/CFlyNoWay.cpp
+        lib/QuackBehavior/IQuackBehavior.h
+        lib/QuackBehavior/CQuackBehavior/CQuackBehavior.h
+        lib/QuackBehavior/CQuackBehavior/CQuackBehavior.cpp
+        lib/QuackBehavior/CSqueakBehavior/CSqueakBehavior.h
+        lib/QuackBehavior/CSqueakBehavior/CSqueakBehavior.cpp
+        lib/QuackBehavior/CMuteQuackBehavior/CMuteQuackBehavior.h
+        lib/QuackBehavior/CMuteQuackBehavior/CMuteQuackBehavior.cpp
+        lib/Duck/CDuck/CDuck.h
+        lib/Duck/CDuck/CDuck.cpp
+        lib/Duck/CMallardDuck/CMallardDuck.h
+        lib/Duck/CMallardDuck/CMallardDuck.cpp
+        lib/Duck/CRedheadDuck/CRedheadDuck.h
+        lib/Duck/CRedheadDuck/CRedheadDuck.cpp
+        lib/Duck/CDecoyDuck/CDecoyDuck.h
+        lib/Duck/CDecoyDuck/CDecoyDuck.cpp
+        lib/Duck/CRubberDuck/CRubberDuck.h
+        lib/Duck/CRubberDuck/CRubberDuck.cpp
+        lib/Duck/CModelDuck/CModelDuck.h
+        lib/Duck/CModelDuck/CModelDuck.cpp
+)
