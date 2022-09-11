@@ -1,0 +1,47 @@
+#include "lib/Duck/CDecoyDuck/CDecoyDuck.h"
+#include "lib/Duck/CDuck/CDuck.h"
+#include "lib/Duck/CMallardDuck/CMallardDuck.h"
+#include "lib/Duck/CModelDuck/CModelDuck.h"
+#include "lib/Duck/CRedheadDuck/CRedheadDuck.h"
+#include "lib/Duck/CRubberDuck/CRubberDuck.h"
+#include <iostream>
+#include <memory>
+
+void DrawDuck(CDuck const& duck)
+{
+	duck.Display();
+}
+
+void PlayWithDuck(CDuck& duck)
+{
+	DrawDuck(duck);
+	duck.Quack();
+	duck.ShowNumberOfFly();
+	duck.Fly();
+	duck.ShowNumberOfFly();
+	duck.Fly();
+	duck.ShowNumberOfFly();
+	duck.Dance();
+	CDuck::Swim();
+	std::cout << std::endl;
+}
+
+int main()
+{
+	CMallardDuck mallardDuck;
+	PlayWithDuck(mallardDuck);
+
+	CRedheadDuck redheadDuck;
+	PlayWithDuck(redheadDuck);
+
+	CRubberDuck rubberDuck;
+	PlayWithDuck(rubberDuck);
+
+	CDecoyDuck decoyDuck;
+	PlayWithDuck(decoyDuck);
+
+	CModelDuck modelDuck;
+	PlayWithDuck(modelDuck);
+	modelDuck.SetFlyBehavior(std::make_unique<CFlyWithWings>());
+	PlayWithDuck(modelDuck);
+}
