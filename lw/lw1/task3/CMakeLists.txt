@@ -1,0 +1,32 @@
+add_executable(
+        lw1_3
+        main.cpp
+        lib/FlyBehavior/FlyWithWings/FlyWithWings.h
+        lib/FlyBehavior/FlyWithWings/FlyWithWings.cpp
+        lib/FlyBehavior/FlyNoWay/FlyNoWay.h
+        lib/FlyBehavior/FlyNoWay/FlyNoWay.cpp
+        lib/QuackBehavior/QuackBehavior/QuackBehavior.h
+        lib/QuackBehavior/QuackBehavior/QuackBehavior.cpp
+        lib/QuackBehavior/SqueakBehavior/SqueakBehavior.h
+        lib/QuackBehavior/SqueakBehavior/SqueakBehavior.cpp
+        lib/QuackBehavior/MuteQuackBehavior/MuteQuackBehavior.h
+        lib/QuackBehavior/MuteQuackBehavior/MuteQuackBehavior.cpp
+        lib/Duck/CDuck/CDuck.h
+        lib/Duck/CDuck/CDuck.cpp
+        lib/Duck/CMallardDuck/CMallardDuck.h
+        lib/Duck/CMallardDuck/CMallardDuck.cpp
+        lib/Duck/CRedheadDuck/CRedheadDuck.h
+        lib/Duck/CRedheadDuck/CRedheadDuck.cpp
+        lib/Duck/CDecoyDuck/CDecoyDuck.h
+        lib/Duck/CDecoyDuck/CDecoyDuck.cpp
+        lib/Duck/CRubberDuck/CRubberDuck.h
+        lib/Duck/CRubberDuck/CRubberDuck.cpp
+        lib/Duck/CModelDuck/CModelDuck.h
+        lib/Duck/CModelDuck/CModelDuck.cpp
+        lib/DanceBehavior/WaltzBehavior/WaltzBehavior.h
+        lib/DanceBehavior/WaltzBehavior/WaltzBehavior.cpp
+        lib/DanceBehavior/MinuetBehavior/MinuetBehavior.h
+        lib/DanceBehavior/MinuetBehavior/MinuetBehavior.cpp
+        lib/DanceBehavior/WithoutDancingBehavior/WithoutDancingBehavior.h
+        lib/DanceBehavior/WithoutDancingBehavior/WithoutDancingBehavior.cpp
+)
