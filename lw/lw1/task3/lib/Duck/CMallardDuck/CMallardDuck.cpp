@@ -2,7 +2,7 @@
 
 CMallardDuck::CMallardDuck()
 	: CDuck(
-		FlyWithWings,
+		FlyWithWings(),
 		QuackBehavior,
 		WaltzBehavior)
 {
