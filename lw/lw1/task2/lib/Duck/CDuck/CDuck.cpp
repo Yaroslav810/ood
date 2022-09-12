@@ -38,8 +38,3 @@ void CDuck::SetFlyBehavior(std::unique_ptr<IFlyBehavior>&& flyBehavior)
 	assert(flyBehavior);
 	m_flyBehavior = move(flyBehavior);
 }
-
-void CDuck::ShowNumberOfFly() const
-{
-	m_flyBehavior->ShowNumberOfFly();
-}

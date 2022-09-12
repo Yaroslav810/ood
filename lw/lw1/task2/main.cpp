@@ -16,11 +16,8 @@ void PlayWithDuck(CDuck& duck)
 {
 	DrawDuck(duck);
 	duck.Quack();
-	duck.ShowNumberOfFly();
 	duck.Fly();
-	duck.ShowNumberOfFly();
 	duck.Fly();
-	duck.ShowNumberOfFly();
 	duck.Dance();
 	CDuck::Swim();
 	std::cout << std::endl;

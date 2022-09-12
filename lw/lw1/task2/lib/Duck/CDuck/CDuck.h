@@ -18,7 +18,6 @@ public:
 	static void Swim();
 
 	void SetFlyBehavior(std::unique_ptr<IFlyBehavior>&& flyBehavior);
-	void ShowNumberOfFly() const;
 
 	virtual void Display() const = 0;
 	virtual ~CDuck() = default;
