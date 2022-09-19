@@ -1,7 +1,7 @@
 #include "CStatsData.h"
 
-CStatsData::CStatsData(const std::string& stats)
-	: m_statisticsTitle(stats)
+CStatsData::CStatsData(std::string stats)
+	: m_statisticsName(std::move(stats))
 {
 }
 
@@ -17,9 +17,24 @@ void CStatsData::Update(double data)
 	}
 	m_acc += data;
 	++m_countAcc;
+}
 
-	std::cout << "Max " << m_statisticsTitle << " " << m_max << std::endl;
-	std::cout << "Min " << m_statisticsTitle << " " << m_min << std::endl;
-	std::cout << "Average " << m_statisticsTitle << " " << (m_acc / m_countAcc) << std::endl;
-	std::cout << "----------------" << std::endl;
+std::string CStatsData::getStatisticsName() const
+{
+	return m_statisticsName;
+}
+
+double CStatsData::getMaxData() const
+{
+	return m_max;
+}
+
+double CStatsData::getMinData() const
+{
+	return m_min;
+}
+
+double CStatsData::getAverageData() const
+{
+	return m_acc / m_countAcc;
 }
