@@ -12,4 +12,6 @@ void CStatsDisplay::Update(const SWeatherInfo& data)
 	m_temperature.Update(data.temperature);
 	m_humidity.Update(data.humidity);
 	m_pressure.Update(data.pressure);
+
+	// TODO: Сделать вывод тут
 }
