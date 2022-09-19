@@ -22,11 +22,10 @@ public:
 
 		// TODO: Как работет for range и итераторы
 		// TODO: Скопировать m_observers и for range
-		auto it = m_observers.begin();
-		while (it != m_observers.end())
+		auto observers = m_observers;
+		for (auto& observer : observers)
 		{
-			(*it)->Update(data);
-			++it;
+			observer->Update(data);
 		}
 	}
 

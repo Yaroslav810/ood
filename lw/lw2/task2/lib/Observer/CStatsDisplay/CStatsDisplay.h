@@ -15,6 +15,7 @@ private:
 	остается публичным
 	*/
 	void Update(SWeatherInfo const& data) override;
+	static void PrintDataInStream(CStatsData const& data);
 
 	CStatsData m_temperature;
 	CStatsData m_humidity;
