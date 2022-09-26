@@ -13,6 +13,7 @@ public:
 
 	void RegisterObserver(ObserverType& observer, int priority) override
 	{
+		RemoveObserver(observer);
 		m_observers.insert(std::make_pair(priority, &observer));
 	}
 
@@ -45,5 +46,5 @@ protected:
 	virtual T GetChangedData() const = 0;
 
 private:
-	std::map<int, ObserverType*> m_observers;
+	std::multimap<int, ObserverType*> m_observers;
 };
