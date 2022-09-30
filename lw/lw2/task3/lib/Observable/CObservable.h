@@ -28,6 +28,7 @@ public:
 		}
 	}
 
+	// TODO: Сделать быстрее
 	void RemoveObserver(ObserverType& observer) override
 	{
 		for (auto it = m_observers.begin(); it != m_observers.end(); ++it)
