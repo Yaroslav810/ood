@@ -19,9 +19,7 @@ public:
 	void NotifyObservers() override
 	{
 		T data = GetChangedData();
-
-		// TODO: Как работет for range и итераторы
-		// TODO: Скопировать m_observers и for range
+		
 		auto observers = m_observers;
 		for (auto& observer : observers)
 		{
