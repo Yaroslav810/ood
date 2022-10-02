@@ -8,12 +8,12 @@ int main()
 	CWeatherData wdOut;
 
 	CDisplay display(wdIn, wdOut);
-	wdIn.RegisterObserver(display, 1);
-	wdOut.RegisterObserver(display, 2);
+	wdIn.RegisterObserver(display, 0);
+	wdOut.RegisterObserver(display, 0);
 
 	CStatsDisplay statsDisplay(wdIn, wdOut);
-	wdIn.RegisterObserver(statsDisplay, 3);
-	wdOut.RegisterObserver(statsDisplay, 4);
+	wdIn.RegisterObserver(statsDisplay, 0);
+	wdOut.RegisterObserver(statsDisplay, 0);
 
 	wdIn.SetMeasurements(3, 0.7, 760);
 	wdIn.SetMeasurements(4, 0.8, 761);
