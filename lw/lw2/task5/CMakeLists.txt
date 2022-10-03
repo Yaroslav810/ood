@@ -1,0 +1,39 @@
+add_executable(
+        lw2_5
+        main.cpp
+        lib/Observable/IObservable.h
+        lib/Observer/IObserver.h
+        lib/Observable/CObservable.h
+        lib/Observable/CWeatherData/CWeatherData.h
+        lib/Observable/CWeatherData/CWeatherData.cpp
+        lib/Observer/SWeatherInfo.h
+        lib/Observer/SWindInfo.h
+        lib/Observer/CDisplay/CDisplay.h
+        lib/Observer/CDisplay/CDisplay.cpp
+        lib/Observer/CStatsDisplay/CStatsDisplay.h
+        lib/Observer/CStatsDisplay/CStatsDisplay.cpp
+        lib/Observer/CStatsDisplay/CStatsData/CStatsData.h
+        lib/Observer/CStatsDisplay/CStatsData/CStatsData.cpp
+        lib/Observer/CStatsDisplay/CStatsWindData/CStatsWindData.h
+        lib/Observer/CStatsDisplay/CStatsWindData/CStatsWindData.cpp
+)
+
+add_executable(
+        lw2_5_test
+        tests/task3_test.cpp
+        lib/Observable/IObservable.h
+        lib/Observer/IObserver.h
+        lib/Observable/CObservable.h
+        lib/Observable/CWeatherData/CWeatherData.h
+        lib/Observable/CWeatherData/CWeatherData.cpp
+        lib/Observer/SWeatherInfo.h
+        lib/Observer/SWindInfo.h
+        lib/Observer/CDisplay/CDisplay.h
+        lib/Observer/CDisplay/CDisplay.cpp
+        lib/Observer/CStatsDisplay/CStatsDisplay.h
+        lib/Observer/CStatsDisplay/CStatsDisplay.cpp
+        lib/Observer/CStatsDisplay/CStatsData/CStatsData.h
+        lib/Observer/CStatsDisplay/CStatsData/CStatsData.cpp
+        lib/Observer/CStatsDisplay/CStatsWindData/CStatsWindData.h
+        lib/Observer/CStatsDisplay/CStatsWindData/CStatsWindData.cpp
+)
