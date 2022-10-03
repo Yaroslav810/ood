@@ -1,6 +1,7 @@
 #pragma once
 #include "../Observer/IObserver.h"
 #include "IObservable.h"
+#include <algorithm>
 #include <iostream>
 #include <map>
 
@@ -31,13 +32,12 @@ public:
 	// TODO: Сделать быстрее
 	void RemoveObserver(ObserverType& observer) override
 	{
-		for (auto it = m_observers.begin(); it != m_observers.end(); ++it)
+		auto i = std::find_if(m_observers.begin(), m_observers.end(), [&](auto& it) {
+			return it.second == &observer;
+		});
+		if (i != m_observers.end())
 		{
-			if (it->second == &observer)
-			{
-				m_observers.erase(it->first);
-				break;
-			}
+			m_observers.erase(i->first);
 		}
 	}
 
