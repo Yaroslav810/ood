@@ -5,45 +5,38 @@
 #include "../lib/Observable/CWeatherData/CWeatherData.h"
 #include "../lib/Observer/CDisplay/CDisplay.h"
 
-TEST_CASE("Priority of the observers")
+std::string GetDataString(std::string const& prefix, double temperature, double humidity, double pressure)
 {
-	class CTestPriorityDisplay : public IObserver<SWeatherInfo>
-	{
-	public:
-		CTestPriorityDisplay(std::string&& str, std::stringstream& ss)
-			: m_str(str)
-			, m_ss(ss)
-		{
-		}
+	std::stringstream ss;
+	ss << prefix << std::endl;
+	ss << "Current Temp " << temperature << std::endl;
+	ss << "Current Hum " << humidity << std::endl;
+	ss << "Current Pressure " << pressure << std::endl;
+	ss << "----------------" << std::endl;
+	return ss.str();
+}
 
-	private:
-		/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую
-		Классу CObservable он будет доступен все равно, т.к. в интерфейсе IObserver он
-		остается публичным
-		*/
-		void Update(SWeatherInfo const& data) override
-		{
-			m_ss << m_str;
-		}
-
-		std::string m_str;
-		std::stringstream& m_ss;
-	};
-
-	CWeatherData wd;
+TEST_CASE("Monitoring of two CWeatherData")
+{
+	CWeatherData wdIn;
+	CWeatherData wdOut;
 
 	std::stringstream ss;
 
-	CTestPriorityDisplay testFirstDisplay("1", ss);
-	CTestPriorityDisplay testSecondDisplay("2", ss);
-	CTestPriorityDisplay testThirdDisplay("3", ss);
-	CTestPriorityDisplay testFourthDisplay("4", ss);
+	CDisplay display(wdIn, wdOut, ss);
+	wdIn.RegisterObserver(display, 0);
+	wdOut.RegisterObserver(display, 0);
 
-	wd.RegisterObserver(testFirstDisplay, 0);
-	wd.RegisterObserver(testSecondDisplay, 1);
-	wd.RegisterObserver(testThirdDisplay, 2);
-	wd.RegisterObserver(testFourthDisplay, 3);
+	REQUIRE_NOTHROW(wdIn.SetMeasurements(3, 0.7, 760));
+	REQUIRE(ss.str() == GetDataString("In", 3, 0.7, 760));
 
-	REQUIRE_NOTHROW(wd.SetMeasurements(3, 0.7, 760));
-	REQUIRE(ss.str() == "4321");
+	ss.str(std::string());
+
+	REQUIRE_NOTHROW(wdOut.SetMeasurements(5, 1, 750));
+	REQUIRE(ss.str() == GetDataString("Out", 5, 1, 750));
+
+	ss.str(std::string());
+
+	REQUIRE_NOTHROW(wdIn.SetMeasurements(3, 0.7, 760));
+	REQUIRE(ss.str() == GetDataString("In", 3, 0.7, 760));
 }

@@ -7,11 +7,11 @@ int main()
 	CWeatherData wdIn;
 	CWeatherData wdOut;
 
-	CDisplay display(wdIn, wdOut);
+	CDisplay display(wdIn, wdOut, std::cout);
 	wdIn.RegisterObserver(display, 0);
 	wdOut.RegisterObserver(display, 0);
 
-	CStatsDisplay statsDisplay(wdIn, wdOut);
+	CStatsDisplay statsDisplay(wdIn, wdOut, std::cout);
 	wdIn.RegisterObserver(statsDisplay, 0);
 	wdOut.RegisterObserver(statsDisplay, 0);
 

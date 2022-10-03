@@ -1,8 +1,9 @@
 #include "CStatsDisplay.h"
 
-CStatsDisplay::CStatsDisplay(IObservable<SWeatherInfo> const& weatherDataIn, IObservable<SWeatherInfo> const& weatherDataOut)
+CStatsDisplay::CStatsDisplay(IObservable<SWeatherInfo> const& weatherDataIn, IObservable<SWeatherInfo> const& weatherDataOut, std::ostream& output)
 	: m_weatherDataIn(weatherDataIn)
 	, m_weatherDataOut(weatherDataOut)
+	, m_output(output)
 {
 }
 
@@ -31,8 +32,8 @@ void CStatsDisplay::PrintCommonDataInStream(CStatsCommonData const& data)
 void CStatsDisplay::PrintDataInStream(CStatsData const& data)
 {
 	auto statName = data.getStatisticsName();
-	std::cout << "Max " << statName << " " << data.getMaxData() << std::endl;
-	std::cout << "Min " << statName << " " << data.getMinData() << std::endl;
-	std::cout << "Average " << statName << " " << data.getAverageData() << std::endl;
-	std::cout << "----------------" << std::endl;
+	m_output << "Max " << statName << " " << data.getMaxData() << std::endl;
+	m_output << "Min " << statName << " " << data.getMinData() << std::endl;
+	m_output << "Average " << statName << " " << data.getAverageData() << std::endl;
+	m_output << "----------------" << std::endl;
 }

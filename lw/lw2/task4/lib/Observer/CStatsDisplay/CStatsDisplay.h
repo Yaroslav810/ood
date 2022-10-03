@@ -8,7 +8,7 @@
 class CStatsDisplay : public IObserver<SWeatherInfo>
 {
 public:
-	CStatsDisplay(IObservable<SWeatherInfo> const& weatherDataIn, IObservable<SWeatherInfo> const& weatherDataOut);
+	CStatsDisplay(IObservable<SWeatherInfo> const& weatherDataIn, IObservable<SWeatherInfo> const& weatherDataOut, std::ostream& output);
 
 private:
 	/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую
@@ -16,11 +16,12 @@ private:
 	остается публичным
 	*/
 	void Update(SWeatherInfo const& data, IObservable<SWeatherInfo> const& observable) override;
-	static void PrintCommonDataInStream(CStatsCommonData const& data);
-	static void PrintDataInStream(CStatsData const& data);
+	void PrintCommonDataInStream(CStatsCommonData const& data);
+	void PrintDataInStream(CStatsData const& data);
 
 	IObservable<SWeatherInfo> const& m_weatherDataIn;
 	IObservable<SWeatherInfo> const& m_weatherDataOut;
+	std::ostream& m_output;
 
 	CStatsCommonData m_statsCommonDataIn;
 	CStatsCommonData m_statsCommonDataOut;

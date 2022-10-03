@@ -1,8 +1,9 @@
 #include "CDisplay.h"
 
-CDisplay::CDisplay(const CWeatherData& weatherDataIn, const CWeatherData& weatherDataOut)
+CDisplay::CDisplay(const CWeatherData& weatherDataIn, const CWeatherData& weatherDataOut, std::ostream& output)
 	: m_weatherDataIn(weatherDataIn)
 	, m_weatherDataOut(weatherDataOut)
+	, m_output(output)
 {
 }
 
@@ -21,9 +22,9 @@ void CDisplay::Update(SWeatherInfo const& data, IObservable<SWeatherInfo> const&
 
 void CDisplay::PrintDataInStream(SWeatherInfo const& data, std::string const& prefix)
 {
-	std::cout << prefix << std::endl;
-	std::cout << "Current Temp " << data.temperature << std::endl;
-	std::cout << "Current Hum " << data.humidity << std::endl;
-	std::cout << "Current Pressure " << data.pressure << std::endl;
-	std::cout << "----------------" << std::endl;
+	m_output << prefix << std::endl;
+	m_output << "Current Temp " << data.temperature << std::endl;
+	m_output << "Current Hum " << data.humidity << std::endl;
+	m_output << "Current Pressure " << data.pressure << std::endl;
+	m_output << "----------------" << std::endl;
 }
