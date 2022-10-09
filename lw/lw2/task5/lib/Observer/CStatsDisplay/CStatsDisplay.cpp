@@ -38,6 +38,6 @@ void CStatsDisplay::PrintWindDirectionDataInStream(const CStatsWindDirectionData
 
 void CStatsDisplay::PrintWindDataInStream()
 {
-	PrintDataInStream(m_wind.getSpeedWind());
-	PrintWindDirectionDataInStream(m_wind.getDirectionWind());
+	PrintDataInStream(m_wind.getSpeedWind()); // TODO: getWindSpeed
+	PrintWindDirectionDataInStream(m_wind.getDirectionWind()); // TODO: Upper
 }
