@@ -1,0 +1,21 @@
+add_executable(
+        lw3_2
+        main.cpp
+        lib/Beverages/IBeverage.h
+        lib/Beverages/Beverages.h
+        lib/Condiments/Condiments.h
+        lib/Beverages/Coffee/CCoffee.h
+        lib/Beverages/Coffee/Latte/CLatte.h
+        lib/Beverages/Coffee/Cappuccino/CCappuccino.h
+        lib/Beverages/Milkshake/CMilkshake.h
+        lib/Beverages/Tea/CTea.h
+        lib/Condiments/ChocolateCrumbs/CChocolateCrumbs.h
+        lib/Condiments/Cinnamon/CCinnamon.h
+        lib/Condiments/CoconutFlakes/CCoconutFlakes.h
+        lib/Condiments/IceCubes/CIceCubes.h
+        lib/Condiments/Lemon/CLemon.h
+        lib/Condiments/Syrup/CSyrup.h
+        lib/Condiments/Cream/CCream.h
+        lib/Condiments/Chocolate/CChocolate.h
+        lib/Condiments/Liquor/CLiquor.h
+)
