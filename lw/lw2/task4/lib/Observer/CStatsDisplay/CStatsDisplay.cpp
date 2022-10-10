@@ -31,9 +31,9 @@ void CStatsDisplay::PrintCommonDataInStream(CStatsCommonData const& data)
 
 void CStatsDisplay::PrintDataInStream(CStatsData const& data)
 {
-	auto statName = data.getStatisticsName();
-	m_output << "Max " << statName << " " << data.getMaxData() << std::endl;
-	m_output << "Min " << statName << " " << data.getMinData() << std::endl;
-	m_output << "Average " << statName << " " << data.getAverageData() << std::endl;
+	auto statName = data.GetStatisticsName();
+	m_output << "Max " << statName << " " << data.GetMaxData() << std::endl;
+	m_output << "Min " << statName << " " << data.GetMinData() << std::endl;
+	m_output << "Average " << statName << " " << data.GetAverageData() << std::endl;
 	m_output << "----------------" << std::endl;
 }

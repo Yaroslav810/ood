@@ -20,9 +20,9 @@ void CStatsDisplay::Update(const SWeatherInfo& data)
 
 void CStatsDisplay::PrintDataInStream(const CStatsData& data)
 {
-	auto statName = data.getStatisticsName();
-	std::cout << "Max " << statName << " " << data.getMaxData() << std::endl;
-	std::cout << "Min " << statName << " " << data.getMinData() << std::endl;
-	std::cout << "Average " << statName << " " << data.getAverageData() << std::endl;
+	auto statName = data.GetStatisticsName();
+	std::cout << "Max " << statName << " " << data.GetMaxData() << std::endl;
+	std::cout << "Min " << statName << " " << data.GetMinData() << std::endl;
+	std::cout << "Average " << statName << " " << data.GetAverageData() << std::endl;
 	std::cout << "----------------" << std::endl;
 }

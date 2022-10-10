@@ -6,10 +6,10 @@ class CStatsData
 public:
 	CStatsData(std::string stats);
 	void Update(double data);
-	[[nodiscard]] std::string getStatisticsName() const;
-	[[nodiscard]] double getMaxData() const;
-	[[nodiscard]] double getMinData() const;
-	[[nodiscard]] double getAverageData() const;
+	[[nodiscard]] std::string GetStatisticsName() const;
+	[[nodiscard]] double GetMaxData() const;
+	[[nodiscard]] double GetMinData() const;
+	[[nodiscard]] double GetAverageData() const;
 
 private:
 	std::string m_statisticsName;

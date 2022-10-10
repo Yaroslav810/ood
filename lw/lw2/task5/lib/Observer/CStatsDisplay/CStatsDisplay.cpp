@@ -23,21 +23,21 @@ void CStatsDisplay::Update(const SWeatherInfo& data)
 
 void CStatsDisplay::PrintDataInStream(const CStatsData& data)
 {
-	auto statName = data.getStatisticsName();
-	std::cout << "Max " << statName << " " << data.getMaxData() << std::endl;
-	std::cout << "Min " << statName << " " << data.getMinData() << std::endl;
-	std::cout << "Average " << statName << " " << data.getAverageData() << std::endl;
+	auto statName = data.GetStatisticsName();
+	std::cout << "Max " << statName << " " << data.GetMaxData() << std::endl;
+	std::cout << "Min " << statName << " " << data.GetMinData() << std::endl;
+	std::cout << "Average " << statName << " " << data.GetAverageData() << std::endl;
 	std::cout << "----------------" << std::endl;
 }
 
 void CStatsDisplay::PrintWindDirectionDataInStream(const CStatsWindDirectionData& data)
 {
-	std::cout << "Average Wind direction " << data.getAverageData() << std::endl;
+	std::cout << "Average Wind direction " << data.GetAverageData() << std::endl;
 	std::cout << "----------------" << std::endl;
 }
 
 void CStatsDisplay::PrintWindDataInStream()
 {
-	PrintDataInStream(m_wind.getSpeedWind()); // TODO: getWindSpeed
-	PrintWindDirectionDataInStream(m_wind.getDirectionWind()); // TODO: Upper
+	PrintDataInStream(m_wind.GetWindSpeed());
+	PrintWindDirectionDataInStream(m_wind.GetDirectionWind());
 }

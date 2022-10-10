@@ -8,7 +8,7 @@ class CStatsWindDirectionData
 {
 public:
 	void Update(double data);
-	[[nodiscard]] double getAverageData() const;
+	[[nodiscard]] double GetAverageData() const;
 
 private:
 	static double DegreesToRadians(double degrees);
@@ -24,8 +24,8 @@ class CStatsWindData
 public:
 	CStatsWindData();
 	void Update(SWindInfo data);
-	[[nodiscard]] CStatsData getSpeedWind() const;
-	[[nodiscard]] CStatsWindDirectionData getDirectionWind() const;
+	[[nodiscard]] CStatsData GetWindSpeed() const;
+	[[nodiscard]] CStatsWindDirectionData GetDirectionWind() const;
 
 private:
 	CStatsData m_speed;

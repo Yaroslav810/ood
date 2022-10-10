@@ -19,22 +19,22 @@ void CStatsData::Update(double data)
 	++m_countAcc;
 }
 
-std::string CStatsData::getStatisticsName() const
+std::string CStatsData::GetStatisticsName() const
 {
 	return m_statisticsName;
 }
 
-double CStatsData::getMaxData() const
+double CStatsData::GetMaxData() const
 {
 	return m_max;
 }
 
-double CStatsData::getMinData() const
+double CStatsData::GetMinData() const
 {
 	return m_min;
 }
 
-double CStatsData::getAverageData() const
+double CStatsData::GetAverageData() const
 {
 	return m_acc / m_countAcc;
 }

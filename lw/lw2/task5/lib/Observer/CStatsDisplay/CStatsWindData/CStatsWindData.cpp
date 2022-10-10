@@ -8,7 +8,7 @@ void CStatsWindDirectionData::Update(double data)
 	m_average = std::fmod(d, 360);
 }
 
-double CStatsWindDirectionData::getAverageData() const
+double CStatsWindDirectionData::GetAverageData() const
 {
 	return m_average;
 }
@@ -35,12 +35,12 @@ void CStatsWindData::Update(SWindInfo data)
 	m_direction.Update(data.direction);
 }
 
-CStatsData CStatsWindData::getSpeedWind() const
+CStatsData CStatsWindData::GetWindSpeed() const
 {
 	return m_speed;
 }
 
-CStatsWindDirectionData CStatsWindData::getDirectionWind() const
+CStatsWindDirectionData CStatsWindData::GetDirectionWind() const
 {
 	return m_direction;
 }
