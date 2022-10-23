@@ -1,6 +1,7 @@
 #pragma once
 #include "./../CCoffee.h"
 
+// TODO: Переимеовать Size
 enum class CappuccinoType
 {
 	Standard,

@@ -1,6 +1,7 @@
 #pragma once
 #include "./../Condiments.h"
 
+// TODO: Переимеовать на вкус
 enum class LiquorType
 {
 	Nutty,
