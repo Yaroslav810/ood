@@ -18,16 +18,16 @@ public:
 		switch (type)
 		{
 		case TeaType::Black:
-			m_description = "White";
-			break;
-		case TeaType::Oolong:
 			m_description = "Black";
 			break;
+		case TeaType::Oolong:
+			m_description = "Oolong";
+			break;
 		case TeaType::Puer:
-			m_description = "Green";
+			m_description = "Puer";
 			break;
 		case TeaType::EarlGrey:
-			m_description = "Yellow";
+			m_description = "EarlGrey";
 			break;
 		}
 	}

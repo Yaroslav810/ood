@@ -1,8 +1,7 @@
 #pragma once
 #include "./../CCoffee.h"
 
-// TODO: Переимеовать Size
-enum class LatteType
+enum class LatteSize
 {
 	Standard,
 	Double
@@ -11,16 +10,16 @@ enum class LatteType
 class CLatte : public CCoffee
 {
 public:
-	CLatte(const LatteType& type)
+	CLatte(const LatteSize& type)
 		: CCoffee("Latte")
 	{
 		switch (type)
 		{
-		case LatteType::Standard:
+		case LatteSize::Standard:
 			m_cost = 90;
 			m_description = "Standard";
 			break;
-		case LatteType::Double:
+		case LatteSize::Double:
 			m_cost = 130;
 			m_description = "Double";
 			break;

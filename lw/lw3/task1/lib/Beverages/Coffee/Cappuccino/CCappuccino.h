@@ -1,8 +1,7 @@
 #pragma once
 #include "./../CCoffee.h"
 
-// TODO: Переимеовать Size
-enum class CappuccinoType
+enum class CappuccinoSize
 {
 	Standard,
 	Double
@@ -11,16 +10,16 @@ enum class CappuccinoType
 class CCappuccino : public CCoffee
 {
 public:
-	CCappuccino(const CappuccinoType& type)
+	CCappuccino(const CappuccinoSize& type)
 		: CCoffee("Cappuccino")
 	{
 		switch (type)
 		{
-		case CappuccinoType::Standard:
+		case CappuccinoSize::Standard:
 			m_cost = 80;
 			m_description = "Standard";
 			break;
-		case CappuccinoType::Double:
+		case CappuccinoSize::Double:
 			m_cost = 120;
 			m_description = "Double";
 			break;

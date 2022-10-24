@@ -1,8 +1,7 @@
 #pragma once
 #include "./../Condiments.h"
 
-// TODO: Переимеовать на вкус
-enum class LiquorType
+enum class LiquorTaste
 {
 	Nutty,
 	Chocolate
@@ -11,7 +10,7 @@ enum class LiquorType
 class CLiquor : public CCondimentDecorator
 {
 public:
-	CLiquor(IBeveragePtr&& beverage, LiquorType type = LiquorType::Nutty)
+	CLiquor(IBeveragePtr&& beverage, LiquorTaste type = LiquorTaste::Nutty)
 		: CCondimentDecorator(move(beverage))
 		, m_type(type)
 	{
@@ -25,10 +24,10 @@ protected:
 
 	[[nodiscard]] std::string GetCondimentDescription() const override
 	{
-		return std::string(m_type == LiquorType::Nutty ? "Nutty" : "Chocolate")
+		return std::string(m_type == LiquorTaste::Nutty ? "Nutty" : "Chocolate")
 			+ " liquor";
 	}
 
 private:
-	LiquorType m_type;
+	LiquorTaste m_type;
 };

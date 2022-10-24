@@ -7,14 +7,14 @@
 
 int main()
 {
-	auto latteStandard = std::make_unique<CLatte>(LatteType::Standard);
+	auto latteStandard = std::make_unique<CLatte>(LatteSize::Standard);
 	std::cout << latteStandard->GetDescription() << " costs " << latteStandard->GetCost() << std::endl;
-	auto latteDouble = std::make_unique<CLatte>(LatteType::Double);
+	auto latteDouble = std::make_unique<CLatte>(LatteSize::Double);
 	std::cout << latteDouble->GetDescription() << " costs " << latteDouble->GetCost() << std::endl;
 
-	auto cappuccinoStandard = std::make_unique<CCappuccino>(CappuccinoType::Standard);
+	auto cappuccinoStandard = std::make_unique<CCappuccino>(CappuccinoSize::Standard);
 	std::cout << cappuccinoStandard->GetDescription() << " costs " << cappuccinoStandard->GetCost() << std::endl;
-	auto cappuccinoDouble = std::make_unique<CCappuccino>(CappuccinoType::Double);
+	auto cappuccinoDouble = std::make_unique<CCappuccino>(CappuccinoSize::Double);
 	std::cout << cappuccinoDouble->GetDescription() << " costs " << cappuccinoDouble->GetCost() << std::endl;
 
 	auto teaBlack = std::make_unique<CTea>(TeaType::Black);
@@ -26,11 +26,11 @@ int main()
 	auto teaEarlGrey = std::make_unique<CTea>(TeaType::EarlGrey);
 	std::cout << teaEarlGrey->GetDescription() << " costs " << teaEarlGrey->GetCost() << std::endl;
 
-	auto milkshakeSmall = std::make_unique<CMilkshake>(MilkshakeType::Small);
+	auto milkshakeSmall = std::make_unique<CMilkshake>(MilkshakeSize::Small);
 	std::cout << milkshakeSmall->GetDescription() << " costs " << milkshakeSmall->GetCost() << std::endl;
-	auto milkshakeMedium = std::make_unique<CMilkshake>(MilkshakeType::Medium);
+	auto milkshakeMedium = std::make_unique<CMilkshake>(MilkshakeSize::Medium);
 	std::cout << milkshakeMedium->GetDescription() << " costs " << milkshakeMedium->GetCost() << std::endl;
-	auto milkshakeBig = std::make_unique<CMilkshake>(MilkshakeType::Big);
+	auto milkshakeBig = std::make_unique<CMilkshake>(MilkshakeSize::Big);
 	std::cout << milkshakeBig->GetDescription() << " costs " << milkshakeBig->GetCost() << std::endl;
 
 	return 0;

@@ -1,7 +1,7 @@
 #pragma once
 #include "./../Beverages.h"
 
-enum class MilkshakeType
+enum class MilkshakeSize
 {
 	Small,
 	Medium,
@@ -11,20 +11,20 @@ enum class MilkshakeType
 class CMilkshake : public CBeverage
 {
 public:
-	CMilkshake(const MilkshakeType& type)
+	CMilkshake(const MilkshakeSize& type)
 		: CBeverage("Milkshake")
 	{
 		switch (type)
 		{
-		case MilkshakeType::Small:
+		case MilkshakeSize::Small:
 			m_description = "Small";
 			m_cost = 50;
 			break;
-		case MilkshakeType::Medium:
+		case MilkshakeSize::Medium:
 			m_description = "Medium";
 			m_cost = 60;
 			break;
-		case MilkshakeType::Big:
+		case MilkshakeSize::Big:
 			m_description = "Big";
 			m_cost = 80;
 			break;
