@@ -11,5 +11,7 @@ public:
 	void DrawEllipse(const CPoint& center, double width, double height) override;
 
 private:
+	void PrintColor();
+	std::string GetColorString();
 	Color m_color;
 };
