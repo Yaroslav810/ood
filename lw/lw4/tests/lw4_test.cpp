@@ -6,6 +6,7 @@
 #include "../lib/Shape/Rectangle/CRectangle.h"
 #include "../lib/Shape/RegularPolygon/CRegularPolygon.h"
 #include "../lib/Shape/Triangle/CTriangle.h"
+#include "../lib/ShapeFactory/CShapeFactory.h"
 
 TEST_CASE("Creating a Rectangle")
 {
@@ -84,5 +85,15 @@ TEST_CASE("Creating Invalid a Regular Polygon")
 	THEN("Throwing an exception")
 	{
 		REQUIRE_THROWS(CRegularPolygon(Color::Pink, vertexCount, centerPoint, radius));
+	}
+}
+
+TEST_CASE("Creating a Regular Polygon")
+{
+	CShapeFactory shapeFactory;
+	auto shape = shapeFactory.CreateShape("rectangle red 1 4 3 2");
+	// auto rectanle = // TODO: Првести к типу
+	THEN("Created Rectangle")
+	{
 	}
 }
