@@ -20,6 +20,12 @@ add_executable(
         lib/Command/CAbstractCommand.cpp
         lib/Command/ChangeStringCommand/CChangeStringCommand.h
         lib/Command/ChangeStringCommand/CChangeStringCommand.cpp
+        lib/Command/InsertParagraphCommand/CInsertDocumentItemCommand.h
+        lib/Command/InsertParagraphCommand/CInsertDocumentItemCommand.cpp
+        lib/Command/ReplaceTextCommand/CReplaceTextCommand.h
+        lib/Command/ReplaceTextCommand/CReplaceTextCommand.cpp
+        lib/Command/DeleteItemCommand/CDeleteItemCommand.h
+        lib/Command/DeleteItemCommand/CDeleteItemCommand.cpp
         lib/Image/IImage.h
         lib/Image/CImage.h
         lib/Image/CImage.cpp

@@ -7,6 +7,8 @@
 class CDocumentItem : public CConstDocumentItem
 {
 public:
+	explicit CDocumentItem(std::variant<std::shared_ptr<IImage>, std::shared_ptr<IParagraph>>&& item);
+
 	// Возвращает указатель на изображение, либо nullptr, если элемент не является изображением
 	std::shared_ptr<IImage> GetImage();
 

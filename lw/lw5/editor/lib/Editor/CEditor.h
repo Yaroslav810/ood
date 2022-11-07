@@ -12,9 +12,15 @@ public:
 	void Start();
 
 private:
-	void SetTitle(std::istream& in);
+	void InsertParagraph(std::istream& in);
+
+	void SetTitle(std::istream& is);
 
 	void List(std::istream&);
+
+	void ReplaceText(std::istream& in);
+
+	void DeleteItem(std::istream& in);
 
 	void Undo(std::istream&);
 

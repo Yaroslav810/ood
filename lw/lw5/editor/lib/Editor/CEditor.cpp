@@ -3,12 +3,15 @@
 CEditor::CEditor()
 	: m_document(std::make_unique<CDocument>())
 {
-	//	AddMenuItem("setTitle", "Changes title. Args: <new title>", &CEditor::SetTitle);
-	//	m_menu.AddItem("list", "Show document", std::bind(&CEditor::List, this, _1));
-	//	AddMenuItem("undo", "Undo command", &CEditor::Undo);
-	//	AddMenuItem("redo", "Redo undone command", &CEditor::Redo);
-	m_menu.AddItem("help", "Help", [this](std::istream&) { m_menu.ShowInstructions(); });
-	m_menu.AddItem("exit", "Exit", [this](std::istream&) { m_menu.Exit(); });
+	m_menu.AddItem("InsertParagraph", "Inserts a paragraph. Args: <pos>|end <text>", [this](std::istream& is) { InsertParagraph(is); });
+	m_menu.AddItem("SetTitle", "Changes title. Args: <new title>", [this](std::istream& is) { SetTitle(is); });
+	m_menu.AddItem("List", "Show document", [this](std::istream& is) { List(is); });
+	m_menu.AddItem("ReplaceText", "Replace a text. Args: <pos> <text>", [this](std::istream& is) { ReplaceText(is); });
+	m_menu.AddItem("DeleteItem", "Delete a item. Args: <pos>", [this](std::istream& is) { DeleteItem(is); });
+	m_menu.AddItem("Undo", "Undo command", [this](std::istream& is) { Undo(is); });
+	m_menu.AddItem("Redo", "Redo undone command", [this](std::istream& is) { Redo(is); });
+	m_menu.AddItem("Help", "Help", [this](std::istream&) { m_menu.ShowInstructions(); });
+	m_menu.AddItem("Exit", "Exit", [this](std::istream&) { m_menu.Exit(); });
 }
 
 void CEditor::Start()
@@ -16,25 +19,92 @@ void CEditor::Start()
 	m_menu.Run();
 }
 
-void CEditor::SetTitle(std::istream& in)
+void CEditor::InsertParagraph(std::istream& in)
+{
+	std::string pos;
+	std::string text;
+
+	try
+	{
+		if (in >> pos && in >> text)
+		{
+			m_document->InsertParagraph(text, pos == "end" ? std::optional<size_t>() : std::stoi(pos));
+		}
+	}
+	catch (std::exception&)
+	{
+		std::cout << "Invalid pos" << std::endl;
+	}
+}
+
+void CEditor::SetTitle(std::istream& is)
 {
 	std::string head;
 	std::string tail;
 
-	if (in >> head)
+	if (is >> head)
 	{
-		getline(in, tail);
+		getline(is, tail);
 	}
-	std::string title = head + tail;
 
+	auto title = head + tail;
 	m_document->SetTitle(title);
 }
 
 void CEditor::List(std::istream&)
 {
 	std::cout << "-------------" << std::endl;
-	std::cout << m_document->GetTitle() << std::endl;
+	std::cout << "Title: " << m_document->GetTitle() << std::endl;
+	for (size_t i = 0; i < m_document->GetItemsCount(); ++i)
+	{
+		std::cout << i << ". ";
+		if (m_document->GetItem(i).GetParagraph())
+		{
+			std::shared_ptr<IParagraph> paragraph = m_document->GetItem(i).GetParagraph();
+			std::cout << "Paragraph: " << paragraph->GetText() << std::endl;
+		}
+		else
+		{
+			std::shared_ptr<IImage> image = m_document->GetItem(i).GetImage();
+			std::cout << "Imgae: " << image->GetWidth() << " " << image->GetHeight() << " " << image->GetPath() << std::endl;
+		}
+	}
 	std::cout << "-------------" << std::endl;
+}
+
+void CEditor::ReplaceText(std::istream& in)
+{
+	std::string pos;
+	std::string text;
+
+	try
+	{
+		if (in >> pos && in >> text)
+		{
+			m_document->ReplaceText(text, std::stoi(pos));
+		}
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+}
+
+void CEditor::DeleteItem(std::istream& in)
+{
+	std::string pos;
+
+	try
+	{
+		if (in >> pos)
+		{
+			m_document->DeleteItem(std::stoi(pos));
+		}
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 }
 
 void CEditor::Undo(std::istream&)
