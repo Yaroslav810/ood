@@ -8,12 +8,11 @@ class CShape
 public:
 	using ShapePtr = std::unique_ptr<CShape>;
 
-	// explicit, для чего?
-	CShape(const Color& color);
+	explicit CShape(const Color& color);
 	[[nodiscard]] Color GetColor() const;
 	virtual ~CShape() = default;
 
-	virtual void Draw(ICanvas& canvas) = 0; // const
+	virtual void Draw(ICanvas& canvas) const = 0;
 
 private:
 	Color m_color;
