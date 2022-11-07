@@ -14,6 +14,8 @@ public:
 private:
 	void InsertParagraph(std::istream& in);
 
+	void InsertImage(std::istream& in);
+
 	void SetTitle(std::istream& is);
 
 	void List(std::istream&);

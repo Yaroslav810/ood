@@ -2,6 +2,7 @@
 #include "../Command/ChangeStringCommand/CChangeStringCommand.h"
 #include "../Command/DeleteItemCommand/CDeleteItemCommand.h"
 #include "../Command/InsertParagraphCommand/CInsertDocumentItemCommand.h"
+#include "../Image/CImage.h"
 #include "../Paragraph/CParagraph.h"
 
 std::shared_ptr<IParagraph> CDocument::InsertParagraph(const std::string& text, std::optional<size_t> position)
@@ -20,7 +21,16 @@ std::shared_ptr<IParagraph> CDocument::InsertParagraph(const std::string& text, 
 
 std::shared_ptr<IImage> CDocument::InsertImage(const std::string& path, int width, int height, std::optional<size_t> position)
 {
-	return std::shared_ptr<IImage>();
+	if (position > GetItemsCount())
+	{
+		throw std::invalid_argument("Invalid pos");
+	}
+
+	auto image = std::make_shared<CImage>(path, width, height, m_history);
+	auto item = CDocumentItem(image);
+	m_history.AddAndExecuteCommand(
+		std::make_unique<CInsertDocumentItemCommand>(m_items, item, position.has_value() ? position.value() : GetItemsCount()));
+	return image;
 }
 
 size_t CDocument::GetItemsCount() const
