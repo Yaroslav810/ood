@@ -1,4 +1,5 @@
 #include "CEditor.h"
+#include <fstream>
 
 CEditor::CEditor()
 	: m_document(std::make_unique<CDocument>())
@@ -11,6 +12,7 @@ CEditor::CEditor()
 	m_menu.AddItem("DeleteItem", "Delete a item. Args: <pos>", [this](std::istream& is) { DeleteItem(is); });
 	m_menu.AddItem("Undo", "Undo command", [this](std::istream& is) { Undo(is); });
 	m_menu.AddItem("Redo", "Redo undone command", [this](std::istream& is) { Redo(is); });
+	m_menu.AddItem("Save", "Save a document. Args: <path>", [this](std::istream& is) { Save(is); });
 	m_menu.AddItem("Help", "Help", [this](std::istream&) { m_menu.ShowInstructions(); });
 	m_menu.AddItem("Exit", "Exit", [this](std::istream&) { m_menu.Exit(); });
 }
@@ -20,16 +22,20 @@ void CEditor::Start()
 	m_menu.Run();
 }
 
-void CEditor::InsertParagraph(std::istream& in)
+void CEditor::InsertParagraph(std::istream& is)
 {
 	std::string pos;
 	std::string text;
 
 	try
 	{
-		if (in >> pos && in >> text)
+		if (is >> pos && is >> text)
 		{
 			m_document->InsertParagraph(text, pos == "end" ? std::optional<size_t>() : std::stoi(pos));
+		}
+		else
+		{
+			std::cout << "Incorrect args" << std::endl;
 		}
 	}
 	catch (std::exception&)
@@ -38,7 +44,7 @@ void CEditor::InsertParagraph(std::istream& in)
 	}
 }
 
-void CEditor::InsertImage(std::istream& in)
+void CEditor::InsertImage(std::istream& is)
 {
 	std::string pos;
 	int width;
@@ -47,7 +53,7 @@ void CEditor::InsertImage(std::istream& in)
 
 	try
 	{
-		if (in >> pos && in >> width && in >> height && in >> path)
+		if (is >> pos && is >> width && is >> height && is >> path)
 		{
 			m_document->InsertImage(path, width, height, pos == "end" ? std::optional<size_t>() : std::stoi(pos));
 		}
@@ -93,14 +99,14 @@ void CEditor::List(std::istream&)
 	std::cout << "-------------" << std::endl;
 }
 
-void CEditor::ReplaceText(std::istream& in)
+void CEditor::ReplaceText(std::istream& is)
 {
 	std::string pos;
 	std::string text;
 
 	try
 	{
-		if (in >> pos && in >> text)
+		if (is >> pos && is >> text)
 		{
 			m_document->ReplaceText(text, std::stoi(pos));
 		}
@@ -111,13 +117,13 @@ void CEditor::ReplaceText(std::istream& in)
 	}
 }
 
-void CEditor::DeleteItem(std::istream& in)
+void CEditor::DeleteItem(std::istream& is)
 {
 	std::string pos;
 
 	try
 	{
-		if (in >> pos)
+		if (is >> pos)
 		{
 			m_document->DeleteItem(std::stoi(pos));
 		}
@@ -150,4 +156,77 @@ void CEditor::Redo(std::istream&)
 	{
 		std::cout << "Can't redo" << std::endl;
 	}
+}
+
+void CEditor::Save(std::istream& is)
+{
+	std::string path;
+
+	try
+	{
+		if (getline(is, path))
+		{
+			SaveImpl(path);
+			m_menu.Exit();
+		}
+		else
+		{
+			std::cout << "File not saved!";
+		}
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+}
+
+void CEditor::SaveImpl(const std::string& path)
+{
+	std::ofstream html(path);
+	html << "<html>"
+		 << "<head>"
+		 << "<title>" << ReplaceCharacters(m_document->GetTitle()) << "</title>"
+		 << "</head>"
+		 << "<body>";
+
+	for (auto i = 0; i < m_document->GetItemsCount(); i++)
+	{
+		if (m_document->GetItem(i).GetParagraph())
+		{
+			auto paragraph = m_document->GetItem(i).GetParagraph();
+			html << "<p>" << ReplaceCharacters(paragraph->GetText()) << "</p>";
+		}
+	}
+
+	html << "</body>"
+		 << "</html>" << std::endl;
+}
+
+std::string CEditor::ReplaceCharacters(const std::string& str)
+{
+	std::string result;
+	for (const auto ch : str)
+	{
+		switch (ch)
+		{
+		case '<':
+			result.append("&lt;");
+			break;
+		case '>':
+			result.append("&gt;");
+			break;
+		case '"':
+			result.append("&quot;");
+			break;
+		case '\'':
+			result.append("&apos;");
+			break;
+		case '&':
+			result.append("&amp;");
+			break;
+		default:
+			result += ch;
+		}
+	}
+	return result;
 }
