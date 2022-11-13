@@ -1,9 +1,9 @@
 #include "CInsertDocumentItemCommand.h"
 #include <utility>
 
-CInsertDocumentItemCommand::CInsertDocumentItemCommand(std::vector<CDocumentItem>& items, CDocumentItem& item, size_t index)
+CInsertDocumentItemCommand::CInsertDocumentItemCommand(std::vector<CDocumentItem>& items, CDocumentItem item, size_t index)
 	: m_items(items)
-	, m_item(item)
+	, m_item(std::move(item))
 	, m_index(index)
 {
 }
@@ -20,4 +20,8 @@ void CInsertDocumentItemCommand::DoUnexecute()
 
 CInsertDocumentItemCommand::~CInsertDocumentItemCommand()
 {
+	if (m_item.GetImage() != nullptr)
+	{
+		m_item.GetImage()->Destroy();
+	}
 }

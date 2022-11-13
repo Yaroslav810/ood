@@ -2,7 +2,9 @@
 #include "../History/CHistory.h"
 #include "IImage.h"
 #include <utility>
+#include <filesystem>
 #include <vector>
+#include <random>
 
 class CImage : public IImage
 {
@@ -15,8 +17,13 @@ public:
 	void Destroy() override;
 
 private:
+	bool CheckExtension();
+	[[nodiscard]] bool CheckSize() const;
+	std::string GetExtension();
+	static std::string GenerateName();
+
 	std::string const DIRECTORY = "images";
-	std::vector<std::string> AVAILABLE_EXTENSIONS = { "jpg", "png" };
+	std::vector<std::string> AVAILABLE_EXTENSIONS = { ".jpg", ".png" };
 	int const MIN_SIZE = 1;
 	int const MAX_SIZE = 10000;
 

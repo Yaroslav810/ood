@@ -5,7 +5,7 @@ CEditor::CEditor()
 	: m_document(std::make_unique<CDocument>())
 {
 	m_menu.AddItem("InsertParagraph", "Inserts a paragraph. Args: <pos>|end <text>", [this](std::istream& is) { InsertParagraph(is); });
-	//	m_menu.AddItem("InsertImage", "Inserts an image. Args: <pos>|end <width> <height> <path>", [this](std::istream& is) { InsertImage(is); });
+	m_menu.AddItem("InsertImage", "Inserts an image. Args: <pos>|end <width> <height> <path>", [this](std::istream& is) { InsertImage(is); });
 	m_menu.AddItem("SetTitle", "Changes title. Args: <new title>", [this](std::istream& is) { SetTitle(is); });
 	m_menu.AddItem("List", "Show document", [this](std::istream& is) { List(is); });
 	m_menu.AddItem("ReplaceText", "Replace a text. Args: <pos> <text>", [this](std::istream& is) { ReplaceText(is); });
@@ -56,11 +56,13 @@ void CEditor::InsertImage(std::istream& is)
 		if (is >> pos && is >> width && is >> height && is >> path)
 		{
 			m_document->InsertImage(path, width, height, pos == "end" ? std::optional<size_t>() : std::stoi(pos));
+		} else {
+			std::cout << "Invalid args" << std::endl;
 		}
 	}
-	catch (std::exception&)
+	catch (std::exception& e)
 	{
-		std::cout << "Invalid pos" << std::endl;
+		std::cout << e.what() << std::endl;
 	}
 }
 
@@ -93,7 +95,7 @@ void CEditor::List(std::istream&)
 		else
 		{
 			std::shared_ptr<IImage> image = m_document->GetItem(i).GetImage();
-			std::cout << "Imgae: " << image->GetWidth() << " " << image->GetHeight() << " " << image->GetPath() << std::endl;
+			std::cout << "Image: " << image->GetWidth() << " " << image->GetHeight() << " " << image->GetPath() << std::endl;
 		}
 	}
 	std::cout << "-------------" << std::endl;

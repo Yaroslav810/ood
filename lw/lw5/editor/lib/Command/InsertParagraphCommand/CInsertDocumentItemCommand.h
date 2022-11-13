@@ -1,13 +1,12 @@
 #pragma once
 #include "../../Document/CDocumentItem.h"
 #include "../CAbstractCommand.h"
-#include <iostream>
 #include <vector>
 
 class CInsertDocumentItemCommand : public CAbstractCommand
 {
 public:
-	CInsertDocumentItemCommand(std::vector<CDocumentItem>& items, CDocumentItem& item, size_t index);
+	CInsertDocumentItemCommand(std::vector<CDocumentItem>& items, CDocumentItem item, size_t index);
 	~CInsertDocumentItemCommand() override;
 
 protected:
@@ -16,6 +15,6 @@ protected:
 
 private:
 	std::vector<CDocumentItem>& m_items;
-	CDocumentItem& m_item;
+	CDocumentItem m_item;
 	size_t m_index;
 };
