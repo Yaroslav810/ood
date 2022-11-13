@@ -35,7 +35,7 @@ TEST_CASE("Image")
 	CImage image("image.png", 150, 100, history);
 	THEN("Created CImage")
 	{
-		REQUIRE(image.GetPath() == "image.png");
+		REQUIRE(image.GetPath() != "image.png");
 		REQUIRE(image.GetWidth() == 150);
 		REQUIRE(image.GetHeight() == 100);
 	}
@@ -198,7 +198,7 @@ TEST_CASE("DeleteItemCommand")
 		THEN("Items size = 1")
 		{
 			REQUIRE(items.size() == 1);
-			REQUIRE(items[0].GetImage()->GetPath() == "image1.png");
+			REQUIRE(items[0].GetImage()->GetPath() != "image1.png");
 			REQUIRE(items[0].GetImage()->GetWidth() == 150);
 			REQUIRE(items[0].GetImage()->GetHeight() == 100);
 		}
@@ -219,7 +219,7 @@ TEST_CASE("DeleteItemCommand")
 		THEN("Items size = 1")
 		{
 			REQUIRE(items.size() == 1);
-			REQUIRE(items[0].GetImage()->GetPath() == "image1.png");
+			REQUIRE(items[0].GetImage()->GetPath() != "image1.png");
 			REQUIRE(items[0].GetImage()->GetWidth() == 150);
 			REQUIRE(items[0].GetImage()->GetHeight() == 100);
 		}
@@ -229,7 +229,7 @@ TEST_CASE("DeleteItemCommand")
 		{
 			REQUIRE(items.size() == 2);
 			REQUIRE(items[0].GetParagraph()->GetText() == "paragraph #1");
-			REQUIRE(items[1].GetImage()->GetPath() == "image1.png");
+			REQUIRE(items[1].GetImage()->GetPath() != "image1.png");
 			REQUIRE(items[1].GetImage()->GetWidth() == 150);
 			REQUIRE(items[1].GetImage()->GetHeight() == 100);
 		}
@@ -252,7 +252,7 @@ TEST_CASE("DeleteItemCommand")
 		{
 			REQUIRE(items.size() == 2);
 			REQUIRE(items[0].GetParagraph()->GetText() == "paragraph #1");
-			REQUIRE(items[1].GetImage()->GetPath() == "image1.png");
+			REQUIRE(items[1].GetImage()->GetPath() != "image1.png");
 			REQUIRE(items[1].GetImage()->GetWidth() == 150);
 			REQUIRE(items[1].GetImage()->GetHeight() == 100);
 		}
@@ -285,7 +285,7 @@ TEST_CASE("InsertParagraphCommand")
 		THEN("1 item - image")
 		{
 			REQUIRE(items.size() == 1);
-			REQUIRE(items[0].GetImage()->GetPath() == "image.png");
+			REQUIRE(items[0].GetImage()->GetPath() != "image.png");
 			REQUIRE(items[0].GetImage()->GetWidth() == 150);
 			REQUIRE(items[0].GetImage()->GetHeight() == 100);
 		}
@@ -301,7 +301,7 @@ TEST_CASE("InsertParagraphCommand")
 		{
 			REQUIRE(items.size() == 2);
 			REQUIRE(items[0].GetParagraph()->GetText() == "paragraph");
-			REQUIRE(items[1].GetImage()->GetPath() == "image.png");
+			REQUIRE(items[1].GetImage()->GetPath() != "image.png");
 			REQUIRE(items[1].GetImage()->GetWidth() == 150);
 			REQUIRE(items[1].GetImage()->GetHeight() == 100);
 		}
@@ -316,7 +316,7 @@ TEST_CASE("InsertParagraphCommand")
 		THEN("Paragraph and Item")
 		{
 			REQUIRE(items.size() == 2);
-			REQUIRE(items[0].GetImage()->GetPath() == "image.png");
+			REQUIRE(items[0].GetImage()->GetPath() != "image.png");
 			REQUIRE(items[0].GetImage()->GetWidth() == 150);
 			REQUIRE(items[0].GetImage()->GetHeight() == 100);
 			REQUIRE(items[1].GetParagraph()->GetText() == "paragraph");
@@ -420,7 +420,7 @@ TEST_CASE("Document")
 		THEN("The first element is a paragraph")
 		{
 			REQUIRE(document.GetItemsCount() == 1);
-			REQUIRE(document.GetItem(0).GetImage()->GetPath() == "image.png");
+			REQUIRE(document.GetItem(0).GetImage()->GetPath() != "image.png");
 			REQUIRE(document.GetItem(0).GetImage()->GetWidth() == 150);
 			REQUIRE(document.GetItem(0).GetImage()->GetHeight() == 100);
 		}
@@ -455,7 +455,7 @@ TEST_CASE("Document")
 		THEN("Size = 1")
 		{
 			REQUIRE(document.GetItemsCount() == 1);
-			REQUIRE(document.GetItem(0).GetImage()->GetPath() == "image.png");
+			REQUIRE(document.GetItem(0).GetImage()->GetPath() != "image.png");
 			REQUIRE(document.GetItem(0).GetImage()->GetWidth() == 150);
 			REQUIRE(document.GetItem(0).GetImage()->GetHeight() == 100);
 		}
@@ -465,7 +465,7 @@ TEST_CASE("Document")
 		{
 			REQUIRE(document.GetItemsCount() == 2);
 			REQUIRE(document.GetItem(0).GetParagraph()->GetText() == "paragraph");
-			REQUIRE(document.GetItem(1).GetImage()->GetPath() == "image.png");
+			REQUIRE(document.GetItem(1).GetImage()->GetPath() != "image.png");
 			REQUIRE(document.GetItem(1).GetImage()->GetWidth() == 150);
 			REQUIRE(document.GetItem(1).GetImage()->GetHeight() == 100);
 		}
@@ -481,7 +481,7 @@ TEST_CASE("Document")
 		THEN("Image")
 		{
 			REQUIRE(document.GetItemsCount() == 1);
-			REQUIRE(document.GetItem(0).GetImage()->GetPath() == "image.png");
+			REQUIRE(document.GetItem(0).GetImage()->GetPath() != "image.png");
 			REQUIRE(document.GetItem(0).GetImage()->GetWidth() == 150);
 			REQUIRE(document.GetItem(0).GetImage()->GetHeight() == 100);
 		}
