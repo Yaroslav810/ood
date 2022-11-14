@@ -377,6 +377,42 @@ TEST_CASE("ReplaceTextCommand")
 	}
 }
 
+TEST_CASE("ResizeImageCommand")
+{
+	int width = 100;
+	int height = 100;
+	int newWidth = 150;
+	int newHeight = 150;
+	CResizeImageCommand resizeImageCommand(width, height, newWidth, newHeight);
+
+	SECTION("Execute")
+	{
+		resizeImageCommand.Execute();
+		THEN("width === 150")
+		{
+			REQUIRE(width == 150);
+		}
+	}
+
+	SECTION("Execute and Unexecute")
+	{
+		resizeImageCommand.Execute();
+		resizeImageCommand.Unexecute();
+
+		THEN("width === 100")
+		{
+			REQUIRE(width == 100);
+		}
+	}
+
+	SECTION("Invalid size")
+	{
+		REQUIRE_THROWS(CResizeImageCommand(width, height, 100000, 150));
+		REQUIRE_THROWS(CResizeImageCommand(width, height, 0, 150));
+		REQUIRE_THROWS(CResizeImageCommand(width, height, -10000, 150));
+	}
+}
+
 TEST_CASE("Document")
 {
 	SECTION("Empty")

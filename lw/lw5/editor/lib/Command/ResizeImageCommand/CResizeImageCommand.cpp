@@ -6,7 +6,7 @@ CResizeImageCommand::CResizeImageCommand(int& width, int& height, int newWidth, 
 	, m_newWidth(newWidth)
 	, m_newHeight(newHeight)
 {
-	if (m_width >= CImage::MAX_SIZE && m_width <= CImage::MIN_SIZE && m_height >= CImage::MAX_SIZE && m_height <= CImage::MIN_SIZE)
+	if (m_newWidth >= CImage::MAX_SIZE || m_newWidth <= CImage::MIN_SIZE || m_newHeight >= CImage::MAX_SIZE || m_newHeight <= CImage::MIN_SIZE)
 	{
 		throw std::invalid_argument("Unavailable file sizes");
 	}
