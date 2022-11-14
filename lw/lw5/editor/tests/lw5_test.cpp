@@ -6,8 +6,6 @@
 #include "../lib/Command/InsertParagraphCommand/CInsertDocumentItemCommand.h"
 #include "../lib/Command/ReplaceTextCommand/CReplaceTextCommand.h"
 #include "../lib/Document/CDocument.h"
-#include "../lib/Image/CImage.h"
-#include "../lib/Paragraph/CParagraph.h"
 
 class MockCommand : public CAbstractCommand
 {
