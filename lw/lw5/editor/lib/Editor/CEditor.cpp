@@ -1,5 +1,4 @@
 #include "CEditor.h"
-#include <fstream>
 
 CEditor::CEditor()
 	: m_document(std::make_unique<CDocument>())
@@ -56,7 +55,9 @@ void CEditor::InsertImage(std::istream& is)
 		if (is >> pos && is >> width && is >> height && is >> path)
 		{
 			m_document->InsertImage(path, width, height, pos == "end" ? std::optional<size_t>() : std::stoi(pos));
-		} else {
+		}
+		else
+		{
 			std::cout << "Invalid args" << std::endl;
 		}
 	}
@@ -168,67 +169,16 @@ void CEditor::Save(std::istream& is)
 	{
 		if (getline(is, path))
 		{
-			SaveImpl(path);
+			m_document->Save(path);
 			m_menu.Exit();
 		}
 		else
 		{
-			std::cout << "File not saved!";
+			std::cout << "File not saved!" << std::endl;
 		}
 	}
 	catch (std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
 	}
-}
-
-void CEditor::SaveImpl(const std::string& path)
-{
-	std::ofstream html(path);
-	html << "<html>"
-		 << "<head>"
-		 << "<title>" << ReplaceCharacters(m_document->GetTitle()) << "</title>"
-		 << "</head>"
-		 << "<body>";
-
-	for (auto i = 0; i < m_document->GetItemsCount(); i++)
-	{
-		if (m_document->GetItem(i).GetParagraph())
-		{
-			auto paragraph = m_document->GetItem(i).GetParagraph();
-			html << "<p>" << ReplaceCharacters(paragraph->GetText()) << "</p>";
-		}
-	}
-
-	html << "</body>"
-		 << "</html>" << std::endl;
-}
-
-std::string CEditor::ReplaceCharacters(const std::string& str)
-{
-	std::string result;
-	for (const auto ch : str)
-	{
-		switch (ch)
-		{
-		case '<':
-			result.append("&lt;");
-			break;
-		case '>':
-			result.append("&gt;");
-			break;
-		case '"':
-			result.append("&quot;");
-			break;
-		case '\'':
-			result.append("&apos;");
-			break;
-		case '&':
-			result.append("&amp;");
-			break;
-		default:
-			result += ch;
-		}
-	}
-	return result;
 }

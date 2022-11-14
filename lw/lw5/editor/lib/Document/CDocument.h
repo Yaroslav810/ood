@@ -1,8 +1,14 @@
 #pragma once
 #include "../History/CHistory.h"
+#include "../Command/ChangeStringCommand/CChangeStringCommand.h"
+#include "../Command/DeleteItemCommand/CDeleteItemCommand.h"
+#include "../Command/InsertParagraphCommand/CInsertDocumentItemCommand.h"
+#include "../Image/CImage.h"
+#include "../Paragraph/CParagraph.h"
 #include "IDocument.h"
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 class CDocument : public IDocument
 {
@@ -25,6 +31,8 @@ public:
 	void Save(const std::string& path) const override;
 
 private:
+	static std::string ReplaceCharacters(const std::string& str);
+
 	std::string m_title;
 	std::vector<CDocumentItem> m_items;
 	CHistory m_history;

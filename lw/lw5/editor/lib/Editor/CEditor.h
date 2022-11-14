@@ -30,10 +30,6 @@ private:
 
 	void Save(std::istream& is);
 
-	void SaveImpl(const std::string& path);
-
-	static std::string ReplaceCharacters(const std::string& str);
-
 	CMenu m_menu;
 	std::unique_ptr<IDocument> m_document;
 };

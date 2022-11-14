@@ -1,9 +1,4 @@
 #include "CDocument.h"
-#include "../Command/ChangeStringCommand/CChangeStringCommand.h"
-#include "../Command/DeleteItemCommand/CDeleteItemCommand.h"
-#include "../Command/InsertParagraphCommand/CInsertDocumentItemCommand.h"
-#include "../Image/CImage.h"
-#include "../Paragraph/CParagraph.h"
 
 std::shared_ptr<IParagraph> CDocument::InsertParagraph(const std::string& text, std::optional<size_t> position)
 {
@@ -104,5 +99,74 @@ void CDocument::Redo()
 
 void CDocument::Save(const std::string& path) const
 {
-	// TODO
+	std::string parentPath = std::filesystem::path(path).parent_path().string();
+	std::string rootDir = parentPath + (parentPath.empty() ? "" : "/");
+	std::string imagesDir = rootDir + "images";
+	std::cout << imagesDir << std::endl;
+	if (!std::filesystem::is_directory(imagesDir))
+	{
+		if (!rootDir.empty()) {
+			std::filesystem::create_directory(rootDir);
+		}
+		std::filesystem::create_directory(imagesDir);
+	}
+
+	std::ofstream html(path);
+	html << "<html>"
+		 << "<head>"
+		 << "<title>" << ReplaceCharacters(this->GetTitle()) << "</title>"
+		 << "</head>"
+		 << "<body>";
+
+	for (auto i = 0; i < this->GetItemsCount(); i++)
+	{
+		if (this->GetItem(i).GetParagraph())
+		{
+			auto paragraph = this->GetItem(i).GetParagraph();
+			html << "<p>" << ReplaceCharacters(paragraph->GetText()) << "</p>";
+		}
+		else
+		{
+			auto image = this->GetItem(i).GetImage();
+			auto filename = std::filesystem::path(image->GetPath()).filename().string();
+			auto src = "images/" + filename;
+			auto dir = imagesDir += "/" + filename;
+			int width = image->GetWidth();
+			int height = image->GetHeight();
+			html << "<img src='" + src + "' width=" + std::to_string(width) + " height=" + std::to_string(height) + " />";
+			std::filesystem::copy_file(image->GetPath(), dir);
+		}
+	}
+
+	html << "</body>"
+		 << "</html>" << std::endl;
+}
+
+std::string CDocument::ReplaceCharacters(const std::string& str)
+{
+	std::string result;
+	for (const auto ch : str)
+	{
+		switch (ch)
+		{
+		case '<':
+			result.append("&lt;");
+			break;
+		case '>':
+			result.append("&gt;");
+			break;
+		case '"':
+			result.append("&quot;");
+			break;
+		case '\'':
+			result.append("&apos;");
+			break;
+		case '&':
+			result.append("&amp;");
+			break;
+		default:
+			result += ch;
+		}
+	}
+	return result;
 }

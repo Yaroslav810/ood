@@ -22,7 +22,7 @@ private:
 	std::string GetExtension();
 	static std::string GenerateName();
 
-	std::string const DIRECTORY = "images";
+	std::string const DIRECTORY = "temp";
 	std::vector<std::string> AVAILABLE_EXTENSIONS = { ".jpg", ".png" };
 	int const MIN_SIZE = 1;
 	int const MAX_SIZE = 10000;
