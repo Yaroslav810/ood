@@ -26,6 +26,8 @@ add_executable(
         lib/Command/ReplaceTextCommand/CReplaceTextCommand.cpp
         lib/Command/DeleteItemCommand/CDeleteItemCommand.h
         lib/Command/DeleteItemCommand/CDeleteItemCommand.cpp
+        lib/Command/ResizeImageCommand/CResizeImageCommand.h
+        lib/Command/ResizeImageCommand/CResizeImageCommand.cpp
         lib/Image/IImage.h
         lib/Image/CImage.h
         lib/Image/CImage.cpp
@@ -62,6 +64,8 @@ add_executable(
         lib/Command/ReplaceTextCommand/CReplaceTextCommand.cpp
         lib/Command/DeleteItemCommand/CDeleteItemCommand.h
         lib/Command/DeleteItemCommand/CDeleteItemCommand.cpp
+        lib/Command/ResizeImageCommand/CResizeImageCommand.h
+        lib/Command/ResizeImageCommand/CResizeImageCommand.cpp
         lib/Image/IImage.h
         lib/Image/CImage.h
         lib/Image/CImage.cpp

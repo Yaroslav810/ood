@@ -8,6 +8,7 @@ CEditor::CEditor()
 	m_menu.AddItem("SetTitle", "Changes title. Args: <new title>", [this](std::istream& is) { SetTitle(is); });
 	m_menu.AddItem("List", "Show document", [this](std::istream& is) { List(is); });
 	m_menu.AddItem("ReplaceText", "Replace a text. Args: <pos> <text>", [this](std::istream& is) { ReplaceText(is); });
+	m_menu.AddItem("ResizeImage", "Resize an image. Args: <pos> <width> <height>", [this](std::istream& is) { ResizeImage(is); });
 	m_menu.AddItem("DeleteItem", "Delete a item. Args: <pos>", [this](std::istream& is) { DeleteItem(is); });
 	m_menu.AddItem("Undo", "Undo command", [this](std::istream& is) { Undo(is); });
 	m_menu.AddItem("Redo", "Redo undone command", [this](std::istream& is) { Redo(is); });
@@ -104,14 +105,33 @@ void CEditor::List(std::istream&)
 
 void CEditor::ReplaceText(std::istream& is)
 {
-	std::string pos;
+	int pos;
 	std::string text;
 
 	try
 	{
 		if (is >> pos && is >> text)
 		{
-			m_document->ReplaceText(text, std::stoi(pos));
+			m_document->ReplaceText(text, pos);
+		}
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+}
+
+void CEditor::ResizeImage(std::istream& is)
+{
+	int pos;
+	int width;
+	int height;
+
+	try
+	{
+		if (is >> pos && is >> width && is >> height)
+		{
+			m_document->ResizeImage(width, height, pos);
 		}
 	}
 	catch (std::exception& e)

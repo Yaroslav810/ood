@@ -48,7 +48,7 @@ int CImage::GetHeight() const
 
 void CImage::Resize(int width, int height)
 {
-	// TODO
+	m_history.AddAndExecuteCommand(std::make_unique<CResizeImageCommand>(m_width, m_height, width, height));
 }
 
 void CImage::Destroy()

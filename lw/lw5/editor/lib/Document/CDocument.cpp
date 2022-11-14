@@ -77,6 +77,23 @@ void CDocument::ReplaceText(const std::string& text, size_t position)
 
 	item.GetParagraph()->SetText(text);
 }
+
+void CDocument::ResizeImage(int width, int height, size_t position)
+{
+	if (position >= GetItemsCount())
+	{
+		throw std::invalid_argument("Invalid pos");
+	}
+
+	auto item = GetItem(position);
+	if (!item.GetImage())
+	{
+		throw std::invalid_argument("Invalid item type");
+	}
+
+	item.GetImage()->Resize(width, height);
+}
+
 bool CDocument::CanUndo() const
 {
 	return m_history.CanUndo();
@@ -105,7 +122,8 @@ void CDocument::Save(const std::string& path) const
 	std::cout << imagesDir << std::endl;
 	if (!std::filesystem::is_directory(imagesDir))
 	{
-		if (!rootDir.empty()) {
+		if (!rootDir.empty())
+		{
 			std::filesystem::create_directory(rootDir);
 		}
 		std::filesystem::create_directory(imagesDir);

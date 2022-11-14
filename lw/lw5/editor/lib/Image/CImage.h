@@ -1,10 +1,11 @@
 #pragma once
+#include "../Command/ResizeImageCommand/CResizeImageCommand.h"
 #include "../History/CHistory.h"
 #include "IImage.h"
-#include <utility>
 #include <filesystem>
-#include <vector>
 #include <random>
+#include <utility>
+#include <vector>
 
 class CImage : public IImage
 {
@@ -16,6 +17,10 @@ public:
 	void Resize(int width, int height) override;
 	void Destroy() override;
 
+	std::vector<std::string> AVAILABLE_EXTENSIONS = { ".jpg", ".png" };
+	static int const MIN_SIZE = 1;
+	static int const MAX_SIZE = 10000;
+
 private:
 	bool CheckExtension();
 	[[nodiscard]] bool CheckSize() const;
@@ -23,9 +28,6 @@ private:
 	static std::string GenerateName();
 
 	std::string const DIRECTORY = "temp";
-	std::vector<std::string> AVAILABLE_EXTENSIONS = { ".jpg", ".png" };
-	int const MIN_SIZE = 1;
-	int const MAX_SIZE = 10000;
 
 	std::string m_path;
 	int m_width;
