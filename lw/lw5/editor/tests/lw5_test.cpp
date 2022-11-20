@@ -16,7 +16,7 @@ protected:
 	void DoExecute() override{};
 	void DoUnexecute() override{};
 };
-
+// TODO: GIVEN -> WHEN -> THEN (ADD_WHEN + ADD_THEN)
 TEST_CASE("Paragraph")
 {
 	CHistory history;

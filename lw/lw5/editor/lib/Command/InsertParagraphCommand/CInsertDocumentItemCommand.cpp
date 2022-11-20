@@ -25,3 +25,6 @@ CInsertDocumentItemCommand::~CInsertDocumentItemCommand()
 		m_item.GetImage()->Destroy();
 	}
 }
+
+// TODO: Удаляется изображение при переполнении истории
+// TODO: Посмотреть с удалением картинки

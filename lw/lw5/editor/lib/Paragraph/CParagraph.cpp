@@ -17,3 +17,5 @@ void CParagraph::SetText(const std::string& text)
 {
 	m_history.AddAndExecuteCommand(std::make_unique<CReplaceTextCommand>(m_text, text));
 }
+
+// TODO: В Параграф прокинуть ссылку

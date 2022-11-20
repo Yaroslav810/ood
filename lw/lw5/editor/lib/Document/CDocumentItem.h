@@ -15,3 +15,5 @@ public:
 	// Возвращает указатель на параграф, либо nullptr, если элемент не является параграфом
 	std::shared_ptr<IParagraph> GetParagraph();
 };
+
+// TODO: Вызывать у Editor

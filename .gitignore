@@ -41,6 +41,7 @@ dlldata.c
 .idea/
 cmake-build-release/
 cmake-build-debug/
+cmake-build-debug-coverage
 
 # DNX
 project.lock.json
