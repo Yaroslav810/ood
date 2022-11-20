@@ -1,0 +1,19 @@
+add_executable(
+        lw6_1
+        main.cpp
+        lib/graphics_lib/graphics_lib.h
+        lib/shape_drawing_lib/shape_drawing_lib.h
+        lib/modern_graphics_lib/modern_graphics_lib.h
+        lib/CCanvasPainter.h
+        lib/CModernGraphicsLibAdapter.h
+)
+
+add_executable(
+        lw6_test
+        tests/lw6_test.cpp
+        lib/graphics_lib/graphics_lib.h
+        lib/shape_drawing_lib/shape_drawing_lib.h
+        lib/modern_graphics_lib/modern_graphics_lib.h
+        lib/CCanvasPainter.h
+        lib/CModernGraphicsLibAdapter.h
+)
