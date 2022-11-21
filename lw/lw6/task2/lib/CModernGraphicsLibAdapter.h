@@ -3,13 +3,19 @@
 #include "modern_graphics_lib/modern_graphics_lib.h"
 
 class CModernGraphicsLibAdapter : public graphics_lib::ICanvas
-	, public modern_graphics_lib::CModernGraphicsRenderer
+	, private modern_graphics_lib::CModernGraphicsRenderer
 {
 public:
-	CModernGraphicsLibAdapter(std::ostream& strm)
+	explicit CModernGraphicsLibAdapter(std::ostream& strm)
 		: modern_graphics_lib::CModernGraphicsRenderer(strm)
 		, m_currentPoint({ 0, 0 })
 	{
+		modern_graphics_lib::CModernGraphicsRenderer::BeginDraw();
+	}
+
+	~CModernGraphicsLibAdapter() override
+	{
+		modern_graphics_lib::CModernGraphicsRenderer::EndDraw();
 	}
 
 	void MoveTo(int x, int y) override
