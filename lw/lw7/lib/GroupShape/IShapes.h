@@ -4,7 +4,7 @@
 #include <limits>
 #include <memory>
 
-class IShapesCollection
+class IShapes
 {
 public:
 	[[nodiscard]] virtual size_t GetShapesCount() const = 0;
@@ -12,5 +12,5 @@ public:
 	virtual std::shared_ptr<IShape> GetShapeAtIndex(size_t index) = 0;
 	virtual void RemoveShapeAtIndex(size_t index) = 0;
 
-	virtual ~IShapesCollection() = default;
+	virtual ~IShapes() = default;
 };

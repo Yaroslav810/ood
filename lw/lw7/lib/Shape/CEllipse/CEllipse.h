@@ -7,9 +7,9 @@ public:
 public:
 	CEllipse(PointD center, double horizontalRadius, double verticalRadius);
 
-	RectD GetFrame() override;
-	void SetFrame(RectD const& rect) override;
-	void Draw(ICanvas& canvas) const override;
+	RectD GetFrame() final;
+	void SetFrame(RectD const& rect) final;
+	void Draw(ICanvas& canvas) const final;
 
 private:
 	PointD m_center;

@@ -3,7 +3,7 @@
 #include "IShapes.h"
 
 class IGroupShape : public IShape
-	, public IShapesCollection
+	, public IShapes
 {
 public:
 	virtual ~IGroupShape() = default;

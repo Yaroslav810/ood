@@ -2,8 +2,9 @@
 #include "../Common/IDrawable.h"
 #include "../Common/IFillStyle.h"
 #include "../Common/ILineStyle.h"
-#include "../GroupShape/IGroupShape.h"
 #include <memory>
+
+class IGroupShape;
 
 class IShape : public IDrawable
 {

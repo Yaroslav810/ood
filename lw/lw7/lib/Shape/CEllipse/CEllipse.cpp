@@ -26,5 +26,5 @@ void CEllipse::SetFrame(const RectD& rect)
 
 void CEllipse::Draw(ICanvas& canvas) const
 {
-	canvas.DrawEllipse()
+//	canvas.DrawEllipse()
 }

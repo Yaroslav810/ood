@@ -5,6 +5,7 @@ set(SFML_STATIC_LIBRARIES TRUE)
 add_executable(
         lw7
         main.cpp
+        lib/Shape/IShape.h
         lib/Canvas/ICanvas.h
         lib/Canvas/CCanvas/CCanvas.h
         lib/Canvas/CCanvas/CCanvas.cpp
@@ -15,7 +16,6 @@ add_executable(
         lib/GroupShape/CGroupShape/CGroupShape.h
         lib/GroupShape/CGroupShape/CGroupShape.cpp
         lib/GroupShape/Style/IGroupStyle.h
-        lib/Shape/IShape.h
         lib/Shape/CShape/CShape.h
         lib/Shape/CShape/CShape.cpp
         lib/Shape/CEllipse/CEllipse.h

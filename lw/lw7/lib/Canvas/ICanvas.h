@@ -22,5 +22,5 @@ public:
 		std::optional<double> thickness)
 		= 0;
 
-	virtual ~ICanvas() = 0;
+	virtual ~ICanvas() = default;
 };
