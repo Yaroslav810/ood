@@ -15,6 +15,10 @@ add_executable(
         lib/GroupShape/IShapes.h
         lib/GroupShape/CGroupShape/CGroupShape.h
         lib/GroupShape/CGroupShape/CGroupShape.cpp
+        lib/GroupShape/Style/CGroupShapeFillStyle/CGroupShapeFillStyle.h
+        lib/GroupShape/Style/CGroupShapeFillStyle/CGroupShapeFillStyle.cpp
+        lib/GroupShape/Style/CGroupShapeOutlineStyle/CGroupShapeOutlineStyle.h
+        lib/GroupShape/Style/CGroupShapeOutlineStyle/CGroupShapeOutlineStyle.cpp
         lib/GroupShape/Style/IGroupStyle.h
         lib/Shape/CShape/CShape.h
         lib/Shape/CShape/CShape.cpp
