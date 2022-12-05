@@ -4,10 +4,9 @@
 class CEllipse : public CShape
 {
 public:
-public:
 	CEllipse(PointD center, double horizontalRadius, double verticalRadius);
 
-	RectD GetFrame() final;
+	std::optional<RectD> GetFrame() final;
 	void SetFrame(RectD const& rect) final;
 	void Draw(ICanvas& canvas) const final;
 

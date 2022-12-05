@@ -7,9 +7,9 @@ CEllipse::CEllipse(PointD center, double horizontalRadius, double verticalRadius
 {
 }
 
-RectD CEllipse::GetFrame()
+std::optional<RectD> CEllipse::GetFrame()
 {
-	return {
+	return RectD{
 		.left = m_center.x - m_horizontalRadius,
 		.top = m_center.y - m_verticalRadius,
 		.width = m_horizontalRadius * 2,
@@ -26,5 +26,12 @@ void CEllipse::SetFrame(const RectD& rect)
 
 void CEllipse::Draw(ICanvas& canvas) const
 {
-//	canvas.DrawEllipse()
+	auto outline = GetOutlineStyle();
+	canvas.DrawEllipse(
+		m_center,
+		m_horizontalRadius,
+		m_verticalRadius,
+		outline->GetColor(),
+		GetFillStyle()->GetColor(),
+		outline->GetThickness());
 }
