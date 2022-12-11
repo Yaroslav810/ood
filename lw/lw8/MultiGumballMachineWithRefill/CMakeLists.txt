@@ -1,0 +1,33 @@
+add_executable(
+        lw8_MultiGumballMachineWithRefill
+        main.cpp
+        lib/GumballMachine/IGumballMachine.h
+        lib/GumballMachine/CGumballMachine/CGumballMachine.h
+        lib/GumballMachine/CGumballMachine/CGumballMachine.cpp
+        lib/State/IState.h
+        lib/State/CHasQuarterState/CHasQuarterState.h
+        lib/State/CHasQuarterState/CHasQuarterState.cpp
+        lib/State/CNoQuarterState/CNoQuarterState.h
+        lib/State/CNoQuarterState/CNoQuarterState.cpp
+        lib/State/CSoldOutState/CSoldOutState.h
+        lib/State/CSoldOutState/CSoldOutState.cpp
+        lib/State/CSoldState/CSoldState.h
+        lib/State/CSoldState/CSoldState.cpp
+)
+
+add_executable(
+        lw8_MultiGumballMachineWithRefillTest
+        tests/GumballMachine_test.cpp
+        lib/GumballMachine/IGumballMachine.h
+        lib/GumballMachine/CGumballMachine/CGumballMachine.h
+        lib/GumballMachine/CGumballMachine/CGumballMachine.cpp
+        lib/State/IState.h
+        lib/State/CHasQuarterState/CHasQuarterState.h
+        lib/State/CHasQuarterState/CHasQuarterState.cpp
+        lib/State/CNoQuarterState/CNoQuarterState.h
+        lib/State/CNoQuarterState/CNoQuarterState.cpp
+        lib/State/CSoldOutState/CSoldOutState.h
+        lib/State/CSoldOutState/CSoldOutState.cpp
+        lib/State/CSoldState/CSoldState.h
+        lib/State/CSoldState/CSoldState.cpp
+)
