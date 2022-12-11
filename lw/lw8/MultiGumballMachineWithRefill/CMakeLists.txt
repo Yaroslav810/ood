@@ -17,7 +17,7 @@ add_executable(
 
 add_executable(
         lw8_MultiGumballMachineWithRefillTest
-        tests/GumballMachine_test.cpp
+        tests/MultiGumballMachineWithRefill_test.cpp
         lib/GumballMachine/IGumballMachine.h
         lib/GumballMachine/CGumballMachine/CGumballMachine.h
         lib/GumballMachine/CGumballMachine/CGumballMachine.cpp

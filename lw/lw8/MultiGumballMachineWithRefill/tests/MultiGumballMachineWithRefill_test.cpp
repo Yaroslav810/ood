@@ -1,5 +1,5 @@
 #define CATCH_CONFIG_MAIN
-#include "../../../../../catch2/catch.hpp"
+#include "../../../../catch2/catch.hpp"
 #include "../lib/GumballMachine/CGumballMachine/CGumballMachine.h"
 
 std::string CreateOutputGumballMachineString(unsigned count, unsigned quarterCount, const std::string& state)
@@ -46,6 +46,15 @@ SCENARIO("In the state of no quarter, you can only insert a quarter (up to 5)")
 			THEN("The machine goes into the state there is a has quarter (1)")
 			{
 				REQUIRE(machine.ToString() == CreateOutputGumballMachineString(5, 1, "waiting for turn of crank"));
+
+				AND_WHEN("Add 10 balls")
+				{
+					machine.AddBalls(10);
+					THEN("The number of balls becomes 15, quarter = 1")
+					{
+						REQUIRE(machine.ToString() == CreateOutputGumballMachineString(15, 1, "waiting for turn of crank"));
+					}
+				}
 			}
 		}
 
@@ -64,6 +73,15 @@ SCENARIO("In the state of no quarter, you can only insert a quarter (up to 5)")
 			THEN("The machine goes into the state there is a has quarter")
 			{
 				REQUIRE(machine.ToString() == CreateOutputGumballMachineString(5, 0, "waiting for quarter"));
+			}
+		}
+
+		WHEN("Add 10 balls")
+		{
+			machine.AddBalls(10);
+			THEN("The number of balls becomes 15")
+			{
+				REQUIRE(machine.ToString() == CreateOutputGumballMachineString(15, 0, "waiting for quarter"));
 			}
 		}
 	}
@@ -110,6 +128,15 @@ SCENARIO("In the state of has quarter, you can eject a quarter or turn crank")
 					THEN("All quarters are issued")
 					{
 						REQUIRE(machine.ToString() == CreateOutputGumballMachineString(5, 0, "waiting for quarter"));
+					}
+				}
+
+				AND_WHEN("Add 10 balls")
+				{
+					machine.AddBalls(10);
+					THEN("The number of balls becomes 15, quarter = 5")
+					{
+						REQUIRE(machine.ToString() == CreateOutputGumballMachineString(15, 5, "waiting for turn of crank"));
 					}
 				}
 			}
@@ -200,6 +227,24 @@ SCENARIO("In the state of sold out, you can only give out quarters")
 						{
 							REQUIRE(machine.ToString() == CreateOutputGumballMachineString(0, 0, "sold out"));
 						}
+					}
+
+					AND_WHEN("Add 10 balls")
+					{
+						machine.AddBalls(10);
+						THEN("The number of balls becomes 10, quarter = 0")
+						{
+							REQUIRE(machine.ToString() == CreateOutputGumballMachineString(10, 0, "waiting for quarter"));
+						}
+					}
+				}
+
+				AND_WHEN("Add 10 balls")
+				{
+					machine.AddBalls(10);
+					THEN("The number of balls becomes 10, quarter = 2")
+					{
+						REQUIRE(machine.ToString() == CreateOutputGumballMachineString(10, 2, "waiting for turn of crank"));
 					}
 				}
 			}
