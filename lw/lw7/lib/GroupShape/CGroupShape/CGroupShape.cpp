@@ -102,12 +102,12 @@ std::shared_ptr<const IFillStyle> CGroupShape::GetFillStyle() const
 
 std::shared_ptr<IGroupShape> CGroupShape::GetGroup()
 {
-	return std::shared_ptr<IGroupShape>(this);
+	return shared_from_this();
 }
 
 std::shared_ptr<const IGroupShape> CGroupShape::GetGroup() const
 {
-	return std::shared_ptr<const IGroupShape>(this);
+	return shared_from_this();
 }
 
 size_t CGroupShape::GetShapesCount() const
