@@ -24,7 +24,7 @@ private:
 	void SetHasQuarterState() override;
 
 private:
-	unsigned m_count = 0;
+	unsigned m_ballCount = 0;
 	CSoldState m_soldState;
 	CSoldOutState m_soldOutState;
 	CNoQuarterState m_noQuarterState;

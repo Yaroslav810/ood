@@ -101,6 +101,23 @@ SCENARIO("In the state of has quarter, you can eject a quarter or turn crank")
 				REQUIRE(machine.ToString() == CreateOutputGumballMachineString(4, "waiting for quarter"));
 			}
 		}
+
+		// TODO: Добавить в 0
+		WHEN("Turn crank 5 times")
+		{
+			machine.InsertQuarter();
+			machine.TurnCrank();
+			machine.InsertQuarter();
+			machine.TurnCrank();
+			machine.InsertQuarter();
+			machine.TurnCrank();
+			machine.InsertQuarter();
+			machine.TurnCrank();
+			THEN("A gumball comes rolling out the slot and the machine goes into the state of no quarter")
+			{
+				REQUIRE(machine.ToString() == CreateOutputGumballMachineString(4, "waiting for quarter"));
+			}
+		}
 	}
 }
 

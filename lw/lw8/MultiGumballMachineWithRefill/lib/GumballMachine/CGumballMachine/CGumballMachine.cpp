@@ -6,9 +6,9 @@ CGumballMachine::CGumballMachine(unsigned int numBalls)
 	, m_noQuarterState(*this)
 	, m_hasQuarterState(*this)
 	, m_state(&m_soldOutState)
-	, m_count(numBalls)
+	, m_ballCount(numBalls)
 {
-	if (m_count > 0)
+	if (m_ballCount > 0)
 	{
 		m_state = &m_noQuarterState;
 	}
@@ -40,7 +40,7 @@ std::string CGumballMachine::ToString() const
 	std::string str;
 	str.append("Mighty Gumball, Inc.\n");
 	str.append("C++-enabled Standing Gumball Model #2016 (with state)\n");
-	str.append("Inventory: " + std::to_string(m_count) + " gumball" + (m_count != 1 ? "s" : "") + "\n");
+	str.append("Inventory: " + std::to_string(m_ballCount) + " gumball" + (m_ballCount != 1 ? "s" : "") + "\n");
 	str.append("Number of quarter: " + std::to_string(m_quarterCount) + " quarter" + (m_quarterCount != 1 ? "s" : "") + "\n");
 	str.append("Machine is " + m_state->ToString() + "\n");
 	return str;
@@ -48,20 +48,22 @@ std::string CGumballMachine::ToString() const
 
 void CGumballMachine::Refill(unsigned numBalls)
 {
-	m_count = numBalls;
+	// TODO: Добавить проверку
+	// TODO: Не более 100 мячей
+	m_ballCount = numBalls;
 }
 
 unsigned CGumballMachine::GetBallCount() const
 {
-	return m_count;
+	return m_ballCount;
 }
 
 void CGumballMachine::ReleaseBall()
 {
-	if (m_count != 0)
+	if (m_ballCount != 0)
 	{
 		std::cout << "A gumball comes rolling out the slot...\n";
-		--m_count;
+		--m_ballCount;
 	}
 }
 

@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 
-unsigned MAX_QUARTER = 5;
+constexpr unsigned MAX_QUARTER = 5;
 
 class CGumballMachine
 {
@@ -15,7 +15,7 @@ public:
 	};
 
 	explicit CGumballMachine(unsigned count)
-		: m_count(count)
+		: m_ballCount(count)
 		, m_quarterCount(0)
 		, m_state(count > 0 ? State::NoQuarter : State::SoldOut)
 	{
@@ -105,7 +105,7 @@ public:
 
 	void Refill(unsigned numBalls)
 	{
-		m_count = numBalls;
+		m_ballCount = numBalls;
 		m_state = numBalls > 0 ? State::NoQuarter : State::SoldOut;
 	}
 
@@ -117,7 +117,7 @@ public:
 		std::string str;
 		str.append("Mighty Gumball, Inc.\n");
 		str.append("C++-enabled Standing Gumball Model #2016 (with state)\n");
-		str.append("Inventory: " + std::to_string(m_count) + " gumball" + (m_count != 1 ? "s" : "") + "\n");
+		str.append("Inventory: " + std::to_string(m_ballCount) + " gumball" + (m_ballCount != 1 ? "s" : "") + "\n");
 		str.append("Number of quarter: " + std::to_string(m_quarterCount) + " quarter" + (m_quarterCount != 1 ? "s" : "") + "\n");
 		str.append("Machine is " + state + "\n");
 		return str;
@@ -131,9 +131,9 @@ private:
 		{
 		case State::Sold:
 			cout << "A gumball comes rolling out the slot\n";
-			--m_count;
+			--m_ballCount;
 			--m_quarterCount;
-			if (m_count == 0)
+			if (m_ballCount == 0)
 			{
 				cout << "Oops, out of gumballs\n";
 				m_state = State::SoldOut;
@@ -153,7 +153,7 @@ private:
 		}
 	}
 
-	unsigned m_count; // Количество шариков
+	unsigned m_ballCount; // Количество шариков
 	unsigned m_quarterCount;
 	State m_state = State::SoldOut;
 };

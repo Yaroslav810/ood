@@ -28,7 +28,7 @@ private:
 	void SetHasQuarterState() override;
 
 private:
-	unsigned m_count = 0;
+	unsigned m_ballCount = 0; // TODO: Количество мячей rename
 	unsigned m_quarterCount = 0;
 	CSoldState m_soldState;
 	CSoldOutState m_soldOutState;
