@@ -11,7 +11,7 @@ std::optional<RectD> CEllipse::GetFrame()
 {
 	return RectD{
 		.left = m_center.x - m_horizontalRadius,
-		.top = m_center.y - m_verticalRadius,
+		.top = m_center.y + m_verticalRadius,
 		.width = m_horizontalRadius * 2,
 		.height = m_verticalRadius * 2,
 	};
@@ -19,7 +19,7 @@ std::optional<RectD> CEllipse::GetFrame()
 
 void CEllipse::SetFrame(const RectD& rect)
 {
-	m_center = { rect.left + rect.width / 2, rect.top + rect.height / 2 };
+	m_center = { rect.left + rect.width / 2, rect.top - rect.height / 2 };
 	m_horizontalRadius = rect.width / 2;
 	m_verticalRadius = rect.height / 2;
 }

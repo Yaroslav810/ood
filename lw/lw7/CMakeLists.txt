@@ -42,15 +42,21 @@ add_executable(
 add_executable(
         lw7_test
         tests/lw7_test.cpp
+        lib/Shape/IShape.h
         lib/Canvas/ICanvas.h
+        lib/Canvas/CCanvas/CCanvas.h
+        lib/Canvas/CCanvas/CCanvas.cpp
         lib/Common/CommonTypes.h
         lib/Common/IDrawable.h
         lib/GroupShape/IGroupShape.h
         lib/GroupShape/IShapes.h
         lib/GroupShape/CGroupShape/CGroupShape.h
         lib/GroupShape/CGroupShape/CGroupShape.cpp
+        lib/GroupShape/Style/CGroupShapeFillStyle/CGroupShapeFillStyle.h
+        lib/GroupShape/Style/CGroupShapeFillStyle/CGroupShapeFillStyle.cpp
+        lib/GroupShape/Style/CGroupShapeOutlineStyle/CGroupShapeOutlineStyle.h
+        lib/GroupShape/Style/CGroupShapeOutlineStyle/CGroupShapeOutlineStyle.cpp
         lib/GroupShape/Style/IGroupStyle.h
-        lib/Shape/IShape.h
         lib/Shape/CShape/CShape.h
         lib/Shape/CShape/CShape.cpp
         lib/Shape/CEllipse/CEllipse.h
@@ -61,6 +67,10 @@ add_executable(
         lib/Shape/CTriangle/CTriangle.cpp
         lib/Common/IFillStyle.h
         lib/Common/ILineStyle.h
+        lib/Shape/Style/CShapeFillStyle/CShapeFillStyle.h
+        lib/Shape/Style/CShapeFillStyle/CShapeFillStyle.cpp
+        lib/Shape/Style/CShapeOutlineStyle/CShapeOutlineStyle.h
+        lib/Shape/Style/CShapeOutlineStyle/CShapeOutlineStyle.cpp
         lib/Slide/ISlide.h
         lib/Slide/CSlide.h
         lib/Slide/CSlide.cpp
@@ -68,6 +78,7 @@ add_executable(
 
 set(SFML_DIR "./../../sfml/SFML-2.5.1/lib/cmake/SFML")
 
-target_link_libraries (lw7 sfml-graphics)
+target_link_libraries(lw7 sfml-graphics)
+target_link_libraries(lw7_test sfml-graphics)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 find_package(SFML 2.5 REQUIRED window graphics system)

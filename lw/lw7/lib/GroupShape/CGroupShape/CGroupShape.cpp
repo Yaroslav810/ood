@@ -13,7 +13,7 @@ CGroupShape::CGroupShape()
 	GroupShapeFillStyleEnumeratorAll fillCallback = [this](GroupShapeFillStyleCallback const& callback) {
 		for (const auto& shape : m_shapes)
 		{
-			callback(*shape->GetOutlineStyle());
+			callback(*shape->GetFillStyle());
 		}
 	};
 	m_outlineStyle = std::make_shared<CGroupShapeOutlineStyle>(outlineCallback);
@@ -35,19 +35,19 @@ std::optional<RectD> CGroupShape::GetFrame()
 	for (const auto& shape : m_shapes)
 	{
 		auto frame = shape->GetFrame();
-		if (frame.has_value())
+		if (!frame.has_value())
 		{
 			return std::nullopt;
 		}
 
 		auto data = frame.value();
 		minX = std::min(minX, data.left);
-		minY = std::min(minY, data.top);
+		minY = std::min(minY, data.top - data.height);
 		maxX = std::max(maxX, data.left + data.width);
-		maxY = std::max(maxY, data.top + data.height);
+		maxY = std::max(maxY, data.top);
 	}
 
-	return RectD{ minX, minY, maxX - minX, maxY - minY };
+	return RectD{ minX, maxY, maxX - minX, maxY - minY };
 }
 
 void CGroupShape::SetFrame(const RectD& rect)
@@ -72,7 +72,7 @@ void CGroupShape::SetFrame(const RectD& rect)
 
 		auto shapeFrame = shapeFrameOpt.value();
 		auto newX = rect.left + (shapeFrame.left - frame.left) * relationshipX;
-		auto newY = rect.top + (shapeFrame.top - frame.top) * relationshipY;
+		auto newY = rect.top - std::abs((shapeFrame.top - frame.top) * relationshipY);
 		auto newWidth = shapeFrame.width * relationshipX;
 		auto newHeight = shapeFrame.height * relationshipY;
 
@@ -126,7 +126,7 @@ void CGroupShape::InsertShape(std::shared_ptr<IShape> shape, size_t position)
 
 std::shared_ptr<IShape> CGroupShape::GetShapeAtIndex(size_t index)
 {
-	if (index > m_shapes.size() || index < 0)
+	if (index >= m_shapes.size() || index < 0)
 	{
 		throw std::out_of_range("Invalid position");
 	}
@@ -136,7 +136,7 @@ std::shared_ptr<IShape> CGroupShape::GetShapeAtIndex(size_t index)
 
 void CGroupShape::RemoveShapeAtIndex(size_t index)
 {
-	if (index > m_shapes.size() || index < 0)
+	if (index >= m_shapes.size() || index < 0)
 	{
 		throw std::out_of_range("Invalid position");
 	}
