@@ -11,6 +11,7 @@ add_executable(
         lib/Canvas/CCanvas/CCanvas.cpp
         lib/Common/CommonTypes.h
         lib/Common/IDrawable.h
+        lib/Common/IStyle.h
         lib/GroupShape/IGroupShape.h
         lib/GroupShape/IShapes.h
         lib/GroupShape/CGroupShape/CGroupShape.h
@@ -48,6 +49,7 @@ add_executable(
         lib/Canvas/CCanvas/CCanvas.cpp
         lib/Common/CommonTypes.h
         lib/Common/IDrawable.h
+        lib/Common/IStyle.h
         lib/GroupShape/IGroupShape.h
         lib/GroupShape/IShapes.h
         lib/GroupShape/CGroupShape/CGroupShape.h

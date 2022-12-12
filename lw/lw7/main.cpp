@@ -54,6 +54,10 @@ std::shared_ptr<IShape> CreateHouse()
 	result->InsertShape(flue, 1);
 	result->InsertShape(roof, 2);
 
+	// TODO: Проверить с GetGroup
+	// auto test = result->GetGroup();
+	// assert(test != nullptr);
+
 	return result;
 }
 
@@ -100,3 +104,8 @@ int main()
 
 	return 0;
 }
+
+// Изменения: При GetFrame поправил возвращение nullptr при пустой группе
+// Добавил интерфейс IStyle
+// Добавил наследование Slidов от IShapes
+// const Slide, получить const фигуру

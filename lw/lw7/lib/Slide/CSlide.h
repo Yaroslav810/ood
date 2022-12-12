@@ -12,6 +12,7 @@ public:
 	[[nodiscard]] size_t GetShapesCount() const final;
 	void InsertShape(std::shared_ptr<IShape> shape, size_t position) final;
 	std::shared_ptr<IShape> GetShapeAtIndex(size_t index) final;
+	std::shared_ptr<const IShape> GetShapeAtIndex(size_t index) const final;
 	void RemoveShapeAtIndex(size_t index) final;
 
 	void Draw(ICanvas& canvas) const final;

@@ -3,7 +3,7 @@
 #include "IFillStyle.h"
 #include <optional>
 
-class ILineStyle : public IFillStyle
+class ILineStyle : public IStyle
 {
 public:
 	virtual void SetThickness(double thickness) = 0;

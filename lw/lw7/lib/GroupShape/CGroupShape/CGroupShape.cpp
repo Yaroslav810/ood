@@ -37,7 +37,7 @@ std::optional<RectD> CGroupShape::GetFrame()
 		auto frame = shape->GetFrame();
 		if (!frame.has_value())
 		{
-			return std::nullopt;
+			continue;
 		}
 
 		auto data = frame.value();
@@ -125,6 +125,16 @@ void CGroupShape::InsertShape(std::shared_ptr<IShape> shape, size_t position)
 }
 
 std::shared_ptr<IShape> CGroupShape::GetShapeAtIndex(size_t index)
+{
+	if (index >= m_shapes.size() || index < 0)
+	{
+		throw std::out_of_range("Invalid position");
+	}
+
+	return m_shapes.at(index);
+}
+
+std::shared_ptr<const IShape> CGroupShape::GetShapeAtIndex(size_t index) const
 {
 	if (index >= m_shapes.size() || index < 0)
 	{

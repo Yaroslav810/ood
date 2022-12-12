@@ -40,6 +40,16 @@ std::shared_ptr<IShape> CSlide::GetShapeAtIndex(size_t index)
 	return m_shapes.at(index);
 }
 
+std::shared_ptr<const IShape> CSlide::GetShapeAtIndex(size_t index) const
+{
+	if (index > m_shapes.size() || index < 0)
+	{
+		throw std::out_of_range("Invalid position");
+	}
+
+	return m_shapes.at(index);
+}
+
 void CSlide::RemoveShapeAtIndex(size_t index)
 {
 	if (index > m_shapes.size() || index < 0)

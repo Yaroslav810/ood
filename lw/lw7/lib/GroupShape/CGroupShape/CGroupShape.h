@@ -21,6 +21,7 @@ public:
 	[[nodiscard]] size_t GetShapesCount() const override;
 	void InsertShape(std::shared_ptr<IShape> shape, size_t position) override;
 	std::shared_ptr<IShape> GetShapeAtIndex(size_t index) override;
+	std::shared_ptr<const IShape> GetShapeAtIndex(size_t index) const override;
 	void RemoveShapeAtIndex(size_t index) override;
 
 	void Draw(ICanvas& canvas) const override;
