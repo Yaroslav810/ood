@@ -1,0 +1,22 @@
+add_executable(
+        lw3_streams
+        main.cpp
+        lib/InputStream/IInputStream.h
+        lib/InputStream/CFileInputStream/CFileInputStream.h
+        lib/InputStream/CFileInputStream/CFileInputStream.cpp
+        lib/InputStream/CMemoryInputStream/CMemoryInputStream.h
+        lib/InputStream/CMemoryInputStream/CMemoryInputStream.cpp
+        lib/OutputStream/IOutputStream.h
+        lib/OutputStream/CFileOutputStream/CFileOutputStream.h
+        lib/OutputStream/CFileOutputStream/CFileOutputStream.cpp
+        lib/OutputStream/CMemoryOutputStream/CMemoryOutputStream.h
+        lib/OutputStream/CMemoryOutputStream/CMemoryOutputStream.cpp
+        lib/Decorator/CInputStreamDecorator.h
+        lib/Decorator/COutputStreamDecorator.h
+        lib/Decorator/CDecryptInputStream/CDecryptInputStream.h
+        lib/Decorator/CDecryptInputStream/CDecryptInputStream.cpp
+        lib/Decorator/CEncryptOutputStream/CEncryptOutputStream.h
+        lib/Decorator/CEncryptOutputStream/CEncryptOutputStream.cpp
+        lib/SubstitutionTable/CSubstitutionTable.h
+        lib/SubstitutionTable/CSubstitutionTable.cpp
+)
