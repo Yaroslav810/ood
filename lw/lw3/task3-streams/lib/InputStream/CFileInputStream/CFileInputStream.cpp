@@ -11,6 +11,7 @@ CFileInputStream::CFileInputStream(const std::string& fileName)
 
 bool CFileInputStream::IsEOF() const
 {
+	m_fstream.peek();
 	return m_fstream.eof();
 }
 
@@ -20,7 +21,6 @@ uint8_t CFileInputStream::ReadByte()
 	{
 		throw std::ios_base::failure("Attempt to read outside the file boundaries");
 	}
-
 	return m_fstream.get();
 }
 

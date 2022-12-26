@@ -11,5 +11,5 @@ public:
 	std::streamsize ReadBlock(void* dstBuffer, std::streamsize size) override;
 
 private:
-	std::ifstream m_fstream;
+	mutable std::ifstream m_fstream;
 };

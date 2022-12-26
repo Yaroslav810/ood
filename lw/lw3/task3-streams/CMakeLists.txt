@@ -17,6 +17,11 @@ add_executable(
         lib/Decorator/CDecryptInputStream/CDecryptInputStream.cpp
         lib/Decorator/CEncryptOutputStream/CEncryptOutputStream.h
         lib/Decorator/CEncryptOutputStream/CEncryptOutputStream.cpp
+        lib/Decorator/CCompressOutputStream/CCompressOutputStream.h
+        lib/Decorator/CCompressOutputStream/CCompressOutputStream.cpp
+        lib/Decorator/CDecompressInputStream/CDecompressInputStream.h
+        lib/Decorator/CDecompressInputStream/CDecompressInputStream.cpp
         lib/SubstitutionTable/CSubstitutionTable.h
         lib/SubstitutionTable/CSubstitutionTable.cpp
+        lib/Common/CompressItem.h
 )

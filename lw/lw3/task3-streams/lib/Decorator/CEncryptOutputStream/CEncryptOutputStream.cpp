@@ -13,4 +13,9 @@ void CEncryptOutputStream::WriteByte(uint8_t data)
 
 void CEncryptOutputStream::WriteBlock(const void* srcData, std::streamsize size)
 {
+	auto buffer = static_cast<std::uint8_t const*>(srcData);
+	for (std::streamsize i = 0; i < size; ++i)
+	{
+		WriteByte(*(buffer++));
+	}
 }

@@ -1,3 +1,5 @@
+#include "lib/Decorator/CCompressOutputStream/CCompressOutputStream.h"
+#include "lib/Decorator/CDecompressInputStream/CDecompressInputStream.h"
 #include "lib/Decorator/CDecryptInputStream/CDecryptInputStream.h"
 #include "lib/Decorator/CEncryptOutputStream/CEncryptOutputStream.h"
 #include "lib/InputStream/CFileInputStream/CFileInputStream.h"
@@ -23,7 +25,7 @@ std::unordered_map<std::string, ArgumentType> mapArgs = {
 
 int main(int argc, char* argv[])
 {
-	if (argc < 5)
+	if (argc < 4)
 	{
 		std::cout << "Argc parse error! Syntax: [options] <input-file> <output-file>" << std::endl;
 		return 1;
@@ -47,22 +49,20 @@ int main(int argc, char* argv[])
 			index++;
 			auto key = atoi(argv[index]);
 			output = std::make_unique<CEncryptOutputStream>(std::move(output), key);
-			std::cout << "ENCRYPT " << key << ";" << std::endl;
 			break;
 		}
 		case ArgumentType::DECRYPT: {
 			index++;
 			auto key = atoi(argv[index]);
 			input = std::make_unique<CDecryptInputStream>(std::move(input), key);
-			std::cout << "DECRYPT " << key << ";" << std::endl;
 			break;
 		}
 		case ArgumentType::COMPRESS: {
-			std::cout << "COMPRESS" << std::endl;
+			output = std::make_unique<CCompressOutputStream>(std::move(output));
 			break;
 		}
 		case ArgumentType::DECOMPRESS: {
-			std::cout << "DECOMPRESS" << std::endl;
+			input = std::make_unique<CDecompressInputStream>(std::move(input));
 			break;
 		}
 		default: {
@@ -72,7 +72,6 @@ int main(int argc, char* argv[])
 		}
 		index++;
 	}
-
 	while (!input->IsEOF())
 	{
 		output->WriteByte(input->ReadByte());
