@@ -13,10 +13,6 @@ CCompressOutputStream::~CCompressOutputStream()
 
 void CCompressOutputStream::WriteByte(uint8_t data)
 {
-	std::cout << "WRITE" << std::endl;
-	std::cout << data << std::endl;
-	std::cout << "|" << m_item.byte << "|" << m_item.count << "|" << std::endl;
-
 	if (m_item.count == 0)
 	{
 		m_item = { data, 1 };
@@ -44,8 +40,6 @@ void CCompressOutputStream::WriteBlock(const void* srcData, std::streamsize size
 
 void CCompressOutputStream::Flush()
 {
-	std::cout << "WRITE" << std::endl;
-	std::cout << "|" << m_item.byte << "|" << m_item.count << "|" << std::endl;
 	m_stream->WriteByte(m_item.byte);
 	m_stream->WriteByte(m_item.count);
 }

@@ -16,9 +16,6 @@ uint8_t CDecompressInputStream::ReadByte()
 			: 0;
 	}
 
-	std::cout << "WRITE" << std::endl;
-	std::cout << "|" << m_item.byte << "|" << m_item.count << "|" << std::endl;
-
 	--m_item.count;
 	return m_item.byte;
 }
