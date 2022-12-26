@@ -9,7 +9,7 @@ public:
 	CDecryptInputStream(IInputDataStreamPtr&& stream, int key);
 
 	uint8_t ReadByte() override;
-	std::streamsize ReadBlock(void* dstData, std::streamsize dataSize) override;
+	std::streamsize ReadBlock(void* dstBuffer, std::streamsize size) override;
 
 private:
 	std::vector<uint8_t> m_decryptTable;
