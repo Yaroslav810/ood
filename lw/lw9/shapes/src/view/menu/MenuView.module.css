@@ -1,0 +1,20 @@
+.menu {
+    display: flex;
+    gap: 10px;
+    margin-top: 100px;
+}
+
+.button {
+    font-weight: 700;
+    text-decoration: none;
+    padding: .5em 2em;
+    outline: none;
+    border: 2px solid;
+    border-radius: 1px;
+    transition: 0.2s;
+}
+
+.button:hover {
+    background: rgba(255,255,255,.2);
+    cursor: pointer;
+}
