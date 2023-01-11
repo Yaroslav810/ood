@@ -27,7 +27,7 @@ function CanvasView({shapes}: CanvasViewProps) {
             return <Item
                 key={shape.getUuid()}
                 shape={shape}
-                isSelected={false}
+                isSelected={true}
                 scale={scale}
                 moveItem={() => {}}
                 selectItem={() => {}}

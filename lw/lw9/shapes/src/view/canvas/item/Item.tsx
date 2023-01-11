@@ -2,6 +2,7 @@ import {ShapeType} from "../../../model/domain/ShapeType";
 import {Shape} from "../../../model/domain/Shape";
 import {createRef, ForwardedRef, RefObject, useState} from "react";
 import {useMovingDragAndDrop} from "../../hooks/dragAndDrop/useMovingDragAndDrop";
+import Selected from "../selected/Selected";
 
 interface ItemProps {
   shape: Shape
@@ -21,6 +22,9 @@ function Item(props: ItemProps) {
 
   const [deltaPosition, setDeltaPosition] = useState({dx: 0, dy: 0})
   useMovingDragAndDrop(ref, setDeltaPosition, props.scale, props.moveItem, onSelectItem)
+
+  const refResize: RefObject<SVGRectElement> = createRef()
+  const [deltaSize, setDeltaSize] = useState({width: 0, height: 0})
 
   let content = null
   switch (props.shape.getType()) {
@@ -63,20 +67,20 @@ function Item(props: ItemProps) {
   return (
       <>
         {content}
-        {/*props.isSelected &&
+        {props.isSelected &&
           <Selected
             ref={refResize}
             coordinates={{
-              x: props.item.coordinates.x + deltaPosition.dx,
-              y: props.item.coordinates.y + deltaPosition.dy
+              x: props.shape.getFrame().leftTop.x + deltaPosition.dx,
+              y: props.shape.getFrame().leftTop.y + deltaPosition.dy
             }}
             size={{
-              width: props.item.width + deltaSize.width,
-              height: props.item.height + deltaSize.height
+              width: props.shape.getFrame().width + deltaSize.width,
+              height: props.shape.getFrame().height + deltaSize.height
             }}
             changeSize={props.changeSize}
           />
-        */}
+        }
       </>
   )
 }
