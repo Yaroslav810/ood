@@ -15,7 +15,7 @@ function App({shapes, controller}: AppProps) {
   return (
     <div className={styles.content}>
       <MenuView controller={controller} />
-      <CanvasView />
+      <CanvasView shapes={shapes} />
     </div>
   );
 }
