@@ -5,6 +5,7 @@ import {MenuView} from "./view/menu/MenuView";
 import {CanvasView} from "./view/canvas/CanvasView";
 import styles from './App.module.css';
 import {UUID} from "./common/uuid/uuid";
+import {useHotKey} from "./view/hooks/useHotKey";
 
 interface AppProps {
   shapes: IShape[],
@@ -17,6 +18,8 @@ function App({shapes, controller}: AppProps) {
   const clearSelected = useCallback(() => {
       setSelectedUuid(null)
   }, [setSelectedUuid])
+
+  useHotKey(controller, selectedUuid)
 
   useEffect(() => {
       document.addEventListener('click', clearSelected)

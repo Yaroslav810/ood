@@ -6,6 +6,7 @@ import {Rect} from "../../common/rect/rect";
 import {IHistory} from "../../common/history/History";
 import {InsertShapeCommand} from "../../common/command/InsertShapeCommand";
 import {ChangeFrameCommand} from "../../common/command/ChangeFrameCommand";
+import {DeleteShapeCommand} from "../../common/command/DeleteShapeCommand";
 
 class Controller {
   private readonly canvas: Canvas
@@ -18,12 +19,16 @@ class Controller {
 
   addShape(type: ShapeType): void {
     const shape = new Shape(type)
-    const count = this.canvas.getShapesCount()
-    this.history.addAndExecuteCommand(new InsertShapeCommand(shape, count, this.canvas))
+    const index = this.canvas.getShapesCount()
+    this.history.addAndExecuteCommand(new InsertShapeCommand(shape, index, this.canvas))
   }
 
-  deleteShape(index: number): void {
-    this.canvas.deleteShape(index)
+  deleteShape(uuid: UUID): void {
+    const shape = this.canvas.getShapes().find(shape => shape.getUuid() === uuid)
+    if (shape) {
+      const index = this.canvas.getShapes().findIndex(shape => shape.getUuid() === uuid)
+      this.history.addAndExecuteCommand(new DeleteShapeCommand(shape, index, this.canvas))
+    }
   }
 
   changeFrameShape(uuid: UUID, frame: Rect): void {

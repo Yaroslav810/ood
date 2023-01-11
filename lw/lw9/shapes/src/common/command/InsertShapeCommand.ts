@@ -19,7 +19,7 @@ class InsertShapeCommand extends AbstractCommand {
     }
 
     doUnexecute() {
-        this.canvas.deleteShape(this.index)
+        this.canvas.deleteShape(this.shape.getUuid())
     }
 }
 

@@ -1,5 +1,6 @@
 import {IShape, Shape} from "./Shape";
 import {Observable} from "../common/Observer";
+import {UUID} from "../../common/uuid/uuid";
 
 interface ICanvas {
   getShapes(): IShape[]
@@ -28,8 +29,8 @@ class Canvas extends Observable implements ICanvas {
     this.notifyObservers()
   }
 
-  deleteShape(index: number): void {
-    this.shapes.splice(index, 1)
+  deleteShape(uuid: UUID): void {
+    this.shapes = this.shapes.filter(shape => shape.getUuid() !== uuid)
     this.notifyObservers()
   }
 
