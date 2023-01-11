@@ -26,4 +26,5 @@ abstract class AbstractCommand implements ICommand {
 
 export {
     type ICommand,
+    AbstractCommand,
 }

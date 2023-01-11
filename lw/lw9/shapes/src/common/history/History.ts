@@ -5,6 +5,7 @@ interface IHistory {
     redo(): void
     canUndo(): boolean
     canRedo(): boolean
+    addAndExecuteCommand(command: ICommand): void
 }
 
 class History implements IHistory {
@@ -34,6 +35,10 @@ class History implements IHistory {
     }
 
     addAndExecuteCommand(command: ICommand) {
+        if (this.index < this.commands.length) {
+            this.commands = this.commands.slice(0, this.index)
+        }
+
         command.execute()
         ++this.index
         this.commands.push(command)

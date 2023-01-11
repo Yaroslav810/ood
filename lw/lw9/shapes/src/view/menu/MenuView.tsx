@@ -12,8 +12,8 @@ function MenuView({controller}: MenuViewProps) {
         <button className={styles.button} onClick={() => controller.insertShape(ShapeType.RECTANGLE)}>Прямоугольник</button>
         <button className={styles.button} onClick={() => controller.insertShape(ShapeType.ELLIPSE)}>Эллипс</button>
         <button className={styles.button} onClick={() => controller.insertShape(ShapeType.TRIANGLE)}>Треугольник</button>
-        <button className={styles.button}>Отменить</button>
-        <button className={styles.button}>Вернуть</button>
+        <button className={styles.button} onClick={() => controller.undo()}>Отменить</button>
+        <button className={styles.button} onClick={() => controller.redo()}>Вернуть</button>
       </div>
   )
 }

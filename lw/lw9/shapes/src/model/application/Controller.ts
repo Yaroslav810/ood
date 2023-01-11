@@ -4,6 +4,7 @@ import {ShapeType} from "../domain/ShapeType";
 import {UUID} from "../../common/uuid/uuid";
 import {Rect} from "../../common/rect/rect";
 import {IHistory} from "../../common/history/History";
+import {InsertShapeCommand} from "../../common/command/InsertShapeCommand";
 
 class Controller {
   private readonly canvas: ICanvas
@@ -15,17 +16,16 @@ class Controller {
   }
 
   insertShape(type: ShapeType): void {
-    // new Shape(type)
-    // history.addAndExecute new InsertShapeCommand(shape, index, canvas)
-    this.canvas.addShape(new Shape(type), this.canvas.getShapesCount())
+    const shape = new Shape(type)
+    const count = this.canvas.getShapesCount()
+    this.history.addAndExecuteCommand(new InsertShapeCommand(shape, count, this.canvas))
   }
 
   deleteShape(index: number): void {
     this.canvas.deleteShape(index)
   }
 
-  // TODO: Один метод changeFrameShape
-  moveShape(uuid: UUID, frame: Rect): void {
+  changeFrameShape(uuid: UUID, frame: Rect): void {
     // this.canvas.changeShape()
     // this.canvas.getShapes().filter(shape => {
     //   if (shape.getUuid() === uuid) {
@@ -34,17 +34,12 @@ class Controller {
     // })
   }
 
-  resizeShape(uuid: UUID, dx: number, dy: number) {
-    this.canvas.getShapes().forEach(shape => {
-      if (shape.getUuid() === uuid) {
-        const frame = shape.getFrame()
-        // shape.setFrame({
-        //   leftTop: frame.leftTop,
-        //   width: frame.width + dx,
-        //   height: frame.height + dy,
-        // })
-      }
-    })
+  undo() {
+    this.history.undo()
+  }
+
+  redo() {
+    this.history.redo()
   }
 }
 

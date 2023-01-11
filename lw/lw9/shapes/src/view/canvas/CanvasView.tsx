@@ -26,7 +26,7 @@ function CanvasView({shapes, controller, selectedUuid, setSelectedUuid}: ViewDat
                 shape={shape}
                 isSelected={uuid === selectedUuid}
                 scale={scale}
-                moveItem={(frame) => controller.moveShape(uuid, frame)}
+                moveItem={(frame) => controller.changeFrameShape(uuid, frame)}
                 selectItem={setSelectedUuid}
                 changeSize={() => {}}
             />
