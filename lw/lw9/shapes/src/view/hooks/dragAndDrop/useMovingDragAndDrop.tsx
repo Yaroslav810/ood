@@ -1,7 +1,7 @@
 import React, {Dispatch, RefObject, SetStateAction} from "react"
 import {useBaseDragAndDrop} from "./useBaseDragAndDrop"
 
-export function useMovingDragAndDrop(
+function useMovingDragAndDrop(
     ref: RefObject<Element>,
     setDelta: Dispatch<SetStateAction<{dx: number, dy: number}>>,
     scale: number,
@@ -27,7 +27,6 @@ export function useMovingDragAndDrop(
 
     const handleMouseMove = (event: MouseEvent) => {
         const d = deltaCounting(event)
-
         setDelta({
             dx: d.dx,
             dy: d.dy
@@ -36,7 +35,6 @@ export function useMovingDragAndDrop(
 
     const handleMouseUp = (event: MouseEvent) => {
         const d = deltaCounting(event)
-
         if (d.dx !== 0 || d.dy !== 0) {
             moveItem && moveItem(d.dx, d.dy)
         }
@@ -47,4 +45,8 @@ export function useMovingDragAndDrop(
     }
 
     useBaseDragAndDrop(ref, handleMouseDown, handleMouseMove, handleMouseUp)
+}
+
+export {
+  useMovingDragAndDrop,
 }

@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from "react"
 
-export function useBaseDragAndDrop(
+function useBaseDragAndDrop(
     ref: React.RefObject<Element>,
     onDownCallback?: (e: MouseEvent) => void,
     onMovementCallback?: (e: MouseEvent) => void,
@@ -28,7 +28,10 @@ export function useBaseDragAndDrop(
         }
         const item = ref.current
         item.addEventListener("mousedown", handleMouseDown)
-
         return () => item.removeEventListener("mousedown", handleMouseDown)
     }, [ref, handleMouseDown])
+}
+
+export {
+  useBaseDragAndDrop,
 }
