@@ -9,9 +9,9 @@ interface MenuViewProps {
 function MenuView({controller}: MenuViewProps) {
   return (
       <div className={styles.menu}>
-        <button className={styles.button} onClick={() => controller.insertShape(ShapeType.RECTANGLE)}>Прямоугольник</button>
-        <button className={styles.button} onClick={() => controller.insertShape(ShapeType.ELLIPSE)}>Эллипс</button>
-        <button className={styles.button} onClick={() => controller.insertShape(ShapeType.TRIANGLE)}>Треугольник</button>
+        <button className={styles.button} onClick={() => controller.addShape(ShapeType.RECTANGLE)}>Прямоугольник</button>
+        <button className={styles.button} onClick={() => controller.addShape(ShapeType.ELLIPSE)}>Эллипс</button>
+        <button className={styles.button} onClick={() => controller.addShape(ShapeType.TRIANGLE)}>Треугольник</button>
         <button className={styles.button} onClick={() => controller.undo()}>Отменить</button>
         <button className={styles.button} onClick={() => controller.redo()}>Вернуть</button>
       </div>

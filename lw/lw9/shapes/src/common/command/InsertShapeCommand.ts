@@ -1,13 +1,13 @@
 import {AbstractCommand} from "./Command";
-import {IShape} from "../../model/domain/Shape";
-import {ICanvas} from "../../model/domain/Canvas";
+import {Shape} from "../../model/domain/Shape";
+import {Canvas} from "../../model/domain/Canvas";
 
 class InsertShapeCommand extends AbstractCommand {
-    private shape: IShape
+    private shape: Shape
     private index: number
-    private canvas: ICanvas
+    private canvas: Canvas
 
-    constructor(shape: IShape, index: number, canvas: ICanvas) {
+    constructor(shape: Shape, index: number, canvas: Canvas) {
         super();
         this.shape = shape
         this.index = index
@@ -15,7 +15,7 @@ class InsertShapeCommand extends AbstractCommand {
     }
 
     doExecute() {
-        this.canvas.addShape(this.shape, this.index)
+        this.canvas.insertShape(this.shape, this.index)
     }
 
     doUnexecute() {

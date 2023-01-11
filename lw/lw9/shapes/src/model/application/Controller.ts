@@ -5,6 +5,7 @@ import {UUID} from "../../common/uuid/uuid";
 import {Rect} from "../../common/rect/rect";
 import {IHistory} from "../../common/history/History";
 import {InsertShapeCommand} from "../../common/command/InsertShapeCommand";
+import {ChangeFrameCommand} from "../../common/command/ChangeFrameCommand";
 
 class Controller {
   private readonly canvas: Canvas
@@ -15,7 +16,7 @@ class Controller {
     this.history = history
   }
 
-  insertShape(type: ShapeType): void {
+  addShape(type: ShapeType): void {
     const shape = new Shape(type)
     const count = this.canvas.getShapesCount()
     this.history.addAndExecuteCommand(new InsertShapeCommand(shape, count, this.canvas))
@@ -26,11 +27,10 @@ class Controller {
   }
 
   changeFrameShape(uuid: UUID, frame: Rect): void {
-    this.canvas.getShapes().forEach(shape => {
-      if (shape.getUuid() === uuid) {
-        shape.setFrame(frame)
-      }
-    })
+    const shape = this.canvas.getShapes().find(shape => shape.getUuid() === uuid)
+    if (shape) {
+      this.history.addAndExecuteCommand(new ChangeFrameCommand(shape, frame, this.canvas))
+    }
   }
 
   undo() {

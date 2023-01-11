@@ -4,8 +4,6 @@ import {Observable} from "../common/Observer";
 interface ICanvas {
   getShapes(): IShape[]
   getShapesCount(): number
-  addShape(shape: IShape, index: number): void
-  deleteShape(index: number): void
   getCanvas(): ICanvas
 }
 
@@ -25,13 +23,24 @@ class Canvas extends Observable implements ICanvas {
     return this.shapes.length
   }
 
-  addShape(shape: Shape, index: number): void {
+  insertShape(shape: Shape, index: number): void {
     this.shapes.splice(index, 0, shape)
     this.notifyObservers()
   }
 
   deleteShape(index: number): void {
     this.shapes.splice(index, 1)
+    this.notifyObservers()
+  }
+
+  replaceShape(newShape: Shape): void {
+    const uuid = newShape.getUuid()
+    this.shapes = this.shapes.map(shape => {
+      if (shape.getUuid() === uuid) {
+        return newShape
+      }
+      return shape
+    })
     this.notifyObservers()
   }
 
