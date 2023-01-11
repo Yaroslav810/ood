@@ -4,30 +4,25 @@ import {Observable} from "../common/Observer";
 interface ICanvas {
   getShapes(): IShape[]
   getShapesCount(): number
-  changeShape(shape: IShape, index: number): void
   addShape(shape: IShape, index: number): void
   deleteShape(index: number): void
   getCanvas(): ICanvas
 }
 
 class Canvas extends Observable implements ICanvas {
-  private readonly shapes: IShape[]
+  private shapes: Shape[]
 
   constructor() {
     super()
     this.shapes = []
   }
 
-  getShapes(): IShape[] {
+  getShapes(): Shape[] {
     return this.shapes
   }
 
   getShapesCount(): number {
     return this.shapes.length
-  }
-
-  changeShape(shape: IShape, index: number) {
-    this.shapes[index] = shape
   }
 
   addShape(shape: Shape, index: number): void {

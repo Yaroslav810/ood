@@ -1,4 +1,4 @@
-import {ICanvas} from "../domain/Canvas";
+import {Canvas} from "../domain/Canvas";
 import {Shape} from "../domain/Shape";
 import {ShapeType} from "../domain/ShapeType";
 import {UUID} from "../../common/uuid/uuid";
@@ -7,10 +7,10 @@ import {IHistory} from "../../common/history/History";
 import {InsertShapeCommand} from "../../common/command/InsertShapeCommand";
 
 class Controller {
-  private readonly canvas: ICanvas
+  private readonly canvas: Canvas
   private readonly history: IHistory
 
-  constructor(canvas: ICanvas, history: IHistory) {
+  constructor(canvas: Canvas, history: IHistory) {
     this.canvas = canvas
     this.history = history
   }
@@ -26,12 +26,11 @@ class Controller {
   }
 
   changeFrameShape(uuid: UUID, frame: Rect): void {
-    // this.canvas.changeShape()
-    // this.canvas.getShapes().filter(shape => {
-    //   if (shape.getUuid() === uuid) {
-    //     shape.setFrame(frame)
-    //   }
-    // })
+    this.canvas.getShapes().forEach(shape => {
+      if (shape.getUuid() === uuid) {
+        shape.setFrame(frame)
+      }
+    })
   }
 
   undo() {

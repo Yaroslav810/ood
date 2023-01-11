@@ -18,8 +18,9 @@ function Item(props: ItemProps) {
   const ref: RefObject<SVGForeignObjectElement | SVGImageElement> = createRef()
   const frame = props.shape.getFrame()
 
-  const onSelectItem = (e: MouseEvent) => {
-    // TODO: Реализовать
+  const onSelectItem = (e: React.MouseEvent<SVGGElement> | MouseEvent) => {
+    e.stopPropagation()
+    props.selectItem && props.selectItem(props.shape.getUuid())
   }
 
   const onMoveItem = (deltaX: number, deltaY: number) => {
@@ -79,7 +80,7 @@ function Item(props: ItemProps) {
 
   return (
       <>
-        <g onClick={() => props.selectItem && props.selectItem(props.shape.getUuid())}>
+        <g onClick={e => onSelectItem(e)}>
           {content}
         </g>
         {props.isSelected &&

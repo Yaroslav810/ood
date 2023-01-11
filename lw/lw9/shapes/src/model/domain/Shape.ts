@@ -31,6 +31,10 @@ class Shape implements IShape {
   getType(): ShapeType {
     return this.type
   }
+
+  setFrame(frame: Rect): void {
+    this.frame = frame
+  }
 }
 
 export {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {IShape} from "./model/domain/Shape";
 import {Controller} from "./model/application/Controller";
 import {MenuView} from "./view/menu/MenuView";
@@ -13,6 +13,15 @@ interface AppProps {
 
 function App({shapes, controller}: AppProps) {
   const [selectedUuid, setSelectedUuid] = useState<UUID | null>(null)
+
+  const clearSelected = useCallback(() => {
+      setSelectedUuid(null)
+  }, [setSelectedUuid])
+
+  useEffect(() => {
+      document.addEventListener('click', clearSelected)
+      return () => document.removeEventListener('click', clearSelected)
+  }, [clearSelected])
 
   return (
     <div className={styles.content}>
