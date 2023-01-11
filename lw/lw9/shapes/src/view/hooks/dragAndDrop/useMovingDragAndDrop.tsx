@@ -1,9 +1,9 @@
-import React from "react"
+import React, {Dispatch, RefObject, SetStateAction} from "react"
 import {useBaseDragAndDrop} from "./useBaseDragAndDrop"
 
 export function useMovingDragAndDrop(
-    ref: React.RefObject<Element>,
-    setDelta: React.Dispatch<React.SetStateAction<{dx: number, dy: number}>>,
+    ref: RefObject<Element>,
+    setDelta: Dispatch<SetStateAction<{dx: number, dy: number}>>,
     scale: number,
     moveItem?: (deltaX: number, deltaY: number) => void,
     selectItem?: (e: MouseEvent) => void

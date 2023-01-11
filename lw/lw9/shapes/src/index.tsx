@@ -3,27 +3,28 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {Canvas} from "./model/domain/Canvas";
+import {Canvas, ICanvas} from "./model/domain/Canvas";
 import {Controller} from "./model/application/Controller";
-import {Shape} from "./model/domain/Shape";
+import {History} from "./common/history/History";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 const canvas = new Canvas()
-const controller = new Controller(canvas)
+const history = new History()
+const controller = new Controller(canvas, history)
 
-function render(data: Shape[]) {
+function render(data: ICanvas) {
   root.render(
       <React.StrictMode>
-        <App shapes={data} controller={controller} />
+        <App shapes={data.getShapes()} controller={controller} />
       </React.StrictMode>
   );
 }
 
 canvas.registerObserver(render)
-render([])
+render(canvas)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

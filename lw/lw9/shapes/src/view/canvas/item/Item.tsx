@@ -1,27 +1,40 @@
 import {ShapeType} from "../../../model/domain/ShapeType";
-import {Shape} from "../../../model/domain/Shape";
+import {IShape} from "../../../model/domain/Shape";
 import {createRef, ForwardedRef, RefObject, useState} from "react";
 import {useMovingDragAndDrop} from "../../hooks/dragAndDrop/useMovingDragAndDrop";
 import Selected from "../selected/Selected";
+import {Rect} from "../../../common/rect/rect";
 
 interface ItemProps {
-  shape: Shape
+  shape: IShape
   isSelected: boolean
   scale: number
-  selectItem?: (id: string) => void
-  moveItem?: (deltaX: number, deltaY: number) => void
+  selectItem?: (uuid: string) => void
+  moveItem?: (frame: Rect) => void
   changeSize?: (deltaX: number, deltaY: number) => void
 }
 
 function Item(props: ItemProps) {
   const ref: RefObject<SVGForeignObjectElement | SVGImageElement> = createRef()
+  const frame = props.shape.getFrame()
 
   const onSelectItem = (e: MouseEvent) => {
     // TODO: Реализовать
   }
 
+  const onMoveItem = (deltaX: number, deltaY: number) => {
+    props.moveItem && props.moveItem({
+      leftTop: {
+        x: frame.leftTop.x + deltaX,
+        y: frame.leftTop.y + deltaY,
+      },
+      width: frame.width,
+      height: frame.height,
+    })
+  }
+
   const [deltaPosition, setDeltaPosition] = useState({dx: 0, dy: 0})
-  useMovingDragAndDrop(ref, setDeltaPosition, props.scale, props.moveItem, onSelectItem)
+  useMovingDragAndDrop(ref, setDeltaPosition, props.scale, onMoveItem, onSelectItem)
 
   const refResize: RefObject<SVGRectElement> = createRef()
   const [deltaSize, setDeltaSize] = useState({width: 0, height: 0})
@@ -66,17 +79,19 @@ function Item(props: ItemProps) {
 
   return (
       <>
-        {content}
+        <g onClick={() => props.selectItem && props.selectItem(props.shape.getUuid())}>
+          {content}
+        </g>
         {props.isSelected &&
           <Selected
             ref={refResize}
             coordinates={{
-              x: props.shape.getFrame().leftTop.x + deltaPosition.dx,
-              y: props.shape.getFrame().leftTop.y + deltaPosition.dy
+              x: frame.leftTop.x + deltaPosition.dx,
+              y: frame.leftTop.y + deltaPosition.dy
             }}
             size={{
-              width: props.shape.getFrame().width + deltaSize.width,
-              height: props.shape.getFrame().height + deltaSize.height
+              width: frame.width + deltaSize.width,
+              height: frame.height + deltaSize.height
             }}
             changeSize={props.changeSize}
           />

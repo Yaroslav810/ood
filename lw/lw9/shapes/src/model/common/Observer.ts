@@ -1,8 +1,4 @@
-import {Shape} from "../domain/Shape";
-
-abstract class Observer {
-  abstract Update(): void;
-}
+import {ICanvas} from "../domain/Canvas";
 
 abstract class Observable {
   private observers: Function[] = [];
@@ -16,14 +12,13 @@ abstract class Observable {
   }
 
   notifyObservers() {
-    const data = this.getShapes()
+    const data = this.getCanvas()
     this.observers.forEach(fn => fn(data))
   }
 
-  abstract getShapes(): Shape[]
+  abstract getCanvas(): ICanvas
 }
 
 export {
-  Observer,
   Observable,
 }

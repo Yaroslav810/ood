@@ -6,7 +6,6 @@ import {getDefaultValues} from "../../common/defaultValues";
 interface IShape {
   getUuid(): UUID
   getFrame(): Rect
-  setFrame(rect: Rect): void
   getType(): ShapeType
 }
 
@@ -27,10 +26,6 @@ class Shape implements IShape {
 
   getFrame(): Rect {
     return this.frame
-  }
-
-  setFrame(rect: Rect) {
-    this.frame = rect
   }
 
   getType(): ShapeType {

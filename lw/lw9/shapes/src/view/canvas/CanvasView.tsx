@@ -1,15 +1,11 @@
 import styles from './CanvasView.module.css'
 import {useMemo, useRef, useState} from "react";
 import {getDefaultValues} from "../../common/defaultValues";
-import {Shape} from "../../model/domain/Shape";
 import {Item} from "./item/Item";
 import {useScaleCanvas} from "../hooks/useScaleCanvas";
+import {ViewData} from "../viewData";
 
-interface CanvasViewProps {
-  shapes: Shape[]
-}
-
-function CanvasView({shapes}: CanvasViewProps) {
+function CanvasView({shapes, controller, selectedUuid, setSelectedUuid}: ViewData) {
   const ref = useRef<SVGSVGElement>(null)
   const [scale, setScale] = useState(1)
   useScaleCanvas(ref, setScale)
@@ -24,13 +20,14 @@ function CanvasView({shapes}: CanvasViewProps) {
       >
         {
           shapes.map(shape => {
+            const uuid = shape.getUuid()
             return <Item
-                key={shape.getUuid()}
+                key={uuid}
                 shape={shape}
-                isSelected={true}
+                isSelected={uuid === selectedUuid}
                 scale={scale}
-                moveItem={() => {}}
-                selectItem={() => {}}
+                moveItem={(frame) => controller.moveShape(uuid, frame)}
+                selectItem={setSelectedUuid}
                 changeSize={() => {}}
             />
           })

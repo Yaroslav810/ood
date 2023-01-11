@@ -22,10 +22,10 @@ const Selected = React.forwardRef((props: SelectedProps, ref: ForwardedRef<SVGRe
             />
             <rect
                 ref={ref}
-                x={props.coordinates.x + props.size.width - 5}
+                x={props.coordinates.x + props.size.width - 3}
                 y={props.coordinates.y + props.size.height - 2}
-                width={10}
-                height={10}
+                width={8}
+                height={8}
                 fill={'#fff'}
                 stroke={'#000'}
                 strokeWidth={1}
