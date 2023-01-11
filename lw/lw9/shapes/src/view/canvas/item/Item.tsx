@@ -1,10 +1,11 @@
 import {ShapeType} from "../../../model/domain/ShapeType";
 import {IShape} from "../../../model/domain/Shape";
-import {createRef, ForwardedRef, RefObject, useState} from "react";
+import {createRef, ForwardedRef, RefObject, useMemo, useState} from "react";
 import {useMovingDragAndDrop} from "../../hooks/dragAndDrop/useMovingDragAndDrop";
 import Selected from "../selected/Selected";
 import {Rect} from "../../../common/rect/rect";
 import {useResizeDragAndDrop} from "../../hooks/dragAndDrop/useResizeDragAndDrop";
+import {getDefaultColor} from "../../../common/defaultValues";
 
 interface ItemProps {
   shape: IShape
@@ -18,6 +19,7 @@ interface ItemProps {
 function Item(props: ItemProps) {
   const ref: RefObject<SVGForeignObjectElement | SVGImageElement> = createRef()
   const frame = props.shape.getFrame()
+  const {fill, stroke} = useMemo(() => getDefaultColor(), [getDefaultColor])
 
   const onSelectItem = (e: React.MouseEvent<SVGGElement> | MouseEvent) => {
     e.stopPropagation()
@@ -62,8 +64,8 @@ function Item(props: ItemProps) {
           y={frame.leftTop.y + deltaPosition.dy}
           width={frame.width + deltaSize.width}
           height={frame.height + deltaSize.height}
-          fill={'red'}
-          strokeWidth={2}
+          fill={fill}
+          stroke={stroke}
       />
       break;
     case ShapeType.ELLIPSE:
@@ -73,8 +75,8 @@ function Item(props: ItemProps) {
           cy={frame.leftTop.y + (frame.height + deltaSize.height) / 2 + deltaPosition.dy}
           rx={(frame.width + deltaSize.width) / 2}
           ry={(frame.height + deltaSize.height) / 2}
-          fill={'red'}
-          strokeWidth={2}
+          fill={fill}
+          stroke={stroke}
       />
       break;
     case ShapeType.TRIANGLE:
@@ -83,8 +85,8 @@ function Item(props: ItemProps) {
           points={`${frame.leftTop.x + deltaPosition.dx} ${frame.leftTop.y + deltaPosition.dy + frame.height + deltaSize.height}, 
                         ${frame.leftTop.x + deltaPosition.dx + (frame.width + deltaSize.width) / 2} ${frame.leftTop.y + deltaPosition.dy}, 
                         ${frame.leftTop.x + deltaPosition.dx + (frame.width + deltaSize.width)} ${frame.leftTop.y + deltaPosition.dy + frame.height + deltaSize.height}`}
-          fill={'red'}
-          strokeWidth={2}
+          fill={fill}
+          stroke={stroke}
       />
   }
 

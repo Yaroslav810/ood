@@ -13,6 +13,14 @@ const getDefaultValues = () => ({
   }
 })
 
+function getDefaultColor() {
+  return {
+    fill: '#00FFFF',
+    stroke: '#000000',
+  }
+}
+
 export {
   getDefaultValues,
+  getDefaultColor,
 }
