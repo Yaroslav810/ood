@@ -6,18 +6,24 @@ function useHotKey(
     controller: Controller,
     selectItem: UUID | null,
 ) {
-    const handleDel = useCallback((event: KeyboardEvent) => {
-      if (event.key === 'Delete') {
-        if (selectItem) {
-          controller.deleteShape(selectItem)
-        }
+  const handleDel = useCallback((event: KeyboardEvent) => {
+    if (event.key === 'Delete' && selectItem) {
+      controller.deleteShape(selectItem)
+    }
+    if (event.ctrlKey) {
+      if (event.code === 'KeyZ') {
+        controller.undo()
       }
-    }, [selectItem, controller])
+      if (event.code === 'KeyY') {
+        controller.redo()
+      }
+    }
+  }, [selectItem, controller])
 
-    useEffect(() => {
-        document.addEventListener('keydown', handleDel)
-        return () => document.removeEventListener('keydown', handleDel)
-    })
+  useEffect(() => {
+    document.addEventListener('keydown', handleDel)
+    return () => document.removeEventListener('keydown', handleDel)
+  })
 }
 
 export {

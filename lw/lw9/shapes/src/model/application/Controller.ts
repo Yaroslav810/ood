@@ -31,10 +31,10 @@ class Controller {
     }
   }
 
-  changeFrameShape(uuid: UUID, frame: Rect): void {
+  changeFrameShape(uuid: UUID, frame: Rect, handler: Function): void {
     const shape = this.canvas.getShapes().find(shape => shape.getUuid() === uuid)
     if (shape) {
-      this.history.addAndExecuteCommand(new ChangeFrameCommand(shape, frame, this.canvas))
+      this.history.addAndExecuteCommand(new ChangeFrameCommand(shape, frame, this.canvas, handler))
     }
   }
 

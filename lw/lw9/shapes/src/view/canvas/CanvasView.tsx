@@ -21,14 +21,15 @@ function CanvasView({shapes, controller, selectedUuid, setSelectedUuid}: ViewDat
         {
           shapes.map(shape => {
             const uuid = shape.getUuid()
+            const handler = () => setSelectedUuid(uuid)
             return <Item
                 key={uuid}
                 shape={shape}
                 isSelected={uuid === selectedUuid}
                 scale={scale}
-                moveItem={(frame) => controller.changeFrameShape(uuid, frame)}
+                moveItem={(frame) => controller.changeFrameShape(uuid, frame, handler)}
+                changeSize={(frame) => controller.changeFrameShape(uuid, frame, handler)}
                 selectItem={setSelectedUuid}
-                changeSize={(frame) => controller.changeFrameShape(uuid, frame)}
             />
           })
         }
