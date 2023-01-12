@@ -5,9 +5,9 @@ import {Dispatch, SetStateAction} from "react";
 
 interface ViewData {
     shapes: IShape[],
+    controller: Controller,
     selectedUuid: UUID | null,
     setSelectedUuid: Dispatch<SetStateAction<UUID | null>>,
-    controller: Controller,
 }
 
 export {

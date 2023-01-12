@@ -1,15 +1,30 @@
 import styles from './CanvasView.module.css'
-import {useMemo, useRef, useState} from "react";
-import {getDefaultValues} from "../../common/defaultValues";
+import {useMemo, useRef} from "react";
+import {getDefaultCanvasData} from "../../common/defaultValues";
 import {Item} from "./item/Item";
 import {useScaleCanvas} from "../hooks/useScaleCanvas";
 import {ViewData} from "../viewData";
+import {IShape} from "../../model/domain/Shape";
+import {UUID} from "../../common/uuid/uuid";
+
+function getSelectedShape(shapes: IShape[], selectedUuid: UUID | null): IShape | null {
+  if (!selectedUuid) {
+    return null
+  }
+
+  const shape = shapes.find(shape => shape.getUuid() === selectedUuid)
+  if (!shape) {
+    return null
+  }
+
+  return shape
+}
 
 function CanvasView({shapes, controller, selectedUuid, setSelectedUuid}: ViewData) {
   const ref = useRef<SVGSVGElement>(null)
-  const [scale, setScale] = useState(1)
-  useScaleCanvas(ref, setScale)
-  const {canvas} = useMemo(() => getDefaultValues(), [])
+  const scale = useScaleCanvas(ref)
+  const canvas = useMemo(() => getDefaultCanvasData(), [])
+  const shape = getSelectedShape(shapes, selectedUuid)
 
   return (
       <svg

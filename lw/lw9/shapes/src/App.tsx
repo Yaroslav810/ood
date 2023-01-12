@@ -14,17 +14,15 @@ interface AppProps {
 
 function App({shapes, controller}: AppProps) {
   const [selectedUuid, setSelectedUuid] = useState<UUID | null>(null)
-
   const clearSelected = useCallback(() => {
       setSelectedUuid(null)
   }, [setSelectedUuid])
-
-  useHotKey(controller, selectedUuid)
-
   useEffect(() => {
       document.addEventListener('click', clearSelected)
       return () => document.removeEventListener('click', clearSelected)
   }, [clearSelected])
+
+  useHotKey(controller, selectedUuid)
 
   return (
     <div className={styles.content}>

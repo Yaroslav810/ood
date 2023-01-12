@@ -1,7 +1,7 @@
 import {ShapeType} from "./ShapeType";
 import {Rect} from "../../common/rect/rect";
 import {generateUuid, UUID} from "../../common/uuid/uuid";
-import {getDefaultValues} from "../../common/defaultValues";
+import {getDefaultShapeData} from "../../common/defaultValues";
 
 interface IShape {
   getUuid(): UUID
@@ -17,7 +17,7 @@ class Shape implements IShape {
   constructor(type: ShapeType) {
     this.uuid = generateUuid()
     this.type = type
-    this.frame = getDefaultValues().shape
+    this.frame = getDefaultShapeData().frame
   }
 
   getUuid(): UUID {

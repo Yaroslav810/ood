@@ -5,7 +5,7 @@ import {useMovingDragAndDrop} from "../../hooks/dragAndDrop/useMovingDragAndDrop
 import Selected from "../selected/Selected";
 import {Rect} from "../../../common/rect/rect";
 import {useResizeDragAndDrop} from "../../hooks/dragAndDrop/useResizeDragAndDrop";
-import {getDefaultColor} from "../../../common/defaultValues";
+import {getDefaultShapeData} from "../../../common/defaultValues";
 
 interface ItemProps {
   shape: IShape
@@ -19,7 +19,7 @@ interface ItemProps {
 function Item(props: ItemProps) {
   const ref: RefObject<SVGForeignObjectElement | SVGImageElement> = createRef()
   const frame = props.shape.getFrame()
-  const {fill, stroke} = useMemo(() => getDefaultColor(), [getDefaultColor])
+  const {fill, stroke} = useMemo(() => getDefaultShapeData(), [getDefaultShapeData])
 
   const onSelectItem = (e: React.MouseEvent<SVGGElement> | MouseEvent) => {
     e.stopPropagation()

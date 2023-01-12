@@ -1,7 +1,7 @@
 import React, {Dispatch, RefObject, SetStateAction} from "react"
 import {useBaseDragAndDrop} from "./useBaseDragAndDrop"
 import {Rect} from "../../../common/rect/rect";
-import {getDefaultValues} from "../../../common/defaultValues";
+import {getDefaultCanvasData} from "../../../common/defaultValues";
 
 function useMovingDragAndDrop(
     ref: RefObject<Element>,
@@ -11,7 +11,7 @@ function useMovingDragAndDrop(
     moveItem?: (deltaX: number, deltaY: number) => void,
     selectItem?: (e: MouseEvent) => void
 ) {
-    const {canvas} = getDefaultValues()
+    const canvas = getDefaultCanvasData()
     let startPosition: {x: number, y: number} = {x: 0, y: 0}
 
     const deltaCounting = (event: MouseEvent) => {
