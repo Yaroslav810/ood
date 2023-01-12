@@ -1,4 +1,4 @@
-import React, {Dispatch, RefObject, SetStateAction} from "react"
+import React, {RefObject} from "react"
 import {useBaseDragAndDrop} from "./useBaseDragAndDrop"
 import {Rect} from "../../../common/rect/rect";
 import {getDefaultCanvasData} from "../../../common/defaultValues";
@@ -6,10 +6,10 @@ import {getDefaultCanvasData} from "../../../common/defaultValues";
 function useMovingDragAndDrop(
     ref: RefObject<Element>,
     frame: Rect,
-    setDelta: Dispatch<SetStateAction<{dx: number, dy: number}>>,
+    changeMove: (dx: number, dy: number) => void,
     scale: number,
-    moveItem?: (deltaX: number, deltaY: number) => void,
-    selectItem?: (e: MouseEvent) => void
+    moveItem: (deltaX: number, deltaY: number) => void,
+    isSelected: boolean,
 ) {
     const canvas = getDefaultCanvasData()
     let startPosition: {x: number, y: number} = {x: 0, y: 0}
@@ -39,7 +39,6 @@ function useMovingDragAndDrop(
     }
 
     const handleMouseDown = (event: MouseEvent) => {
-        selectItem && selectItem(event)
         startPosition = {
             x: event.pageX,
             y: event.pageY
@@ -48,10 +47,7 @@ function useMovingDragAndDrop(
 
     const handleMouseMove = (event: MouseEvent) => {
         const d = deltaCounting(event)
-        setDelta({
-            dx: d.dx,
-            dy: d.dy
-        })
+        changeMove(d.dx, d.dy)
     }
 
     const handleMouseUp = (event: MouseEvent) => {
@@ -59,13 +55,10 @@ function useMovingDragAndDrop(
         if (d.dx !== 0 || d.dy !== 0) {
             moveItem && moveItem(d.dx, d.dy)
         }
-        setDelta({
-            dx: 0,
-            dy: 0
-        })
+        changeMove(0, 0)
     }
 
-    useBaseDragAndDrop(ref, handleMouseDown, handleMouseMove, handleMouseUp)
+    useBaseDragAndDrop(ref, isSelected, handleMouseDown, handleMouseMove, handleMouseUp)
 }
 
 export {

@@ -2,6 +2,7 @@ import React, {useCallback, useEffect} from "react"
 
 function useBaseDragAndDrop(
     ref: React.RefObject<Element>,
+    isSelected: boolean,
     onDownCallback?: (e: MouseEvent) => void,
     onMovementCallback?: (e: MouseEvent) => void,
     onUpCallback?: (e: MouseEvent) => void
@@ -23,7 +24,7 @@ function useBaseDragAndDrop(
     }, [handleMouseMove, handleMouseUp, onDownCallback])
 
     useEffect(() => {
-        if (!ref.current) {
+        if (!ref.current || !isSelected) {
             return
         }
         const item = ref.current

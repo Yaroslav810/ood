@@ -2,7 +2,6 @@ import {ShapeType} from "../../../model/domain/ShapeType";
 import {IShape} from "../../../model/domain/Shape";
 import {createRef, ForwardedRef, RefObject, useMemo, useState} from "react";
 import {useMovingDragAndDrop} from "../../hooks/dragAndDrop/useMovingDragAndDrop";
-import Selected from "../selected/Selected";
 import {useResizeDragAndDrop} from "../../hooks/dragAndDrop/useResizeDragAndDrop";
 import {getDefaultShapeData} from "../../../common/defaultValues";
 
@@ -10,28 +9,40 @@ interface ItemProps {
   shape: IShape
   isSelected: boolean
   scale: number
+  refResize: RefObject<SVGRectElement>
   selectItem: (uuid: string) => void
   moveItem: (deltaX: number, deltaY: number) => void
   changeSize: (deltaX: number, deltaY: number) => void
+  onMove?: (deltaX: number, deltaY: number) => void
+  onResize?: (deltaX: number, deltaY: number) => void
 }
 
 function Item(props: ItemProps) {
-  const {moveItem, changeSize} = props
+  const {isSelected, refResize, moveItem, changeSize, onMove, onResize} = props
   const ref: RefObject<SVGImageElement> = createRef()
   const frame = props.shape.getFrame()
   const {fill, stroke} = useMemo(() => getDefaultShapeData(), [getDefaultShapeData])
 
   const onSelectItem = (e: React.MouseEvent<SVGGElement> | MouseEvent) => {
     e.stopPropagation()
-    props.selectItem && props.selectItem(props.shape.getUuid())
+    props.selectItem(props.shape.getUuid())
+  }
+
+  const changeMove = (dx: number, dy: number) => {
+    setDeltaPosition({dx, dy})
+    onMove && onMove(dx, dy)
+  }
+
+  const changeSizeItem = (width: number, height: number) => {
+    setDeltaSize({width, height})
+    onResize && onResize(width, height)
   }
 
   const [deltaPosition, setDeltaPosition] = useState({dx: 0, dy: 0})
-  useMovingDragAndDrop(ref, frame, setDeltaPosition, props.scale, moveItem, onSelectItem)
+  useMovingDragAndDrop(ref, frame, changeMove, props.scale, moveItem, isSelected)
 
-  const refResize: RefObject<SVGRectElement> = createRef()
   const [deltaSize, setDeltaSize] = useState({width: 0, height: 0})
-  useResizeDragAndDrop(refResize, frame, setDeltaSize, props.scale, {width: frame.width, height: frame.height}, changeSize)
+  useResizeDragAndDrop(refResize, frame, changeSizeItem, props.scale, {width: frame.width, height: frame.height}, changeSize, isSelected)
 
   let content = null
   switch (props.shape.getType()) {
@@ -69,25 +80,9 @@ function Item(props: ItemProps) {
   }
 
   return (
-      <>
-        <g onClick={e => onSelectItem(e)}>
-          {content}
-        </g>
-        {props.isSelected &&
-          <Selected
-            ref={refResize}
-            coordinates={{
-              x: frame.leftTop.x + deltaPosition.dx,
-              y: frame.leftTop.y + deltaPosition.dy
-            }}
-            size={{
-              width: frame.width + deltaSize.width,
-              height: frame.height + deltaSize.height
-            }}
-            changeSize={changeSize}
-          />
-        }
-      </>
+      <g onClick={e => onSelectItem(e)}>
+        {content}
+      </g>
   )
 }
 

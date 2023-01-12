@@ -8,10 +8,11 @@ const BALANCE = 10
 function useResizeDragAndDrop(
     ref: React.RefObject<SVGElement>,
     frame: Rect,
-    setDeltaSize: React.Dispatch<React.SetStateAction<{width: number, height: number}>>,
+    setDeltaSize: (width: number, height: number) => void,
     scale: number,
     size: {width: number, height: number},
-    changeSize?: (deltaX: number, deltaY: number) => void
+    changeSize: (deltaX: number, deltaY: number) => void,
+    isSelected: boolean,
 ) {
     const canvas = getDefaultCanvasData()
     let startPosition: {x: number, y: number} = {x: 0, y: 0}
@@ -57,15 +58,13 @@ function useResizeDragAndDrop(
     }
 
     const handleMouseMove = (event: MouseEvent) => {
-        setDeltaSize(deltaCounting(event))
+        const d = deltaCounting(event)
+        setDeltaSize(d.width, d.height)
     }
 
     const handleMouseUp = (event: MouseEvent) => {
         const d = deltaCounting(event)
-        setDeltaSize({
-            width: 0,
-            height: 0
-        })
+        setDeltaSize(0, 0)
 
         if (d.width !== 0 || d.height !== 0) {
             changeSize && changeSize(d.width, d.height)
@@ -73,7 +72,7 @@ function useResizeDragAndDrop(
         cancelMouseClick()
     }
 
-    useBaseDragAndDrop(ref, handleMouseDown, handleMouseMove, handleMouseUp)
+    useBaseDragAndDrop(ref, isSelected, handleMouseDown, handleMouseMove, handleMouseUp)
 }
 
 export {
