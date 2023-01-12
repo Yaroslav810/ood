@@ -49,7 +49,7 @@ function Item(props: ItemProps) {
   }
 
   const [deltaPosition, setDeltaPosition] = useState({dx: 0, dy: 0})
-  useMovingDragAndDrop(ref, setDeltaPosition, props.scale, onMoveItem, onSelectItem)
+  useMovingDragAndDrop(ref, frame, setDeltaPosition, props.scale, onMoveItem, onSelectItem)
 
   const refResize: RefObject<SVGRectElement> = createRef()
   const [deltaSize, setDeltaSize] = useState({width: 0, height: 0})
