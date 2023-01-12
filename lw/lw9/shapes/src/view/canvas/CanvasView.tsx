@@ -6,6 +6,7 @@ import {useScaleCanvas} from "../hooks/useScaleCanvas";
 import {ViewData} from "../viewData";
 import {IShape} from "../../model/domain/Shape";
 import {UUID} from "../../common/uuid/uuid";
+import {useItemFunctions} from "../hooks/useItemFunctions";
 
 function getSelectedShape(shapes: IShape[], selectedUuid: UUID | null): IShape | null {
   if (!selectedUuid) {
@@ -24,7 +25,8 @@ function CanvasView({shapes, controller, selectedUuid, setSelectedUuid}: ViewDat
   const ref = useRef<SVGSVGElement>(null)
   const scale = useScaleCanvas(ref)
   const canvas = useMemo(() => getDefaultCanvasData(), [])
-  const shape = getSelectedShape(shapes, selectedUuid)
+  const selectedShape = getSelectedShape(shapes, selectedUuid)
+  const {moveItem, changeSize} = useItemFunctions({controller, setSelectedUuid})
 
   return (
       <svg
@@ -36,14 +38,13 @@ function CanvasView({shapes, controller, selectedUuid, setSelectedUuid}: ViewDat
         {
           shapes.map(shape => {
             const uuid = shape.getUuid()
-            const handler = () => setSelectedUuid(uuid)
             return <Item
                 key={uuid}
                 shape={shape}
                 isSelected={uuid === selectedUuid}
                 scale={scale}
-                moveItem={(frame) => controller.changeFrameShape(uuid, frame, handler)}
-                changeSize={(frame) => controller.changeFrameShape(uuid, frame, handler)}
+                moveItem={(dx: number, dy: number) => moveItem(shape, dx, dy)}
+                changeSize={(dx: number, dy: number) => changeSize(shape, dx, dy)}
                 selectItem={setSelectedUuid}
             />
           })

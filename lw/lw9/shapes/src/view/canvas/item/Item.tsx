@@ -3,7 +3,6 @@ import {IShape} from "../../../model/domain/Shape";
 import {createRef, ForwardedRef, RefObject, useMemo, useState} from "react";
 import {useMovingDragAndDrop} from "../../hooks/dragAndDrop/useMovingDragAndDrop";
 import Selected from "../selected/Selected";
-import {Rect} from "../../../common/rect/rect";
 import {useResizeDragAndDrop} from "../../hooks/dragAndDrop/useResizeDragAndDrop";
 import {getDefaultShapeData} from "../../../common/defaultValues";
 
@@ -11,13 +10,14 @@ interface ItemProps {
   shape: IShape
   isSelected: boolean
   scale: number
-  selectItem?: (uuid: string) => void
-  moveItem?: (frame: Rect) => void
-  changeSize?: (frame: Rect) => void
+  selectItem: (uuid: string) => void
+  moveItem: (deltaX: number, deltaY: number) => void
+  changeSize: (deltaX: number, deltaY: number) => void
 }
 
 function Item(props: ItemProps) {
-  const ref: RefObject<SVGForeignObjectElement | SVGImageElement> = createRef()
+  const {moveItem, changeSize} = props
+  const ref: RefObject<SVGImageElement> = createRef()
   const frame = props.shape.getFrame()
   const {fill, stroke} = useMemo(() => getDefaultShapeData(), [getDefaultShapeData])
 
@@ -26,34 +26,12 @@ function Item(props: ItemProps) {
     props.selectItem && props.selectItem(props.shape.getUuid())
   }
 
-  const onMoveItem = (deltaX: number, deltaY: number) => {
-    props.moveItem && props.moveItem({
-      leftTop: {
-        x: frame.leftTop.x + deltaX,
-        y: frame.leftTop.y + deltaY,
-      },
-      width: frame.width,
-      height: frame.height,
-    })
-  }
-
-  const onChangeSizeItem = (deltaX: number, deltaY: number) => {
-    props.changeSize && props.changeSize({
-      leftTop: {
-        x: frame.leftTop.x,
-        y: frame.leftTop.y,
-      },
-      width: frame.width + deltaX,
-      height: frame.height + deltaY,
-    })
-  }
-
   const [deltaPosition, setDeltaPosition] = useState({dx: 0, dy: 0})
-  useMovingDragAndDrop(ref, frame, setDeltaPosition, props.scale, onMoveItem, onSelectItem)
+  useMovingDragAndDrop(ref, frame, setDeltaPosition, props.scale, moveItem, onSelectItem)
 
   const refResize: RefObject<SVGRectElement> = createRef()
   const [deltaSize, setDeltaSize] = useState({width: 0, height: 0})
-  useResizeDragAndDrop(refResize, frame, setDeltaSize, props.scale, {width: frame.width, height: frame.height}, onChangeSizeItem)
+  useResizeDragAndDrop(refResize, frame, setDeltaSize, props.scale, {width: frame.width, height: frame.height}, changeSize)
 
   let content = null
   switch (props.shape.getType()) {
@@ -106,7 +84,7 @@ function Item(props: ItemProps) {
               width: frame.width + deltaSize.width,
               height: frame.height + deltaSize.height
             }}
-            changeSize={onChangeSizeItem}
+            changeSize={changeSize}
           />
         }
       </>
