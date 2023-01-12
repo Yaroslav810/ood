@@ -1,6 +1,8 @@
 import React from "react"
 import {useBaseDragAndDrop} from "./useBaseDragAndDrop"
 
+const BALANCE = 10
+
 function useResizeDragAndDrop(
     ref: React.RefObject<SVGElement>,
     setDeltaSize: React.Dispatch<React.SetStateAction<{width: number, height: number}>>,
@@ -15,11 +17,11 @@ function useResizeDragAndDrop(
             width: (event.pageX - startPosition.x) / scale,
             height: (event.pageY - startPosition.y) / scale
         }
-        if (delta.width < -size.width) {
-            delta.width = -size.width
+        if (delta.width < -size.width + BALANCE) {
+            delta.width = -size.width + BALANCE
         }
-        if (delta.height < -size.height) {
-            delta.height = -size.height
+        if (delta.height < -size.height + BALANCE) {
+            delta.height = -size.height + BALANCE
         }
         return delta
     }
