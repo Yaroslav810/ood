@@ -53,7 +53,7 @@ function Item(props: ItemProps) {
 
   const refResize: RefObject<SVGRectElement> = createRef()
   const [deltaSize, setDeltaSize] = useState({width: 0, height: 0})
-  useResizeDragAndDrop(refResize, setDeltaSize, props.scale, {width: frame.width, height: frame.height}, onChangeSizeItem)
+  useResizeDragAndDrop(refResize, frame, setDeltaSize, props.scale, {width: frame.width, height: frame.height}, onChangeSizeItem)
 
   let content = null
   switch (props.shape.getType()) {

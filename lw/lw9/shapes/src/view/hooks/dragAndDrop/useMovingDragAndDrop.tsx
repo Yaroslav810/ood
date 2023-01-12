@@ -15,10 +15,12 @@ function useMovingDragAndDrop(
     let startPosition: {x: number, y: number} = {x: 0, y: 0}
 
     const deltaCounting = (event: MouseEvent) => {
-        return {
+        const delta = {
             dx: (event.pageX - startPosition.x) / scale,
             dy: (event.pageY - startPosition.y) / scale
         }
+        calculateOverflow(delta)
+        return delta
     }
 
     const calculateOverflow = (d: {dx: number, dy: number}) => {
@@ -46,7 +48,6 @@ function useMovingDragAndDrop(
 
     const handleMouseMove = (event: MouseEvent) => {
         const d = deltaCounting(event)
-        calculateOverflow(d)
         setDelta({
             dx: d.dx,
             dy: d.dy
