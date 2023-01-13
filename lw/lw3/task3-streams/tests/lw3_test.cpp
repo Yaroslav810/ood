@@ -1,5 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include "../../../../catch2/catch.hpp"
+#include "../lib/Decorator/CCompressOutputStream/CCompressOutputStream.h"
+#include "../lib/Decorator/CDecompressInputStream/CDecompressInputStream.h"
 #include "../lib/InputStream/CFileInputStream/CFileInputStream.h"
 #include "../lib/InputStream/CMemoryInputStream/CMemoryInputStream.h"
 #include "../lib/OutputStream/CFileOutputStream/CFileOutputStream.h"
@@ -345,6 +347,146 @@ SCENARIO("Writing to memory streams")
 						REQUIRE(memory[4] == 'c');
 						REQUIRE(memory[5] == '\n');
 					}
+				}
+			}
+		}
+	}
+}
+
+SCENARIO("Compression and decompression in the file stream")
+{
+	GIVEN("Title file")
+	{
+		WHEN("Creating a CFileOutputStream and decorating it with a CCompressOutputStream and WriteByte")
+		{
+			{
+				IOutputDataStreamPtr omstream = std::make_unique<CFileOutputStream>(OUTPUT_FILE);
+				omstream = std::make_unique<CCompressOutputStream>(std::move(omstream));
+
+				omstream->WriteByte('A');
+				omstream->WriteByte('b');
+				omstream->WriteByte('b');
+				omstream->WriteByte('b');
+				omstream->WriteByte('c');
+				omstream->WriteByte('c');
+			}
+
+			AND_WHEN("Creating a CFileInputStream and decorating it with a CDecompressInputStream")
+			{
+				IInputDataStreamPtr imstream = std::make_unique<CFileInputStream>(OUTPUT_FILE);
+				imstream = std::make_unique<CDecompressInputStream>(std::move(imstream));
+
+				THEN("The data is being read")
+				{
+					REQUIRE(imstream->ReadByte() == 'A');
+					REQUIRE(imstream->ReadByte() == 'b');
+					REQUIRE(imstream->ReadByte() == 'b');
+					REQUIRE(imstream->ReadByte() == 'b');
+					REQUIRE(imstream->ReadByte() == 'c');
+					REQUIRE(imstream->ReadByte() == 'c');
+				}
+			}
+		}
+	}
+
+	GIVEN("Title file and buffer")
+	{
+		char buffer[6] = {'A', 'b', 'b', 'b', 'c', 'c'};
+		WHEN("Creating a CFileOutputStream and decorating it with a CCompressOutputStream and WriteByte")
+		{
+			{
+				IOutputDataStreamPtr omstream = std::make_unique<CFileOutputStream>(OUTPUT_FILE);
+				omstream = std::make_unique<CCompressOutputStream>(std::move(omstream));
+				omstream->WriteBlock(buffer, 6);
+			}
+
+			AND_WHEN("Creating a CMemoryInputStream and decorating it with a CDecompressInputStream")
+			{
+				char newBuffer[6];
+				IInputDataStreamPtr imstream = std::make_unique<CFileInputStream>(OUTPUT_FILE);
+				imstream = std::make_unique<CDecompressInputStream>(std::move(imstream));
+				imstream->ReadBlock(newBuffer, 6);
+
+				THEN("The data is being read")
+				{
+					REQUIRE(newBuffer[0] == buffer[0]);
+					REQUIRE(newBuffer[1] == buffer[1]);
+					REQUIRE(newBuffer[2] == buffer[2]);
+					REQUIRE(newBuffer[3] == buffer[3]);
+					REQUIRE(newBuffer[4] == buffer[4]);
+					REQUIRE(newBuffer[5] == buffer[5]);
+				}
+			}
+		}
+	}
+}
+
+SCENARIO("Compression and decompression in the memory stream")
+{
+	GIVEN("Empty array")
+	{
+		std::vector<uint8_t> memory;
+
+		WHEN("Creating a CMemoryOutputStream and decorating it with a CCompressOutputStream and WriteByte")
+		{
+			{
+				IOutputDataStreamPtr omstream = std::make_unique<CMemoryOutputStream>(memory);
+				omstream = std::make_unique<CCompressOutputStream>(std::move(omstream));
+
+				omstream->WriteByte('A');
+				omstream->WriteByte('b');
+				omstream->WriteByte('b');
+				omstream->WriteByte('b');
+				omstream->WriteByte('c');
+				omstream->WriteByte('c');
+			}
+
+			AND_WHEN("Creating a CMemoryInputStream and decorating it with a CDecompressInputStream")
+			{
+				IInputDataStreamPtr imstream = std::make_unique<CMemoryInputStream>(memory);
+				imstream = std::make_unique<CDecompressInputStream>(std::move(imstream));
+
+				THEN("The data is being read")
+				{
+					REQUIRE(imstream->ReadByte() == 'A');
+					REQUIRE(imstream->ReadByte() == 'b');
+					REQUIRE(imstream->ReadByte() == 'b');
+					REQUIRE(imstream->ReadByte() == 'b');
+					REQUIRE(imstream->ReadByte() == 'c');
+					REQUIRE(imstream->ReadByte() == 'c');
+				}
+			}
+		}
+	}
+
+	GIVEN("Empty array and buffer of 7 elements")
+	{
+		std::vector<uint8_t> memory;
+		char buffer[6] = { 'A', 'b', 'b', 'b', 'c', 'c' };
+
+		WHEN("Creating a CMemoryOutputStream and decorating it with a CCompressOutputStream and WriteByte")
+		{
+			{
+				IOutputDataStreamPtr omstream = std::make_unique<CMemoryOutputStream>(memory);
+				omstream = std::make_unique<CCompressOutputStream>(std::move(omstream));
+				omstream->WriteBlock(buffer, 6);
+			}
+
+			AND_WHEN("Creating a CMemoryInputStream and decorating it with a CDecompressInputStream")
+			{
+				char newBuffer[6];
+				IInputDataStreamPtr imstream = std::make_unique<CMemoryInputStream>(memory);
+				imstream = std::make_unique<CDecompressInputStream>(std::move(imstream));
+				imstream->ReadBlock(newBuffer, 6);
+
+				THEN("The data is being read")
+				{
+					REQUIRE(newBuffer[0] == 'A');
+					REQUIRE(newBuffer[1] == 'b');
+					REQUIRE(newBuffer[2] == 'b');
+					REQUIRE(newBuffer[3] == 'b');
+					REQUIRE(newBuffer[4] == 'c');
+					REQUIRE(newBuffer[5] == 'c');
 				}
 			}
 		}
