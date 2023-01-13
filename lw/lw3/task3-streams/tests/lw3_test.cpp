@@ -2,6 +2,8 @@
 #include "../../../../catch2/catch.hpp"
 #include "../lib/Decorator/CCompressOutputStream/CCompressOutputStream.h"
 #include "../lib/Decorator/CDecompressInputStream/CDecompressInputStream.h"
+#include "../lib/Decorator/CDecryptInputStream/CDecryptInputStream.h"
+#include "../lib/Decorator/CEncryptOutputStream/CEncryptOutputStream.h"
 #include "../lib/InputStream/CFileInputStream/CFileInputStream.h"
 #include "../lib/InputStream/CMemoryInputStream/CMemoryInputStream.h"
 #include "../lib/OutputStream/CFileOutputStream/CFileOutputStream.h"
@@ -487,6 +489,74 @@ SCENARIO("Compression and decompression in the memory stream")
 					REQUIRE(newBuffer[3] == 'b');
 					REQUIRE(newBuffer[4] == 'c');
 					REQUIRE(newBuffer[5] == 'c');
+				}
+			}
+		}
+	}
+}
+
+SCENARIO("Encryption and decryption in the file stream")
+{
+	GIVEN("Title file")
+	{
+		WHEN("Creating a CFileOutputStream and decorating it with a CEncryptOutputStream and WriteByte")
+		{
+			{
+				IOutputDataStreamPtr omstream = std::make_unique<CFileOutputStream>(OUTPUT_FILE);
+				omstream = std::make_unique<CEncryptOutputStream>(std::move(omstream), 5);
+
+				omstream->WriteByte('A');
+				omstream->WriteByte('b');
+				omstream->WriteByte('b');
+				omstream->WriteByte('b');
+				omstream->WriteByte('c');
+				omstream->WriteByte('c');
+			}
+
+			AND_WHEN("Creating a CFileInputStream and decorating it with a CDecryptInputStream")
+			{
+				IInputDataStreamPtr imstream = std::make_unique<CFileInputStream>(OUTPUT_FILE);
+				imstream = std::make_unique<CDecryptInputStream>(std::move(imstream), 5);
+
+				THEN("The data is being read")
+				{
+					REQUIRE(imstream->ReadByte() == 'A');
+					REQUIRE(imstream->ReadByte() == 'b');
+					REQUIRE(imstream->ReadByte() == 'b');
+					REQUIRE(imstream->ReadByte() == 'b');
+					REQUIRE(imstream->ReadByte() == 'c');
+					REQUIRE(imstream->ReadByte() == 'c');
+				}
+			}
+		}
+	}
+
+	GIVEN("Title file and buffer")
+	{
+		char buffer[6] = {'A', 'b', 'b', 'b', 'c', 'c'};
+		WHEN("Creating a CFileOutputStream and decorating it with a CEncryptOutputStream and WriteByte")
+		{
+			{
+				IOutputDataStreamPtr omstream = std::make_unique<CFileOutputStream>(OUTPUT_FILE);
+				omstream = std::make_unique<CEncryptOutputStream>(std::move(omstream), 5);
+				omstream->WriteBlock(buffer, 6);
+			}
+
+			AND_WHEN("Creating a CMemoryInputStream and decorating it with a CDecryptInputStream")
+			{
+				char newBuffer[6];
+				IInputDataStreamPtr imstream = std::make_unique<CFileInputStream>(OUTPUT_FILE);
+				imstream = std::make_unique<CDecryptInputStream>(std::move(imstream), 5);
+				imstream->ReadBlock(newBuffer, 6);
+
+				THEN("The data is being read")
+				{
+					REQUIRE(newBuffer[0] == buffer[0]);
+					REQUIRE(newBuffer[1] == buffer[1]);
+					REQUIRE(newBuffer[2] == buffer[2]);
+					REQUIRE(newBuffer[3] == buffer[3]);
+					REQUIRE(newBuffer[4] == buffer[4]);
+					REQUIRE(newBuffer[5] == buffer[5]);
 				}
 			}
 		}
