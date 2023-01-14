@@ -23,7 +23,7 @@ CPoint CTriangle::GetThirdVertex() const
 	return m_thirdVertex;
 }
 
-void CTriangle::Draw(ICanvas& canvas)
+void CTriangle::Draw(ICanvas& canvas) const
 {
 	canvas.SetColor(GetColor());
 	canvas.DrawLine(m_firstVertex, m_secondVertex);

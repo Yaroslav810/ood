@@ -8,7 +8,7 @@ public:
 	[[nodiscard]] CPoint GetLeftTop() const;
 	[[nodiscard]] CPoint GetRightBottom() const;
 
-	void Draw(ICanvas& canvas) override;
+	void Draw(ICanvas& canvas) const override;
 
 private:
 	CPoint m_leftTop;
