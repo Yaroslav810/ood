@@ -9,7 +9,7 @@ public:
 	[[nodiscard]] double GetHorizontalRadius() const;
 	[[nodiscard]] double GetVerticalRadius() const;
 
-	void Draw(ICanvas& canvas) override;
+	void Draw(ICanvas& canvas) const override;
 
 private:
 	CPoint m_center;

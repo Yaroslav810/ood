@@ -18,7 +18,7 @@ CPoint CRectangle::GetLeftTop() const
 	return m_leftTop;
 }
 
-void CRectangle::Draw(ICanvas& canvas)
+void CRectangle::Draw(ICanvas& canvas) const
 {
 	canvas.SetColor(GetColor());
 

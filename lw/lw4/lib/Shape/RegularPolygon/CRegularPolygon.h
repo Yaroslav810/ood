@@ -14,7 +14,7 @@ public:
 	[[nodiscard]] CPoint GetCenterPoint() const;
 	[[nodiscard]] double GetRadius() const;
 
-	void Draw(ICanvas& canvas) override;
+	void Draw(ICanvas& canvas) const override;
 
 private:
 	[[nodiscard]] std::vector<CPoint> GetVertexes() const;

@@ -41,7 +41,7 @@ std::vector<CPoint> CRegularPolygon::GetVertexes() const
 	return vertexes;
 }
 
-void CRegularPolygon::Draw(ICanvas& canvas)
+void CRegularPolygon::Draw(ICanvas& canvas) const
 {
 	canvas.SetColor(GetColor());
 	std::vector<CPoint> vertexes = GetVertexes();

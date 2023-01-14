@@ -10,7 +10,7 @@ public:
 	[[nodiscard]] CPoint GetSecondVertex() const;
 	[[nodiscard]] CPoint GetThirdVertex() const;
 
-	void Draw(ICanvas& canvas) override;
+	void Draw(ICanvas& canvas) const override;
 
 private:
 	CPoint m_firstVertex;
