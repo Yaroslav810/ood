@@ -1,5 +1,4 @@
 #include "CRectangle.h"
-#include <complex>
 
 CRectangle::CRectangle(const Color& color, const CPoint& leftTop, const CPoint& rightBottom)
 	: CShape(color)

@@ -1,4 +1,4 @@
-rectangle red 1 4 3 2
-triangle yellow 1 2 2 2 1 4
-ellipse green 1 2 3 4
-regular-polygon black 3 1 2 4
+rectangle red 50 50 150 100
+triangle yellow 50 200 100 250 200 200
+ellipse green 400 300 100 50
+regular-polygon pink 5 600 200 50

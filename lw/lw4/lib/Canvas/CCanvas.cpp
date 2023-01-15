@@ -1,4 +1,11 @@
 #include "CCanvas.h"
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/VertexArray.hpp>
+
+CCanvas::CCanvas(sf::RenderWindow& window)
+	: m_window(window)
+{
+}
 
 void CCanvas::SetColor(const Color& color)
 {
@@ -7,44 +14,43 @@ void CCanvas::SetColor(const Color& color)
 
 void CCanvas::DrawLine(const CPoint& from, const CPoint& to)
 {
-	PrintColor();
-	std::cout << "draw line from {"
-			  << std::to_string(from.GetX()) << ", " << std::to_string(from.GetY())
-			  << "} to {"
-			  << std::to_string(to.GetX()) << ", " << std::to_string(to.GetY())
-			  << "}" << std::endl;
+	sf::Vertex line[] = {
+		sf::Vertex(sf::Vector2f(float(from.GetX()), float(from.GetY()))),
+		sf::Vertex(sf::Vector2f(float(to.GetX()), float(to.GetY())))
+	};
+	auto color = GetSFColor();
+	line[0].color = color;
+	line[1].color = color;
+	m_window.draw(line, 2, sf::Lines);
 }
 
 void CCanvas::DrawEllipse(const CPoint& center, double width, double height)
 {
-	PrintColor();
-	std::cout << "draw ellipse with center {"
-			  << std::to_string(center.GetX()) << ", " << std::to_string(center.GetY())
-			  << "} and width = "
-			  << std::to_string(width) << " and height = " << std::to_string(height)
-			  << std::endl;
+	sf::CircleShape circleShape((float)width);
+	circleShape.setOrigin((float)width, (float)width);
+	circleShape.move(sf::Vector2f((float)center.GetX(), (float)m_window.getSize().y - (float)center.GetY()));
+	circleShape.setScale(1.f, (float)height / (float)width);
+	circleShape.setFillColor(sf::Color::Transparent);
+	circleShape.setOutlineThickness(2);
+	circleShape.setOutlineColor(GetSFColor());
+	m_window.draw(circleShape);
 }
 
-void CCanvas::PrintColor()
-{
-	std::cout << "(" << GetColorString() << ") ";
-}
-
-std::string CCanvas::GetColorString()
+sf::Color CCanvas::GetSFColor()
 {
 	switch (m_color)
 	{
 	case Color::Green:
-		return "green";
+		return sf::Color::Green;
 	case Color::Red:
-		return "red";
+		return sf::Color::Red;
 	case Color::Blue:
-		return "blue";
+		return sf::Color::Blue;
 	case Color::Yellow:
-		return "yellow";
+		return sf::Color::Yellow;
 	case Color::Pink:
-		return "pink";
+		return { 255, 192, 203 };
 	case Color::Black:
-		return "black";
+		return sf::Color::Black;
 	}
 }
