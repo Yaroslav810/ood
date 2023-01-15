@@ -52,5 +52,7 @@ sf::Color CCanvas::GetSFColor()
 		return { 255, 192, 203 };
 	case Color::Black:
 		return sf::Color::Black;
+	default:
+		return sf::Color::White;
 	}
 }
