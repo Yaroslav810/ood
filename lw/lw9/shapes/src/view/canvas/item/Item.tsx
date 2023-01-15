@@ -19,7 +19,7 @@ function Item(props: ItemProps) {
   const {moveItem, changeSize} = props
   const ref: RefObject<SVGImageElement> = createRef()
   const frame = props.shape.getFrame()
-  const {fill, stroke} = useMemo(() => getDefaultShapeData(), [getDefaultShapeData])
+  const {fill, stroke} = useMemo(() => getDefaultShapeData(), [])
 
   const onSelectItem = (e: React.MouseEvent<SVGGElement> | MouseEvent) => {
     e.stopPropagation()

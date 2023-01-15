@@ -1,4 +1,4 @@
-import React, {Dispatch, RefObject, SetStateAction} from "react"
+import {Dispatch, RefObject, SetStateAction} from "react"
 import {useBaseDragAndDrop} from "./useBaseDragAndDrop"
 import {Rect} from "../../../common/rect/rect";
 import {getDefaultCanvasData} from "../../../common/defaultValues";
