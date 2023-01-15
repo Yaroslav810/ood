@@ -33,4 +33,6 @@ std::streamsize CMemoryInputStream::ReadBlock(void* dstBuffer, std::streamsize s
 	{
 		*(buffer++) = m_stream[m_currentPos++];
 	}
+
+	return readCount;
 }
