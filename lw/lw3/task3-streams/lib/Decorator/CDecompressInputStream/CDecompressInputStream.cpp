@@ -8,12 +8,10 @@ CDecompressInputStream::CDecompressInputStream(IInputDataStreamPtr&& stream)
 
 uint8_t CDecompressInputStream::ReadByte()
 {
-	if (m_item.count == 0 && !m_stream->IsEOF())
+	if (m_item.count == 0)
 	{
 		m_item.byte = m_stream->ReadByte();
-		m_item.count = !m_stream->IsEOF()
-			? m_stream->ReadByte()
-			: 0;
+		m_item.count = m_stream->ReadByte();
 	}
 
 	--m_item.count;
