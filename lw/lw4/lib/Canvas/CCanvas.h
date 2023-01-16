@@ -10,7 +10,7 @@ public:
 	explicit CCanvas(sf::RenderWindow& window);
 	void SetColor(const Color& color) override;
 	void DrawLine(const CPoint& from, const CPoint& to) override;
-	void DrawEllipse(const CPoint& center, double width, double height) override;
+	void DrawEllipse(const CPoint& leftTop, double width, double height) override;
 
 private:
 	sf::Color GetSFColor();

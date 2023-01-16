@@ -26,5 +26,5 @@ double CEllipse::GetVerticalRadius() const
 void CEllipse::Draw(ICanvas& canvas) const
 {
 	canvas.SetColor(GetColor());
-	canvas.DrawEllipse(m_center, m_horizontalRadius, m_verticalRadius);
+	canvas.DrawEllipse({m_center.GetX() - m_horizontalRadius, m_center.GetY() - m_verticalRadius}, 2 * m_horizontalRadius, 2 * m_verticalRadius);
 }

@@ -24,12 +24,15 @@ void CCanvas::DrawLine(const CPoint& from, const CPoint& to)
 	m_window.draw(line, 2, sf::Lines);
 }
 
-void CCanvas::DrawEllipse(const CPoint& center, double width, double height)
+void CCanvas::DrawEllipse(const CPoint& leftTop, double width, double height)
 {
-	sf::CircleShape circleShape((float)width);
-	circleShape.setOrigin((float)width, (float)width);
+	auto horizontalRadius = width / 2;
+	auto verticalRadius = height / 2;
+	auto center = CPoint(leftTop.GetX() + horizontalRadius, leftTop.GetY() + verticalRadius);
+	sf::CircleShape circleShape((float)horizontalRadius);
+	circleShape.setOrigin((float)horizontalRadius, (float)horizontalRadius);
 	circleShape.move(sf::Vector2f((float)center.GetX(), (float)m_window.getSize().y - (float)center.GetY()));
-	circleShape.setScale(1.f, (float)height / (float)width);
+	circleShape.setScale(1.f, (float)verticalRadius / (float)horizontalRadius);
 	circleShape.setFillColor(sf::Color::Transparent);
 	circleShape.setOutlineThickness(2);
 	circleShape.setOutlineColor(GetSFColor());
