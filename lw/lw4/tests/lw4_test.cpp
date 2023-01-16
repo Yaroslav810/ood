@@ -2,8 +2,6 @@
 #include "../../../catch2/catch.hpp"
 #include "../lib/Color/Color.h"
 #include "../lib/Designer/CDesigner.h"
-#include "../lib/PictureDraft/CPictureDraft.h"
-#include "../lib/Point/CPoint.h"
 #include "../lib/Shape/Ellipse/CEllipse.h"
 #include "../lib/Shape/Rectangle/CRectangle.h"
 #include "../lib/Shape/RegularPolygon/CRegularPolygon.h"
