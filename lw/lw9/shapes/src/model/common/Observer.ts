@@ -1,5 +1,6 @@
 import {ICanvas} from "../domain/Canvas";
 
+// TODO: Вынести логику Observable
 abstract class Observable {
   private observers: Function[] = [];
 

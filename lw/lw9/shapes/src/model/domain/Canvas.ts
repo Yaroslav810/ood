@@ -24,6 +24,8 @@ class Canvas extends Observable implements ICanvas {
     return this.shapes.length
   }
 
+  // TODO: Перенести history в Canvas
+
   insertShape(shape: Shape, index: number): void {
     this.shapes.splice(index, 0, shape)
     this.notifyObservers()
@@ -34,6 +36,7 @@ class Canvas extends Observable implements ICanvas {
     this.notifyObservers()
   }
 
+  // TODO: Command || setShapeFrame
   replaceShape(newShape: Shape): void {
     const uuid = newShape.getUuid()
     this.shapes = this.shapes.map(shape => {

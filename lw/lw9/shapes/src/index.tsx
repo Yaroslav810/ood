@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const canvas = new Canvas()
+const canvas = new Canvas() // new History() внутри
 const history = new History()
 const controller = new Controller(canvas, history)
 
