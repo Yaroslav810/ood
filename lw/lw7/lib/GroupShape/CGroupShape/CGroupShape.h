@@ -2,6 +2,7 @@
 #include "../IGroupShape.h"
 
 class CGroupShape : public IGroupShape
+	, public std::enable_shared_from_this<IGroupShape>
 {
 public:
 	CGroupShape();

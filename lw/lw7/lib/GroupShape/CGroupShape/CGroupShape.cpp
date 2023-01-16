@@ -32,6 +32,7 @@ std::optional<RectD> CGroupShape::GetFrame()
 	double maxX = std::numeric_limits<double>::min();
 	double maxY = std::numeric_limits<double>::min();
 
+	std::optional<RectD> rect = std::nullopt;
 	for (const auto& shape : m_shapes)
 	{
 		auto frame = shape->GetFrame();
@@ -45,13 +46,10 @@ std::optional<RectD> CGroupShape::GetFrame()
 		minY = std::min(minY, data.top - data.height);
 		maxX = std::max(maxX, data.left + data.width);
 		maxY = std::max(maxY, data.top);
+		rect = RectD{ minX, maxY, maxX - minX, maxY - minY };
 	}
 
-	if (minX != std::numeric_limits<double>::max() && minY != std::numeric_limits<double>::max()) {
-		return RectD{ minX, maxY, maxX - minX, maxY - minY };
-	}
-
-	return std::nullopt;
+	return rect;
 }
 
 void CGroupShape::SetFrame(const RectD& rect)
