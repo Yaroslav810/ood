@@ -66,8 +66,10 @@ SCENARIO("Reading from file streams")
 				REQUIRE(ifstream.ReadByte() == 'A');
 				REQUIRE(ifstream.ReadByte() == ' ');
 				REQUIRE(ifstream.ReadByte() == 'b');
+				REQUIRE(ifstream.ReadByte() == '\r');
 				REQUIRE(ifstream.ReadByte() == '\n');
 				REQUIRE(ifstream.ReadByte() == 'c');
+				REQUIRE(ifstream.ReadByte() == '\r');
 				REQUIRE(ifstream.ReadByte() == '\n');
 
 				AND_WHEN("All data has been read")
@@ -89,7 +91,7 @@ SCENARIO("Reading from file streams")
 
 		WHEN("Reading buffer from a stream")
 		{
-			auto size = 6;
+			auto size = 8;
 			char buffer[size];
 
 			THEN("All data is read")
@@ -97,14 +99,16 @@ SCENARIO("Reading from file streams")
 				REQUIRE(ifstream.ReadBlock(buffer, size) == size);
 			}
 
-			THEN("The buffer contains data 'A b\nc\n'")
+			THEN("The buffer contains data 'A b\r\nc\r\n'")
 			{
 				REQUIRE(buffer[0] == 'A');
 				REQUIRE(buffer[1] == ' ');
 				REQUIRE(buffer[2] == 'b');
-				REQUIRE(buffer[3] == '\n');
-				REQUIRE(buffer[4] == 'c');
-				REQUIRE(buffer[5] == '\n');
+				REQUIRE(buffer[3] == '\r');
+				REQUIRE(buffer[4] == '\n');
+				REQUIRE(buffer[5] == 'c');
+				REQUIRE(buffer[6] == '\r');
+				REQUIRE(buffer[7] == '\n');
 			}
 		}
 
@@ -115,17 +119,19 @@ SCENARIO("Reading from file streams")
 
 			THEN("All data is read")
 			{
-				REQUIRE(ifstream.ReadBlock(buffer, 10) == size);
+				REQUIRE(ifstream.ReadBlock(buffer, 10) == 8);
 			}
 
-			THEN("The buffer contains data 'A b\nc\n'")
+			THEN("The buffer contains data 'A b\r\nc\r\n'")
 			{
 				REQUIRE(buffer[0] == 'A');
 				REQUIRE(buffer[1] == ' ');
 				REQUIRE(buffer[2] == 'b');
-				REQUIRE(buffer[3] == '\n');
-				REQUIRE(buffer[4] == 'c');
-				REQUIRE(buffer[5] == '\n');
+				REQUIRE(buffer[3] == '\r');
+				REQUIRE(buffer[4] == '\n');
+				REQUIRE(buffer[5] == 'c');
+				REQUIRE(buffer[6] == '\r');
+				REQUIRE(buffer[7] == '\n');
 			}
 		}
 	}

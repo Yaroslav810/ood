@@ -19,9 +19,9 @@ void CCompressOutputStream::WriteByte(uint8_t data)
 		return;
 	}
 
-	if (m_item.byte == data)
+	if (m_item.byte == data && m_item.count < std::numeric_limits<std::uint8_t>::max())
 	{
-		m_item.count++;
+		++m_item.count;
 		return;
 	}
 

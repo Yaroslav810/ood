@@ -2,6 +2,7 @@
 #include "../../Common/CompressItem.h"
 #include "../COutputStreamDecorator.h"
 #include <iostream>
+#include <limits>
 
 class CCompressOutputStream : public COutputStreamDecorator
 {
