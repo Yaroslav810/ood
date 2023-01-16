@@ -61,8 +61,8 @@ void CGroupShape::SetFrame(const RectD& rect)
 	}
 
 	auto frame = frameOpt.value();
-	auto relationshipX = rect.width / frame.width;
-	auto relationshipY = rect.height / frame.height;
+	auto ratioX = rect.width / frame.width;
+	auto ratioY = rect.height / frame.height;
 
 	for (const auto& shape : m_shapes)
 	{
@@ -73,10 +73,10 @@ void CGroupShape::SetFrame(const RectD& rect)
 		}
 
 		auto shapeFrame = shapeFrameOpt.value();
-		auto newX = rect.left + (shapeFrame.left - frame.left) * relationshipX;
-		auto newY = rect.top - std::abs((shapeFrame.top - frame.top) * relationshipY);
-		auto newWidth = shapeFrame.width * relationshipX;
-		auto newHeight = shapeFrame.height * relationshipY;
+		auto newX = rect.left + (shapeFrame.left - frame.left) * ratioX;
+		auto newY = rect.top - std::abs((shapeFrame.top - frame.top) * ratioY);
+		auto newWidth = shapeFrame.width * ratioX;
+		auto newHeight = shapeFrame.height * ratioY;
 
 		shape->SetFrame({ newX, newY, newWidth, newHeight });
 	}
