@@ -434,3 +434,37 @@ SCENARIO("Getting and installing a frame")
 		}
 	}
 }
+
+SCENARIO("Testing an empty CGroupShape frame")
+{
+	CGroupShape groupShape;
+
+	WHEN("group includes rectangle and ellipse")
+	{
+		auto ellipse = std::make_shared<CEllipse>(PointD{ 10, 10 }, 10, 5);
+		auto rectangle = std::make_shared<CRectangle>(PointD{ 10, 20 }, 20, 10);
+		auto innerGroupShape = std::make_shared<CGroupShape>();
+		groupShape.InsertShape(ellipse, 0);
+		groupShape.InsertShape(rectangle, 1);
+		groupShape.InsertShape(innerGroupShape, 2);
+
+		WHEN("Getting the group frame")
+		{
+			auto frameOpt = groupShape.GetFrame();
+
+			THEN("The frame exists")
+			{
+				REQUIRE(frameOpt.has_value());
+
+				AND_WHEN("We get the values")
+				{
+					auto frame = frameOpt.value();
+					REQUIRE(frame.left == 0);
+					REQUIRE(frame.top == 20);
+					REQUIRE(frame.width == 30);
+					REQUIRE(frame.height == 15);
+				}
+			}
+		}
+	}
+}
