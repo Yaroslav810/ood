@@ -2,7 +2,7 @@
 
 CFileOutputStream::CFileOutputStream(const std::string& fileName)
 {
-	m_fstream.open(fileName);
+	m_fstream.open(fileName, std::ios::binary);
 	if (!m_fstream.is_open())
 	{
 		throw std::ios_base::failure("Error opening the file!\nIt is possible that the file is corrupted or there are no permissions to write it\n");
