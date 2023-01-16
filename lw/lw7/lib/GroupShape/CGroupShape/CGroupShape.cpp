@@ -47,7 +47,11 @@ std::optional<RectD> CGroupShape::GetFrame()
 		maxY = std::max(maxY, data.top);
 	}
 
-	return RectD{ minX, maxY, maxX - minX, maxY - minY };
+	if (minX != std::numeric_limits<double>::max() && minY != std::numeric_limits<double>::max()) {
+		return RectD{ minX, maxY, maxX - minX, maxY - minY };
+	}
+
+	return std::nullopt;
 }
 
 void CGroupShape::SetFrame(const RectD& rect)
