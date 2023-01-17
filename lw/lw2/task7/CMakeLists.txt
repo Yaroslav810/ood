@@ -1,0 +1,19 @@
+add_executable(
+        lw2_7
+        main.cpp
+        lib/Observable/IObservable.h
+        lib/Observer/IObserver.h
+        lib/Observable/CObservable.h
+        lib/Observable/CWeatherData/CWeatherData.h
+        lib/Observable/CWeatherData/CWeatherData.cpp
+        lib/Observer/SWeatherInfo.h
+        lib/Observer/SWindInfo.h
+        lib/Observer/CDisplay/CDisplay.h
+        lib/Observer/CDisplay/CDisplay.cpp
+        lib/Observer/CStatsDisplay/CStatsDisplay.h
+        lib/Observer/CStatsDisplay/CStatsDisplay.cpp
+        lib/Observer/CStatsDisplay/CStatsData/CStatsData.h
+        lib/Observer/CStatsDisplay/CStatsData/CStatsData.cpp
+        lib/Observer/CStatsDisplay/CStatsWindData/CStatsWindData.h
+        lib/Observer/CStatsDisplay/CStatsWindData/CStatsWindData.cpp
+)
